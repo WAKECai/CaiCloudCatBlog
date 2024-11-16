@@ -5,12 +5,11 @@ date:
 readtime: 15
 ---
 
-下面是一般的语法测试功能
-
-<!-- more -->
 # Mkdocs for material 的语法测试
+Mkdocs的相关语法测试功能
+<!-- more -->
 
-# Part1
+## Part1
 
 Example of an admonition/callout with a title:
 
@@ -26,8 +25,13 @@ Example of an admonition/callout with a title:
     Nulla et eusimod nulla.
     Curabitur gawgea , taeag.
 
+!!! tip "提示"
+    This is a tip.
 
-# Part2
+!!! warning "警告"
+    This is a warning.
+
+## Part2
 An Example of a codeBlock for Python:
 
 ```python title="add_numbers.py" linenums="1"
@@ -50,10 +54,10 @@ const result = concatenateStrings("Hell0,", "World!")
 console.log("The concenate string is " + result)
 ```
 
-# Part3
+## Part3
 
-## Content Tabs
-### Generic Content
+### Content Tabs
+#### Generic Content
 
 === "Plain text"
 
@@ -71,13 +75,13 @@ console.log("The concenate string is " + result)
     2. Second item 
     3. Third item
 
-### Code Blocks in Content Tabs
-
+#### Code Blocks in Content Tabs
+<div class="annotate" markdown>
 === "Python"
 
     ```py
     def main():
-        print("Hello world!")
+        print("Hello world!") # (1)
 
     if __name__ == "__main__":
         main()
@@ -92,9 +96,13 @@ console.log("The concenate string is " + result)
 
     main();
     ```
-# Part4 Diagram Example
+</div>
+1.  打印Hello World！
 
-## Flowcharts
+
+## Part4 Diagram Example
+
+### Flowcharts
 
 ```mermaid
 graph TD;
@@ -105,7 +113,7 @@ graph TD;
 
 ```
 
-## Sequence Diagrams
+### Sequence Diagrams
 
 ```mermaid
 sequenceDiagram
@@ -120,3 +128,18 @@ sequenceDiagram
     John->>Bob: How about you?
     Bob-->>John: Jolly good!
 ```
+
+## Part5 Annotations
+Lorem ipsum dolor sit amet, (1) consectetur adipiscing elit.
+{ .annotate }
+
+1.  :man_raising_hand: I'm an annotation! I can contain `code`, __formatted
+    text__, images, ... basically anything that can be expressed in Markdown.
+
+Lorem ipsum dolor sit amet, (1) consectetur adipiscing elit.
+{ .annotate }
+
+1.  :man_raising_hand: I'm an annotation! (1)
+    { .annotate }
+
+    1.  :woman_raising_hand: I'm an annotation as well!

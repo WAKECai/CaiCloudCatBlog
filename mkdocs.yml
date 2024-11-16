@@ -17,6 +17,8 @@ nav:
       - 功能技巧: other/posts/功能技巧.md
       - 无聊数据记录: other/posts/无聊数据记录.md
       - 过往标签和UP: other/posts/过往标签和UP.md
+      - 影视: other/posts/影视.md
+      - 游戏: other/posts/游戏.md
 
 theme:
   name: material
@@ -24,6 +26,8 @@ theme:
   font:
     text: Merriweather Sans
     code: Red Hat Mono
+  icon:
+    annotation: material/plus-circle
   features:
     - navigation.footer # 底部导航栏
     # 索引按钮可以直接触发文件，而不是只能点击其下属选项浏览，
@@ -88,7 +92,8 @@ markdown_extensions:
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
-
+  - pymdownx.arithmatex:
+      generic: true
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
@@ -108,6 +113,9 @@ markdown_extensions:
         kwds:
           case: lower
 
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
 
 extra:
   social:
