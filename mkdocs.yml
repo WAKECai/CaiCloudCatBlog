@@ -1,13 +1,45 @@
 # yaml-language-server: $schema=https://squidfunk.github.io/mkdocs-material/schema.json
-site_name: My Docs
-site_url: https://sitename.example
+site_name: CaiCloudCat
+site_url: https://wakecai.github.io/CaiCloudCatBlog
+
+# 代码的仓库信息
+repo_name: WAKECai/CaiCloudCatBlog
+repo_url: https://github.com/WAKECai/CaiCloudCatBlog
+
+nav:
+  - Home: index.md
+  - Blog: 
+      - blog/index.md
+  - Tags: blog/tags.md
+  - Other: 
+      - other/index.md
+      - 专治疑难系列: other/posts/专治疑难系列.md
+      - 功能技巧: other/posts/功能技巧.md
+      - 无聊数据记录: other/posts/无聊数据记录.md
+      - 过往标签和UP: other/posts/过往标签和UP.md
+
 theme:
   name: material
+  language: zh
   font:
     text: Merriweather Sans
     code: Red Hat Mono
   features:
-    - navigation.footer
+    - navigation.footer # 底部导航栏
+    # 索引按钮可以直接触发文件，而不是只能点击其下属选项浏览，
+    # 这个功能可以给对应的section提供很好的预览和导航功能
+    - navigation.indexes
+    - navigation.sections # 导航栏的section
+    - navigation.tabs # 顶级索引被作为tab
+    - navigation.tabs.sticky # tab始终可见
+    # 设置其搜索补全
+    - search.suggest
+    - content.code.copy # 复制代码按钮
+    - search.highlight # 搜索高亮
+    - navigation.instant.progress # 进度条
+    - navigation.instant.prefetch # 预加载
+    - toc.follow # 目录跟踪-页面右侧的小目录
+
   palette:
     # Dark Mode
     - scheme: slate
@@ -25,9 +57,34 @@ theme:
       primary: blue
       accent: deep orange
 
+plugins:
+  - search:
+      lang: 
+        - en
+        - zh
+        - ja
+      separator: '[\s\-\.]+'
+  - blog:
+      blog_toc: true
+      archive_date_format: yyyy MMMM
+      archive_url_date_format:  yyyy MMMM
+      pagination_per_page: 5
+  - tags:
+      tags_file: blog/tags.md
+
 
 markdown_extensions:
+  - abbr
+  - def_list
+  - footnotes
+  - md_in_html
   - attr_list
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
@@ -35,19 +92,30 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
-  - pymdownx.tabbed:
-      alternate_style: true
   - admonition
   - pymdownx.details
+  - pymdownx.tabbed:
+      alternate_style: true
+      combine_header_slug: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
+
 
 extra:
   social:
     - icon: simple/tencentqq
-      link: https://sitename.example
+      link: https://wakecai.github.io/CaiCloudCatBlog
+  tags: # 自定义标签
+    Default: default-tag
+    Hardware: hardware-tag
+    Software: software-tag
 
 copyright: Copyright &copy; 2024 Caicloudcat

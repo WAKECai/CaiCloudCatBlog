@@ -1,19 +1,14 @@
-# Welcome to MkDocs
+# CaiCloudCat的小屋
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+欢迎来到我的主页
 
-## Commands
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+## 关于我
+我现在是一个对人工智能、大数据管理和机器学习在学的大学生，就读于大数据管理与应用专业。
 
-## Project layout
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+## 联系方式
+QQ：306954717
 
-我喜欢喝酒 :beers: 在我踢 :soccer: 
+
+感谢你的访问！ 😊
