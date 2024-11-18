@@ -5,6 +5,8 @@ date:
 readtime: 45
 categories:
     - AI
+tags: 
+    - Algorithm
 ---
 # A*算法概述及其Python实现
 

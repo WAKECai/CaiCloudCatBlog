@@ -20,3 +20,16 @@ categories:
 $$
 f(x)=\frac{1}{\sqrt{2 \pi \sigma x}} e^{-\frac{(x-\mu)^2}{2 \sigma^2}}
 $$
+
+## Snipaste
+
+一款极简的屏幕截屏软件
+
+## eSearch
+
+在Snipaste的基础上进行功能拓展，添加了例如OCR功能等等
+
+## Quicker
+
+一款提供效率的软件
+

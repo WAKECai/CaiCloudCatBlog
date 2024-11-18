@@ -27,7 +27,7 @@ vi 最初是为 Unix 系统设计的，而 Vim（Vi IMproved）则增加了更�
 
 ### 2.1 基本特点
 
-- 多模式设计：Vim具有多种操作模式，包括命令模式（Normal mode）、插入模式（Insert mode）和末行模式（Ex mode/Command-line mode）等。每种模式都有其特定的操作方式和快捷键，使得Vim能够快速切换和执行各种文本编辑任务。![](../../PageImage/Pasted%20image%2020241022141232.png)
+- 多模式设计：Vim具有多种操作模式，包括命令模式（Normal mode）、插入模式（Insert mode）和末行模式（Ex mode/Command-line mode）等。每种模式都有其特定的操作方式和快捷键，使得Vim能够快速切换和执行各种文本编辑任务。![](../../../PageImage/Pasted%20image%2020241022141232.png)
 - 高度可定制性：Vim允许用户通过配置文件（如.vimrc）进行个性化设置，包括快捷键、插件、语法高亮、代码折叠等。这种高度可定制性使得Vim能够满足不同用户的需求和偏好。
 - 跨平台支持：Vim可以在Unix、Linux、macOS和Windows等多个操作系统上运行，为用户提供一致的编辑体验。
 
@@ -390,7 +390,6 @@ ctrl+r   重做
 ## 5 具体参考资料
 
 浙江理工大学——姜毅
-
-Linux Vim操作看这篇文章就够了 https://www.cnblogs.com/Wayne123/p/17201671.html
-
-Linux vi/vim https://www.runoob.com/linux/linux-vim.html
+[Linux Vim操作看这篇文章就够了](https://www.cnblogs.com/Wayne123/p/17201671.html)
+ 
+[Linux vi/vim](https://www.runoob.com/linux/linux-vim.html)
