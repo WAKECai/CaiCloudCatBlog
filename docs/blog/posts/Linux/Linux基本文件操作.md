@@ -1,6 +1,6 @@
 ---
 date: 
-    created: 2024-10-15
+    created: 2024-10-14
 reatime: 35
 categories:
     - Linux
