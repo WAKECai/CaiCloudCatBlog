@@ -2,8 +2,11 @@
 date:
     created: 2024-11-14
     updated: 2024-11-18
+readtime: 45
 categories:
     - Tools
+tags:
+    - Markdown
 ---
 
 # Markdown常见公式
@@ -270,6 +273,7 @@ J(\mathbf{w})&=\frac{1}{2m}\sum_{i=1}^m(f(\mathbf{x_i})-y_i)^2\\
 &=\frac{1}{2m}\sum_{i=1}^m [f(\mathbf{x_i})]^2-2f(\mathbf{x_i)}y_i+y_i^2
 \end{aligned}
 $$
+
 常见公式环境
 
 |  环境名称  |       释义       |
@@ -300,7 +304,14 @@ $$
 ```
 
 $$
-\begin{aligned} \left.\begin{aligned}        B'&=-\partial \times E,\\        E'&=\partial \times B - 4\pi j,       \end{aligned} \right\} \qquad \text{Maxwell's equations}\end{aligned}
+\begin{aligned}
+ \left.\begin{aligned}
+        B'&=-\partial \times E,\\
+        E'&=\partial \times B - 4\pi j,
+       \end{aligned}
+ \right\}
+ \qquad \text{Maxwell's equations}
+\end{aligned}
 $$
 
 
@@ -314,7 +325,11 @@ $$
 ```
 
 $$
-\begin{aligned} \sigma_1 &= x + y  &\quad \sigma_2 &= \frac{x}{y} \\	 \sigma_1' &= \frac{\partial x + y}{\partial x} & \sigma_2'     &= \frac{\partial \frac{x}{y}}{\partial x}\end{aligned}
+\begin{aligned}
+ \sigma_1 &= x + y  &\quad \sigma_2 &= \frac{x}{y} \\	
+ \sigma_1' &= \frac{\partial x + y}{\partial x} & \sigma_2' 
+    &= \frac{\partial \frac{x}{y}}{\partial x}
+\end{aligned}
 $$
 
 ```
@@ -325,7 +340,10 @@ a_n&=\frac{1}{\pi}\int\limits_{-\pi}^{\pi}f(x)\cos nx\,\mathrm{d}x\\
 ```
 
 $$
-\begin{aligned}a_n&=\frac{1}{\pi}\int\limits_{-\pi}^{\pi}f(x)\cos nx\,\mathrm{d}x\\&=\frac{1}{\pi}\int\limits_{-\pi}^{\pi}x^2\cos nx\,\mathrm{d}x\\[6pt]\end{aligned}
+\begin{aligned}
+a_n&=\frac{1}{\pi}\int\limits_{-\pi}^{\pi}f(x)\cos nx\,\mathrm{d}x\\
+&=\frac{1}{\pi}\int\limits_{-\pi}^{\pi}x^2\cos nx\,\mathrm{d}x\\[6pt]
+\end{aligned}
 $$
 
 
@@ -430,7 +448,12 @@ $$
 
 
 $$
-\begin{pmatrix}1&a_1&a_1^2&\cdots&a_1^n\\1&a_2&a_2^2&\cdots&a_2^n\\\vdots&\vdots&\vdots&\ddots&\vdots\\1&a_m&a_m^2&\cdots&a_m^n\\\end{pmatrix}
+\begin{pmatrix}
+1&a_1&a_1^2&\cdots&a_1^n\\
+1&a_2&a_2^2&\cdots&a_2^n\\
+\vdots&\vdots&\vdots&\ddots&\vdots\\
+1&a_m&a_m^2&\cdots&a_m^n\\
+\end{pmatrix}
 $$
 
 1、不带括号的矩阵
@@ -445,7 +468,12 @@ $$
 ```
 
 $$
-\begin{matrix}1 & 2 & 3\\4 & 5 & 6 \\7 & 8 & 9\end{matrix}\tag{1}
+\begin{matrix}
+1 & 2 & 3\\
+4 & 5 & 6 \\
+7 & 8 & 9
+\end{matrix}
+\tag{1}
 $$
 
 2、带小括号的矩阵
@@ -463,8 +491,16 @@ $$
 
 
 $$
-\left(\begin{matrix}1 & 2 & 3\\4 & 5 & 6 \\7 & 8 & 9\end{matrix}\right)\tag{2}
+\left(
+\begin{matrix}
+1 & 2 & 3\\
+4 & 5 & 6 \\
+7 & 8 & 9
+\end{matrix}
+\right)
+\tag{2}
 $$
+
 3、带中括号的矩阵
 
 ```
@@ -479,7 +515,14 @@ $$
 ```
 
 $$
-\left[\begin{matrix}1 & 2 & 3\\4 & 5 & 6 \\7 & 8 & 9\end{matrix}\right]\tag{3}
+\left[
+\begin{matrix}
+1 & 2 & 3\\
+4 & 5 & 6 \\
+7 & 8 & 9
+\end{matrix}
+\right]
+\tag{3}
 $$
 
 4、带大括号的矩阵
@@ -496,7 +539,14 @@ $$
 ```
 
 $$
-\left\{\begin{matrix}1 & 2 & 3\\4 & 5 & 6 \\7 & 8 & 9\end{matrix}\right\}\tag{4}
+\left\{
+\begin{matrix}
+1 & 2 & 3\\
+4 & 5 & 6 \\
+7 & 8 & 9
+\end{matrix}
+\right\}
+\tag{4}
 $$
 
 5、带省略号的矩阵
@@ -514,7 +564,15 @@ c & c & \cdots & c
 ```
 
 $$
-\left[\begin{matrix}a & b & \cdots & a\\b & b & \cdots & b\\\vdots & \vdots & \ddots & \vdots\\c & c & \cdots & c\end{matrix}\right]\tag{5}
+\left[
+\begin{matrix}
+a & b & \cdots & a\\
+b & b & \cdots & b\\
+\vdots & \vdots & \ddots & \vdots\\
+c & c & \cdots & c
+\end{matrix}
+\right]
+\tag{5}
 $$
 
 6、带横线/竖线分割的矩阵
@@ -531,7 +589,14 @@ $$
 ```
 
 $$
-\left[    \begin{array}{c|cc}    1 & 2 & 3 \\ \hline    4 & 5 & 6 \\    7 & 8 & 9    \end{array}\right]\tag{7}
+\left[
+    \begin{array}{c|cc}
+    1 & 2 & 3 \\ \hline
+    4 & 5 & 6 \\
+    7 & 8 & 9
+    \end{array}
+\right]
+\tag{7}
 $$
 
 ## 上下标符号
@@ -770,4 +835,177 @@ $a \equiv b \pmod n$
 $$
 a \equiv b \pmod n
 $$
+
+## 箭头
+
+|       数学算式        |    Markdown公式     |
+| :-------------------: | :-----------------: |
+|      $\uparrow$       |      \uparrow       |
+|     $\downarrow$      |     \downarrow      |
+|    $\updownarrow$     |    \updownarrow     |
+|      $\Uparrow$       |      \Uparrow       |
+|     $\Downarrow$      |     \Downarrow      |
+|    $\Updownarrow$     |    \Updownarrow     |
+|     $\rightarrow$     |     \rightarrow     |
+|     $\leftarrow$      |     \leftarrow      |
+|   $\leftrightarrow$   |   \leftrightarrow   |
+|     $\Rightarrow$     |     \Rightarrow     |
+|     $\Leftarrow$      |     \Leftarrow      |
+|   $\Leftrightarrow$   |   \Leftrightarrow   |
+|   $\longrightarrow$   |   \longrightarrow   |
+|   $\longleftarrow$    |   \longleftarrow    |
+| $\longleftrightarrow$ | \longleftrightarrow |
+|   $\Longrightarrow$   |   \Longrightarrow   |
+|   $\Longleftarrow$    |   \Longleftarrow    |
+|       $\mapsto$       |       \mapsto       |
+|     $\longmapsto$     |     \longmapsto     |
+|   $\hookleftarrow$    |   \hookleftarrow    |
+|   $\hookrightarrow$   |   \hookrightarrow   |
+|   $\rightharpoonup$   |   \rightharpoonup   |
+|  $\leftharpoondown$   |  \leftharpoondown   |
+| $\rightleftharpoons$  | \rightleftharpoons  |
+|   $\leftharpoonup$    |   \leftharpoonup    |
+|  $\rightharpoondown$  |  \rightharpoondown  |
+|      $\leadsto$       |      \leadsto       |
+|      $\nearrow$       |      \nearrow       |
+|      $\searrow$       |      \searrow       |
+|      $\swarrow$       |      \swarrow       |
+|      $\nwarrow$       |      \nwarrow       |
+
+
+
+## 集合
+
+|   数学算式    | Markdown公式 | 核心语法 |
+| :-----------: | :----------: | :------: |
+|  $\emptyset$  |  \emptyset   |   空集   |
+| $\varnothing$ | \varnothing  |    空    |
+|     $\in$     |     \in      |   属于   |
+|     $\ni$     |     \ni      |          |
+|   $\notin$    |    \notin    |  不属于  |
+|   $\subset$   |   \subset    |   子集   |
+|   $\supset$   |   \supset    |   父集   |
+| $\not\subset$ | \not\subset  |  非子集  |
+|  $\subseteq$  |  \subseteq   |  真子集  |
+| $\subsetneq$  |  \subsetneq  |  非子集  |
+|  $\supseteq$  |  \supseteq   |          |
+|    $\cup$     |     \cup     |   并集   |
+|   $\bigcup$   |   \bigcup    |   并集   |
+|    $\cap$     |     \cap     |   交集   |
+|   $\bigcap$   |   \bigcap    |   交集   |
+|   $\uplus$    |    \uplus    |  多重集  |
+|  $\biguplus$  |  \biguplus   |  多重集  |
+|  $\sqsubset$  |  \sqsubset   |          |
+|  $\sqsupset$  |  \sqsupset   |          |
+|   $\sqcap$    |    \sqcap    |          |
+| $\sqsubseteq$ | \sqsubseteq  |          |
+| $\sqsupseteq$ | \sqsupseteq  |          |
+|    $\vee$     |     \vee     |          |
+|   $\wedge$    |    \wedge    |          |
+|  $\setminus$  |  \setminus   |   差集   |
+
+
+
+## 微积分
+
+|     数学算式      |  Markdown公式   |      核心语法      |
+| :---------------: | :-------------: | :----------------: |
+|     $\prime$      |     \prime      |      一阶导数      |
+|      $\int$       |      \int       |      一重积分      |
+|      $\iint$      |      \iint      |      双重积分      |
+|      $\oint$      |      \oint      |      曲线积分      |
+|     $\nabla$      |     \nabla      |        梯度        |
+| $\int_0^2 x^2 dx$ | \int_0^2 x^2 dx | 其他的积分符号类似 |
+
+
+
+
+
+## 逻辑运算
+
+|   数学算式   | Markdown公式 | 核心语法 |
+| :----------: | :----------: | :------: |
+|  $\because$  |   \because   |   因为   |
+| $\therefore$ |  \therefore  |   所以   |
+|  $\forall$   |   \forall    |   任意   |
+|   \(\exist\)   |    \exist    |   存在   |
+|    $\vee$    |     \vee     |  逻辑与  |
+|   $\wedge$   |    \wedge    |  逻辑或  |
+|  $\bigvee$   |   \bigvee    |  逻辑与  |
+| $\bigwedge$  |  \bigwedge   |  逻辑或  |
+
+
+
+## 希腊字母
+
+|    大写    | Markdown公式 |     小写      | Markdown公式 |
+| :--------: | :----------: | :-----------: | :----------: |
+|  $\Alpha$  |    \Alpha    |   $\alpha$    |    \alpha    |
+|  $\Beta$   |    \Beta     |    $\beta$    |    \beta     |
+|  $\Gamma$  |    \Gamma    |   $\gamma$    |    \gamma    |
+|  $\Delta$  |    \Delta    |   $\delta$    |    \delta    |
+| $\Epsilon$ |   \Epsilon   |  $\epsilon$   |   \epsilon   |
+|            |              | $\varepsilon$ | \varepsilon  |
+|  $\Zeta$   |    \Zeta     |    $\zeta$    |    \zeta     |
+|   $\Eta$   |     \Eta     |    $\eta$     |     \eta     |
+|  $\Theta$  |    \Theta    |   $\theta$    |    \theta    |
+|  $\Iota$   |    \Iota     |    $\iota$    |    \iota     |
+|  $\Kappa$  |    \Kappa    |   $\kappa$    |    \kappa    |
+| $\Lambda$  |   \Lambda    |   $\lambda$   |   \lambda    |
+|   $\Mu$    |     \Mu      |     $\mu$     |     \mu      |
+|   $\Nu$    |     \Nu      |     $\nu$     |     \nu      |
+|   $\Xi$    |     \Xi      |     $\xi$     |     \xi      |
+| $\Omicron$ |   \Omicron   |  $\omicron$   |   \omicron   |
+|   $\Pi$    |     \Pi      |     $\pi$     |     \pi      |
+|   $\Rho$   |     \Rho     |    $\rho$     |     \rho     |
+|  $\Sigma$  |    \Sigma    |   $\sigma$    |    \sigma    |
+|   $\Tau$   |     \Tau     |    $\tau$     |     \tau     |
+| $\Upsilon$ |   \Upsilon   |  $\upsilon$   |   \upsilon   |
+|   $\Phi$   |     \Phi     |    $\phi$     |     \phi     |
+|            |              |   $\varphi$   |   \varphi    |
+|   $\Chi$   |     \Chi     |    $\chi$     |     \chi     |
+|   $\Psi$   |     \Psi     |    $\psi$     |     \psi     |
+|  $\Omega$  |    \Omega    |   $\omega$    |    \omega    |
+
+
+
+## 省略号
+
+不同省略号的区别是点的位置不同，`\ldots`位置稍低，`\cdots`位置居中。
+
+| 数学算式 | Markdown公式 |       核心语法       |
+| :------: | :----------: | :------------------: |
+| $\dots$  |    \dots     | 一般用于有下标的序列 |
+| $\ldots$ |    \ldots    |                      |
+| $\cdots$ |    \cdots    | 纵向位置比\dots稍高  |
+| $\vdots$ |    \vdots    |         竖向         |
+| $\ddots$ |    \ddots    |                      |
+
+
+
+## 空格
+
+|    数学算式    | Markdown公式 |      核心语法      |
+| :------------: | :----------: | :----------------: |
+|   $123\!123$   |   123\!123   | 空格距离：-3/18 em |
+|   $123\,123$   |   123\,123   | 空格距离：3/18 em  |
+|   $123\:123$   |   123\:123   | 空格距离：4/18 em  |
+|   $123\;123$   |   123\;123   | 空格距离：5/18 em  |
+| $123\quad123$  | 123\quad123  |   空格距离：1 em   |
+| $123\qquad123$ | 123\qquad123 |   空格距离：2 em   |
+
+而上面中的em是指当前文本中文本的字体尺寸。
+
+
+
+
+
+## 表格格式
+
+一般使用`|--|--|`，这样的形式来创建表格。
+
+- 列样式可以是`c, l, r`分别表示居中，左，右对齐
+- 使用`|`表示一条竖线
+- 表格中各行使用`\`分隔，各列使用`&`分隔
+- 使用`\hline`在本行前加入一条直线
 

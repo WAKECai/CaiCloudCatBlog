@@ -7,6 +7,7 @@ categories:
     - AI
 tags: 
     - Algorithm
+    - Math
 ---
 # A*算法概述及其Python实现
 

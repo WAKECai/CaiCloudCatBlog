@@ -7,6 +7,7 @@ categories:
     - AI
 tags:
     - Algorithm
+    - Math
 ---
 # Dijkstra算法概述及Python简单实现
 
