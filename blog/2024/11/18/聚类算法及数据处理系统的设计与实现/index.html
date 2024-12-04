@@ -1,0 +1,2299 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://wakecai.github.io/CaiCloudCatBlog/blog/2024/11/18/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E5%8F%8A%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/">
+      
+      
+        <link rel="prev" href="../pyqt5-python%E6%A1%8C%E9%9D%A2%E5%BC%80%E5%8F%91/">
+      
+      
+        <link rel="next" href="../../19/%E4%B8%93%E9%A2%986-ubuntu%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95%E6%9D%83%E9%99%90/">
+      
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.47">
+    
+    
+      
+        <title>聚类算法及数据处理系统的设计与实现 - CaiCloudCat</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+  
+  
+  
+  
+  <style>:root{--md-annotation-icon:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 13h-4v4h-2v-4H7v-2h4V7h2v4h4m-5-9A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2"/></svg>');}</style>
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather+Sans:300,300i,400,400i,700,700i%7CRed+Hat+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Merriweather Sans";--md-code-font:"Red Hat Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../../../.." title="CaiCloudCat" class="md-header__button md-logo" aria-label="CaiCloudCat" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CaiCloudCat
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              聚类算法及数据处理系统的设计与实现
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="deep-purple"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-orange"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/WAKECai/CaiCloudCatBlog" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    WAKECai/CaiCloudCatBlog
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../../" class="md-tabs__link">
+          
+  
+    
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../tags/" class="md-tabs__link">
+        
+  
+    
+  
+  Tags
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../../other/" class="md-tabs__link">
+          
+  
+    
+  
+  Other
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="CaiCloudCat" class="md-nav__button md-logo" aria-label="CaiCloudCat" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CaiCloudCat
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/WAKECai/CaiCloudCatBlog" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    WAKECai/CaiCloudCatBlog
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Blog
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Blog
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    归档
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            归档
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2024%20%E5%8D%81%E4%BA%8C%E6%9C%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2024 十二月
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2024%20%E5%8D%81%E4%B8%80%E6%9C%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2024 十一月
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2024%20%E5%8D%81%E6%9C%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2024 十月
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    分类
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            分类
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/ai/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/book/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Book
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/linux/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/ml/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ML
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/tools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tools
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tags/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tags
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../other/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Other
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Other
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../other/posts/%E4%B8%93%E6%B2%BB%E7%96%91%E9%9A%BE%E7%B3%BB%E5%88%97/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    专治疑难系列
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../other/posts/%E5%8A%9F%E8%83%BD%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    功能技巧
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../other/posts/%E6%97%A0%E8%81%8A%E6%95%B0%E6%8D%AE%E8%AE%B0%E5%BD%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    无聊数据记录
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../other/posts/%E8%BF%87%E5%BE%80%E4%B9%A6%E7%AD%BE%E5%92%8CUP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    过往书签和UP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../other/posts/%E5%BD%B1%E8%A7%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    影视
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../other/posts/%E6%B8%B8%E6%88%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    游戏
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../other/posts/%E6%A2%AF%E5%AD%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    梯子
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      聚类算法
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#k-means" class="md-nav__link">
+    <span class="md-ellipsis">
+      K-means算法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="K-means算法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      核心概念
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      算法步骤
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      损失函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k" class="md-nav__link">
+    <span class="md-ellipsis">
+      k值的选择
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      总代码
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gmm" class="md-nav__link">
+    <span class="md-ellipsis">
+      高斯混合模型(GMM)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="高斯混合模型(GMM)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      高斯分布
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="高斯分布">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      高斯分布的 概率密度函数（PDF）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      特性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 一维高斯分布
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 多维高斯分布
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 高斯混合分布
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      为什么需要协方差矩阵？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      标准正态分布
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      应用
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      算法步骤
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="算法步骤">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      步骤一：初始化
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      步骤二：E-Step
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      步骤三：M-Step
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      步骤四：重复前两步
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      算法实现
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      概况
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      两种聚类算法的性能比较
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      数据处理系统的设计与实现
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="数据处理系统的设计与实现">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      数据存储格式
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      算法实现
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      资料参考与数据来源
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+  <div class="md-content md-content--post" data-md-component="content">
+    <div class="md-sidebar md-sidebar--post" data-md-component="sidebar" data-md-type="navigation">
+      <div class="md-sidebar__scrollwrap">
+        <div class="md-sidebar__inner md-post">
+          <nav class="md-nav md-nav--primary">
+            <div class="md-post__back">
+              <div class="md-nav__title md-nav__container">
+                <a href="../../../../" class="md-nav__link">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+                  <span class="md-ellipsis">
+                    回到主页
+                  </span>
+                </a>
+              </div>
+            </div>
+            
+            <ul class="md-post__meta md-nav__list">
+              <li class="md-nav__item md-nav__item--section">
+                <div class="md-post__title">
+                  <span class="md-ellipsis">
+                    元数据
+                  </span>
+                </div>
+                <nav class="md-nav">
+                  <ul class="md-nav__list">
+                    <li class="md-nav__item">
+                      <div class="md-nav__link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
+                        <time datetime="2024-11-18 00:00:00+00:00" class="md-ellipsis">2024年11月18日</time>
+                      </div>
+                    </li>
+                    
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 13h1.5v2.82l2.44 1.41-.75 1.3L15 16.69zm4-5H5v11h4.67c-.43-.91-.67-1.93-.67-3a7 7 0 0 1 7-7c1.07 0 2.09.24 3 .67zM5 21a2 2 0 0 1-2-2V5c0-1.11.89-2 2-2h1V1h2v2h8V1h2v2h1a2 2 0 0 1 2 2v6.1c1.24 1.26 2 2.99 2 4.9a7 7 0 0 1-7 7c-1.91 0-3.64-.76-4.9-2zm11-9.85A4.85 4.85 0 0 0 11.15 16c0 2.68 2.17 4.85 4.85 4.85A4.85 4.85 0 0 0 20.85 16c0-2.68-2.17-4.85-4.85-4.85"/></svg>
+                          <time datetime="2024-11-23 00:00:00+00:00" class="md-ellipsis">2024年11月23日</time>
+                        </div>
+                      </li>
+                    
+                    
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3zm3 2 4 13 3-1-4-13zM5 5v13h3V5zM3 19v2h18v-2z"/></svg>
+                          <span class="md-ellipsis">
+                            分类于
+                            
+                              <a href="../../../../category/ml/">ML</a></span>
+                        </div>
+                      </li>
+                    
+                    
+                      
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
+                          <span class="md-ellipsis">
+                            
+                              需要 9 分钟阅读时间
+                            
+                          </span>
+                        </div>
+                      </li>
+                    
+                  </ul>
+                </nav>
+              </li>
+            </ul>
+          </nav>
+          
+        </div>
+      </div>
+    </div>
+    <article class="md-content__inner md-typeset">
+      
+        
+  
+  
+
+<nav class="md-tags" >
+  
+    
+    
+      
+      
+    
+    
+      <a href="../../../../tags/#ml" class="md-tag md-tag-icon">ML</a>
+    
+  
+    
+    
+      
+      
+    
+    
+      <a href="../../../../tags/#math" class="md-tag md-tag-icon">Math</a>
+    
+  
+    
+    
+      
+      
+    
+    
+      <a href="../../../../tags/#algorithm" class="md-tag md-tag-icon">Algorithm</a>
+    
+  
+</nav>
+
+
+  
+  
+
+
+<h1 id="_1">聚类算法及数据处理系统的设计与实现<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p>以混合算法GMM与K-Means算法为例，了解聚合算法，以及对数据处理系统的相关设计与处理。</p>
+<!-- more -->
+
+<h2 id="_2">聚类算法<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>聚类是一种<mark>无监督</mark>的机器学习算法，可根据相似性或模式将不同的对象、数据点或观察结果组织和分类为不同的组或聚类。</p>
+<p>按照某一个特定的标准将一个数据集分割成不同的类或者簇，使得同一个簇内的数据对象的特征相似度尽可能大，同时不在一个簇中的数据对象的差异性也尽可能大。</p>
+<p>如图，聚类将下面的数据分为三类，以不同的颜色标出：</p>
+<p><img alt="alt text" src="../../../../../PageImage/imageML-1.png" /></p>
+<p>主流聚类算法：</p>
+<ul>
+<li>划分聚类（Partitioning Clustering）</li>
+</ul>
+<p>划分聚类算法会给出一系列扁平结构的簇（分开的几个类），他们之间没有任何显式的结构来表明彼此的相关性。
+常见的算法有：K-Means/K-Medoids、Gaussian Mixture Model（高斯混合模型）、Spectral Clustering（谱聚类）、Centroid-based Clustering</p>
+<ul>
+<li>层次聚类（Hierarchical Clustering）</li>
+</ul>
+<p>层次聚类会输出一个具有层次结构的簇集合，因此能够比划分聚类输出的无结构簇集合提供更丰富的信息。层次聚类可以认为是是嵌套的划分聚类。
+常见的算法有：Single-linkage、Complete-linkage、Connectivity-based Clustering等。</p>
+<h2 id="k-means">K-means算法<a class="headerlink" href="#k-means" title="Permanent link">&para;</a></h2>
+<p>K-means(k均值)算法是聚类算法中一个非常基础的算法，同时应用也十分广泛。</p>
+<h3 id="_3">核心概念<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>聚类算法要把<span class="arithmatex">\(n\)</span>个数据点按照分布分成<span class="arithmatex">\(K\)</span>类（很多算法的K是人为提前设定的）。我们希望通过聚类算法，而得到<span class="arithmatex">\(K\)</span>个中心点，以及每个数据点属于哪个中心点的范围内。</p>
+<ul>
+<li>中心点可以通过迭代算法来找到，满足条件：所有的数据点到聚类中心的距离之和是最小的。</li>
+<li>中心点确定后，每个数据点属于离它最近的中心点。</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">要解决的几个前置小问题</p>
+<p><strong>数据点到中心点的距离如何计算？</strong></p>
+<p>一般选择几何距离，L2距离的平方。</p>
+<blockquote>
+<p>L2距离即欧几里得距离</p>
+</blockquote>
+<p><strong>中心点是否唯一，也就是说是否存在全局唯一最优解?</strong></p>
+<p>对于多个中心点的情况，全局最优是一个相当难的问题。理论上存在一个全局最优解，但是不一定能找到。既然全局最优解不好找，那我们退而求其次，看能不能找到局部最优解。</p>
+<p><strong>聚类结果该如何表示？</strong></p>
+<p>采用空间分割的方式：将空间分割成多个多边形，每个多边形对应一个 cluster中心。</p>
+</div>
+<h3 id="_4">算法步骤<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>K-means采用的是 <strong>EM算法</strong> 迭代确定中心点（cluster centroids），具体流程分两步：</p>
+<ol>
+<li><strong>更新中心点</strong>：初始化的时候以随机取点作为起始点；迭代过程中，取同一类的所有数据点的重心（或质心）作为新中心点。</li>
+<li><strong>分配数据点</strong>：把所有的数据点分配到离它最近的中心点。</li>
+</ol>
+<p>重复上述的两个步骤，直到中心点不再改变为止。</p>
+<h3 id="_5">损失函数<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>K-means最小化问题，是要最小化所有数据点与其所关联的中心点之间的距离之和，因此K-means的代价函数（又称畸变函数Distortion Function）为：</p>
+<div class="arithmatex">\[
+\text{SSE} = \sum_{i=1}^{K} \sum_{x \in S_i} ||x - \mu_i||^2
+\]</div>
+<p>其中：</p>
+<ul>
+<li><span class="arithmatex">\(K\)</span> 是簇的数量。</li>
+<li><span class="arithmatex">\(S_i\)</span> 是第 <span class="arithmatex">\(i\)</span> 个簇中的数据点集合。</li>
+<li><span class="arithmatex">\(x\)</span> 是簇 <span class="arithmatex">\(S_i\)</span> 中的一个数据点。</li>
+<li><span class="arithmatex">\(\mu_i\)</span> 是簇 <span class="arithmatex">\(S_i\)</span> 的中心（质心）。</li>
+<li><span class="arithmatex">\(||x - \mu_i||\)</span> 是数据点 <span class="arithmatex">\(x\)</span> 与簇中心 <span class="arithmatex">\(\mu_i\)</span> 之间的欧氏距离。</li>
+</ul>
+<blockquote>
+<p>K-means算法的损失函数是簇内平方误差之和（Sum of Squared Errors, SSE），也称为簇内距离之和</p>
+</blockquote>
+<h3 id="k">k值的选择<a class="headerlink" href="#k" title="Permanent link">&para;</a></h3>
+<p>在进行K-means算法之前，我们首先要进行随机初始化所有的中心点。</p>
+<p>而有个问题在于，它有可能会停留在一个局部最优值，这取决于初始化的状况。</p>
+<p>为了解决这个问题，我们通常需要多次运行 K-means 算法，每一次都重新进行随机初始化，最后再比较多次运行 K-means 的结果，选择代价函数最小的结果。这种方法在k较小的时候（2–10）还是可行的，但是如果k较大，这么做也可能不会有明显地改善。</p>
+<p>接下来讲解一下 <strong>肘部法则(Elbow Method)</strong> 方法来选择k：</p>
+<p>这是一种直观的方法，通过观察SSE随k值增加而减少的变化趋势来选择k。</p>
+<p>对不同的k值运行K-means算法，计算每一个k值对应的SSE。</p>
+<p>绘制k值与SSE的关系图，选择SSE下降速度明显减缓的点作为k的值，而这个点通常看起来像一个“肘部”。</p>
+<p><img alt="alt text" src="../../../../../PageImage/image20241120.png" /></p>
+<h3 id="_6">总代码<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">k-means.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">  1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">  2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">  3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">  4</a></span>
+<span class="normal"><a href="#__codelineno-0-5">  5</a></span>
+<span class="normal"><a href="#__codelineno-0-6">  6</a></span>
+<span class="normal"><a href="#__codelineno-0-7">  7</a></span>
+<span class="normal"><a href="#__codelineno-0-8">  8</a></span>
+<span class="normal"><a href="#__codelineno-0-9">  9</a></span>
+<span class="normal"><a href="#__codelineno-0-10"> 10</a></span>
+<span class="normal"><a href="#__codelineno-0-11"> 11</a></span>
+<span class="normal"><a href="#__codelineno-0-12"> 12</a></span>
+<span class="normal"><a href="#__codelineno-0-13"> 13</a></span>
+<span class="normal"><a href="#__codelineno-0-14"> 14</a></span>
+<span class="normal"><a href="#__codelineno-0-15"> 15</a></span>
+<span class="normal"><a href="#__codelineno-0-16"> 16</a></span>
+<span class="normal"><a href="#__codelineno-0-17"> 17</a></span>
+<span class="normal"><a href="#__codelineno-0-18"> 18</a></span>
+<span class="normal"><a href="#__codelineno-0-19"> 19</a></span>
+<span class="normal"><a href="#__codelineno-0-20"> 20</a></span>
+<span class="normal"><a href="#__codelineno-0-21"> 21</a></span>
+<span class="normal"><a href="#__codelineno-0-22"> 22</a></span>
+<span class="normal"><a href="#__codelineno-0-23"> 23</a></span>
+<span class="normal"><a href="#__codelineno-0-24"> 24</a></span>
+<span class="normal"><a href="#__codelineno-0-25"> 25</a></span>
+<span class="normal"><a href="#__codelineno-0-26"> 26</a></span>
+<span class="normal"><a href="#__codelineno-0-27"> 27</a></span>
+<span class="normal"><a href="#__codelineno-0-28"> 28</a></span>
+<span class="normal"><a href="#__codelineno-0-29"> 29</a></span>
+<span class="normal"><a href="#__codelineno-0-30"> 30</a></span>
+<span class="normal"><a href="#__codelineno-0-31"> 31</a></span>
+<span class="normal"><a href="#__codelineno-0-32"> 32</a></span>
+<span class="normal"><a href="#__codelineno-0-33"> 33</a></span>
+<span class="normal"><a href="#__codelineno-0-34"> 34</a></span>
+<span class="normal"><a href="#__codelineno-0-35"> 35</a></span>
+<span class="normal"><a href="#__codelineno-0-36"> 36</a></span>
+<span class="normal"><a href="#__codelineno-0-37"> 37</a></span>
+<span class="normal"><a href="#__codelineno-0-38"> 38</a></span>
+<span class="normal"><a href="#__codelineno-0-39"> 39</a></span>
+<span class="normal"><a href="#__codelineno-0-40"> 40</a></span>
+<span class="normal"><a href="#__codelineno-0-41"> 41</a></span>
+<span class="normal"><a href="#__codelineno-0-42"> 42</a></span>
+<span class="normal"><a href="#__codelineno-0-43"> 43</a></span>
+<span class="normal"><a href="#__codelineno-0-44"> 44</a></span>
+<span class="normal"><a href="#__codelineno-0-45"> 45</a></span>
+<span class="normal"><a href="#__codelineno-0-46"> 46</a></span>
+<span class="normal"><a href="#__codelineno-0-47"> 47</a></span>
+<span class="normal"><a href="#__codelineno-0-48"> 48</a></span>
+<span class="normal"><a href="#__codelineno-0-49"> 49</a></span>
+<span class="normal"><a href="#__codelineno-0-50"> 50</a></span>
+<span class="normal"><a href="#__codelineno-0-51"> 51</a></span>
+<span class="normal"><a href="#__codelineno-0-52"> 52</a></span>
+<span class="normal"><a href="#__codelineno-0-53"> 53</a></span>
+<span class="normal"><a href="#__codelineno-0-54"> 54</a></span>
+<span class="normal"><a href="#__codelineno-0-55"> 55</a></span>
+<span class="normal"><a href="#__codelineno-0-56"> 56</a></span>
+<span class="normal"><a href="#__codelineno-0-57"> 57</a></span>
+<span class="normal"><a href="#__codelineno-0-58"> 58</a></span>
+<span class="normal"><a href="#__codelineno-0-59"> 59</a></span>
+<span class="normal"><a href="#__codelineno-0-60"> 60</a></span>
+<span class="normal"><a href="#__codelineno-0-61"> 61</a></span>
+<span class="normal"><a href="#__codelineno-0-62"> 62</a></span>
+<span class="normal"><a href="#__codelineno-0-63"> 63</a></span>
+<span class="normal"><a href="#__codelineno-0-64"> 64</a></span>
+<span class="normal"><a href="#__codelineno-0-65"> 65</a></span>
+<span class="normal"><a href="#__codelineno-0-66"> 66</a></span>
+<span class="normal"><a href="#__codelineno-0-67"> 67</a></span>
+<span class="normal"><a href="#__codelineno-0-68"> 68</a></span>
+<span class="normal"><a href="#__codelineno-0-69"> 69</a></span>
+<span class="normal"><a href="#__codelineno-0-70"> 70</a></span>
+<span class="normal"><a href="#__codelineno-0-71"> 71</a></span>
+<span class="normal"><a href="#__codelineno-0-72"> 72</a></span>
+<span class="normal"><a href="#__codelineno-0-73"> 73</a></span>
+<span class="normal"><a href="#__codelineno-0-74"> 74</a></span>
+<span class="normal"><a href="#__codelineno-0-75"> 75</a></span>
+<span class="normal"><a href="#__codelineno-0-76"> 76</a></span>
+<span class="normal"><a href="#__codelineno-0-77"> 77</a></span>
+<span class="normal"><a href="#__codelineno-0-78"> 78</a></span>
+<span class="normal"><a href="#__codelineno-0-79"> 79</a></span>
+<span class="normal"><a href="#__codelineno-0-80"> 80</a></span>
+<span class="normal"><a href="#__codelineno-0-81"> 81</a></span>
+<span class="normal"><a href="#__codelineno-0-82"> 82</a></span>
+<span class="normal"><a href="#__codelineno-0-83"> 83</a></span>
+<span class="normal"><a href="#__codelineno-0-84"> 84</a></span>
+<span class="normal"><a href="#__codelineno-0-85"> 85</a></span>
+<span class="normal"><a href="#__codelineno-0-86"> 86</a></span>
+<span class="normal"><a href="#__codelineno-0-87"> 87</a></span>
+<span class="normal"><a href="#__codelineno-0-88"> 88</a></span>
+<span class="normal"><a href="#__codelineno-0-89"> 89</a></span>
+<span class="normal"><a href="#__codelineno-0-90"> 90</a></span>
+<span class="normal"><a href="#__codelineno-0-91"> 91</a></span>
+<span class="normal"><a href="#__codelineno-0-92"> 92</a></span>
+<span class="normal"><a href="#__codelineno-0-93"> 93</a></span>
+<span class="normal"><a href="#__codelineno-0-94"> 94</a></span>
+<span class="normal"><a href="#__codelineno-0-95"> 95</a></span>
+<span class="normal"><a href="#__codelineno-0-96"> 96</a></span>
+<span class="normal"><a href="#__codelineno-0-97"> 97</a></span>
+<span class="normal"><a href="#__codelineno-0-98"> 98</a></span>
+<span class="normal"><a href="#__codelineno-0-99"> 99</a></span>
+<span class="normal"><a href="#__codelineno-0-100">100</a></span>
+<span class="normal"><a href="#__codelineno-0-101">101</a></span>
+<span class="normal"><a href="#__codelineno-0-102">102</a></span>
+<span class="normal"><a href="#__codelineno-0-103">103</a></span>
+<span class="normal"><a href="#__codelineno-0-104">104</a></span>
+<span class="normal"><a href="#__codelineno-0-105">105</a></span>
+<span class="normal"><a href="#__codelineno-0-106">106</a></span>
+<span class="normal"><a href="#__codelineno-0-107">107</a></span>
+<span class="normal"><a href="#__codelineno-0-108">108</a></span>
+<span class="normal"><a href="#__codelineno-0-109">109</a></span>
+<span class="normal"><a href="#__codelineno-0-110">110</a></span>
+<span class="normal"><a href="#__codelineno-0-111">111</a></span>
+<span class="normal"><a href="#__codelineno-0-112">112</a></span>
+<span class="normal"><a href="#__codelineno-0-113">113</a></span>
+<span class="normal"><a href="#__codelineno-0-114">114</a></span>
+<span class="normal"><a href="#__codelineno-0-115">115</a></span>
+<span class="normal"><a href="#__codelineno-0-116">116</a></span>
+<span class="normal"><a href="#__codelineno-0-117">117</a></span>
+<span class="normal"><a href="#__codelineno-0-118">118</a></span>
+<span class="normal"><a href="#__codelineno-0-119">119</a></span>
+<span class="normal"><a href="#__codelineno-0-120">120</a></span>
+<span class="normal"><a href="#__codelineno-0-121">121</a></span>
+<span class="normal"><a href="#__codelineno-0-122">122</a></span>
+<span class="normal"><a href="#__codelineno-0-123">123</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="kn">import</span> <span class="nn">random</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">adjusted_rand_score</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a>
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="k">def</span> <span class="nf">load_data</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10"></a>    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11"></a>    <span class="k">if</span> <span class="s1">&#39;class&#39;</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12"></a>        <span class="n">labels</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;class&#39;</span><span class="p">]</span>  <span class="c1"># 提取标签</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13"></a>        <span class="n">features</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;class&#39;</span><span class="p">])</span>  <span class="c1"># 去除class列</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15"></a>        <span class="n">labels</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16"></a>        <span class="n">features</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17"></a>    <span class="k">return</span> <span class="n">features</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">labels</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18"></a>
+<a id="__codelineno-0-19" name="__codelineno-0-19"></a>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="k">class</span> <span class="nc">KMeans</span><span class="p">:</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21"></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">):</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">=</span> <span class="n">k</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span> <span class="o">=</span> <span class="n">max_iter</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">tol</span> <span class="o">=</span> <span class="n">tol</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">centroids</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">clusters</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a>    <span class="k">def</span> <span class="nf">init_centroids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">centroids</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="p">)</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a>
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a>    <span class="k">def</span> <span class="nf">assign_clusters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">clusters</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35"></a>        <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a>            <span class="n">distances</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">point</span> <span class="o">-</span> <span class="n">centroid</span><span class="p">)</span> <span class="k">for</span> <span class="n">centroid</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">centroids</span><span class="p">]</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a>            <span class="n">closest_centroid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">distances</span><span class="p">)</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">clusters</span><span class="p">[</span><span class="n">closest_centroid</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">closest_centroid</span><span class="p">)</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40"></a>
+<a id="__codelineno-0-41" name="__codelineno-0-41"></a>    <span class="k">def</span> <span class="nf">update_centroids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42"></a>        <span class="n">new_centroids</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-0-43" name="__codelineno-0-43"></a>        <span class="k">for</span> <span class="n">cluster</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">clusters</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44"></a>            <span class="k">if</span> <span class="n">cluster</span><span class="p">:</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45"></a>                <span class="n">new_centroids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">cluster</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46"></a>            <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47"></a>                <span class="n">new_centroids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">centroids</span><span class="p">))</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48"></a>
+<a id="__codelineno-0-49" name="__codelineno-0-49"></a>        <span class="k">return</span> <span class="n">new_centroids</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50"></a>
+<a id="__codelineno-0-51" name="__codelineno-0-51"></a>    <span class="k">def</span> <span class="nf">calculate_sse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52"></a>        <span class="n">sse</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a>        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">cluster</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">clusters</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a>            <span class="n">sse</span> <span class="o">+=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">point</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">centroids</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">cluster</span><span class="p">)</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a>        <span class="k">return</span> <span class="n">sse</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">init_centroids</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<a id="__codelineno-0-59" name="__codelineno-0-59"></a>        <span class="n">previous_sse</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span>  <span class="c1"># 初始设置为无穷大</span>
+<a id="__codelineno-0-60" name="__codelineno-0-60"></a>        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span><span class="p">):</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">assign_clusters</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>  <span class="c1"># 更新数据点的簇分配</span>
+<a id="__codelineno-0-62" name="__codelineno-0-62"></a>            <span class="n">new_centroids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">update_centroids</span><span class="p">()</span>  <span class="c1"># 计算新的中心点</span>
+<a id="__codelineno-0-63" name="__codelineno-0-63"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">centroids</span> <span class="o">=</span> <span class="n">new_centroids</span>  <span class="c1"># 更新中心点</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64"></a>
+<a id="__codelineno-0-65" name="__codelineno-0-65"></a>            <span class="n">current_sse</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_sse</span><span class="p">()</span>  <span class="c1"># 计算当前的 SSE</span>
+<a id="__codelineno-0-66" name="__codelineno-0-66"></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Iteration </span><span class="si">{</span><span class="n">_</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">, SSE: </span><span class="si">{</span><span class="n">current_sse</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67"></a>
+<a id="__codelineno-0-68" name="__codelineno-0-68"></a>            <span class="c1"># 检查 SSE 是否减少</span>
+<a id="__codelineno-0-69" name="__codelineno-0-69"></a>            <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">previous_sse</span> <span class="o">-</span> <span class="n">current_sse</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">tol</span><span class="p">:</span>  <span class="c1"># 如果 SSE 收敛</span>
+<a id="__codelineno-0-70" name="__codelineno-0-70"></a>                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Converged based on SSE.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-71" name="__codelineno-0-71"></a>                <span class="k">break</span>
+<a id="__codelineno-0-72" name="__codelineno-0-72"></a>            <span class="n">previous_sse</span> <span class="o">=</span> <span class="n">current_sse</span>  <span class="c1"># 更新 SSE</span>
+<a id="__codelineno-0-73" name="__codelineno-0-73"></a>
+<a id="__codelineno-0-74" name="__codelineno-0-74"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">centroids</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span>
+<a id="__codelineno-0-75" name="__codelineno-0-75"></a>
+<a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="c1"># 可视化</span>
+<a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="k">def</span> <span class="nf">plot_clusters</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">centroids</span><span class="p">):</span>
+<a id="__codelineno-0-78" name="__codelineno-0-78"></a>    <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">]</span>
+<a id="__codelineno-0-79" name="__codelineno-0-79"></a>    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<a id="__codelineno-0-80" name="__codelineno-0-80"></a>    <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">centroids</span><span class="p">)):</span>
+<a id="__codelineno-0-81" name="__codelineno-0-81"></a>        <span class="n">cluster_points</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span> <span class="o">==</span> <span class="n">idx</span><span class="p">]</span>
+<a id="__codelineno-0-82" name="__codelineno-0-82"></a>        <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">cluster_points</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">cluster_points</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">idx</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">colors</span><span class="p">)],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<a id="__codelineno-0-83" name="__codelineno-0-83"></a>    <span class="n">centroids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">centroids</span><span class="p">)</span>
+<a id="__codelineno-0-84" name="__codelineno-0-84"></a>    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">centroids</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">centroids</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<a id="__codelineno-0-85" name="__codelineno-0-85"></a>    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;K-means Clustering&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-86" name="__codelineno-0-86"></a>    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<a id="__codelineno-0-87" name="__codelineno-0-87"></a>
+<a id="__codelineno-0-88" name="__codelineno-0-88"></a>
+<a id="__codelineno-0-89" name="__codelineno-0-89"></a><span class="k">def</span> <span class="nf">plot_elbow_method</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">max_k</span><span class="o">=</span><span class="mi">7</span><span class="p">):</span>
+<a id="__codelineno-0-90" name="__codelineno-0-90"></a>    <span class="n">sse_values</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-0-91" name="__codelineno-0-91"></a>    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+<a id="__codelineno-0-92" name="__codelineno-0-92"></a>        <span class="n">kmeans</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
+<a id="__codelineno-0-93" name="__codelineno-0-93"></a>        <span class="n">kmeans</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<a id="__codelineno-0-94" name="__codelineno-0-94"></a>        <span class="n">sse</span> <span class="o">=</span> <span class="n">kmeans</span><span class="o">.</span><span class="n">calculate_sse</span><span class="p">()</span>
+<a id="__codelineno-0-95" name="__codelineno-0-95"></a>        <span class="n">sse_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sse</span><span class="p">)</span>
+<a id="__codelineno-0-96" name="__codelineno-0-96"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;k=</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">, SSE=</span><span class="si">{</span><span class="n">sse</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-97" name="__codelineno-0-97"></a>
+<a id="__codelineno-0-98" name="__codelineno-0-98"></a>    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<a id="__codelineno-0-99" name="__codelineno-0-99"></a>    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">sse_values</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<a id="__codelineno-0-100" name="__codelineno-0-100"></a>    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Elbow Method for Optimal k&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-101" name="__codelineno-0-101"></a>    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Number of Clusters (k)&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-102" name="__codelineno-0-102"></a>    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Sum of Squared Errors (SSE)&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-103" name="__codelineno-0-103"></a>    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+<a id="__codelineno-0-104" name="__codelineno-0-104"></a>    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<a id="__codelineno-0-105" name="__codelineno-0-105"></a>    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<a id="__codelineno-0-106" name="__codelineno-0-106"></a>
+<a id="__codelineno-0-107" name="__codelineno-0-107"></a>
+<a id="__codelineno-0-108" name="__codelineno-0-108"></a><span class="c1"># 主程序</span>
+<a id="__codelineno-0-109" name="__codelineno-0-109"></a><span class="n">file_path</span> <span class="o">=</span> <span class="s1">&#39;../data/dataset/Aggregation.csv&#39;</span>
+<a id="__codelineno-0-110" name="__codelineno-0-110"></a><span class="n">data</span><span class="p">,</span> <span class="n">true_labels</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+<a id="__codelineno-0-111" name="__codelineno-0-111"></a>
+<a id="__codelineno-0-112" name="__codelineno-0-112"></a><span class="n">plot_elbow_method</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">max_k</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+<a id="__codelineno-0-113" name="__codelineno-0-113"></a>
+<a id="__codelineno-0-114" name="__codelineno-0-114"></a><span class="n">kmeans</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>  <span class="c1"># 假设有6个簇</span>
+<a id="__codelineno-0-115" name="__codelineno-0-115"></a><span class="n">centroids</span><span class="p">,</span> <span class="n">predicted_labels</span> <span class="o">=</span> <span class="n">kmeans</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<a id="__codelineno-0-116" name="__codelineno-0-116"></a>
+<a id="__codelineno-0-117" name="__codelineno-0-117"></a><span class="c1"># 计算聚类质量</span>
+<a id="__codelineno-0-118" name="__codelineno-0-118"></a><span class="n">adjusted_rand</span> <span class="o">=</span> <span class="n">adjusted_rand_score</span><span class="p">(</span><span class="n">true_labels</span><span class="p">,</span> <span class="n">predicted_labels</span><span class="p">)</span>
+<a id="__codelineno-0-119" name="__codelineno-0-119"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Adjusted Rand Index (ARI): </span><span class="si">{</span><span class="n">adjusted_rand</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-120" name="__codelineno-0-120"></a>
+<a id="__codelineno-0-121" name="__codelineno-0-121"></a><span class="c1"># 可视化结果（仅二维数据适用）</span>
+<a id="__codelineno-0-122" name="__codelineno-0-122"></a><span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+<a id="__codelineno-0-123" name="__codelineno-0-123"></a>    <span class="n">plot_clusters</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">predicted_labels</span><span class="p">,</span> <span class="n">centroids</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="gmm">高斯混合模型(GMM)<a class="headerlink" href="#gmm" title="Permanent link">&para;</a></h2>
+<h3 id="_7">高斯分布<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>高斯分布（Gaussian Distribution），又称 <strong>正态分布</strong> （Normal Distribution），是概率统计中最重要的一种分布，因德国数学家 <strong>卡尔·弗里德里希·高斯</strong> 而得名。它是许多自然现象和统计过程的理论基础，常用于描述数据的分布特性。</p>
+<h4 id="pdf">高斯分布的 <strong>概率密度函数</strong>（PDF）<a class="headerlink" href="#pdf" title="Permanent link">&para;</a></h4>
+<p>高斯分布的概率密度函数（Probability Density Funciton, PDF）定义如下：</p>
+<div class="arithmatex">\[
+f(x | \mu, \sigma^2) = \frac{1}{\sqrt{2 \pi \sigma^2}} \exp\left(-\frac{(x - \mu)^2}{2 \sigma^2}\right)
+\]</div>
+<ul>
+<li><span class="arithmatex">\(x\)</span>：随机变量</li>
+<li><span class="arithmatex">\(\mu\)</span>：均值，决定分布的中心位置</li>
+<li><span class="arithmatex">\(\sigma^2\)</span>：方差，决定分布的宽度</li>
+<li><span class="arithmatex">\(\sigma\)</span>：标准差（标准差是方差的平方根）</li>
+<li><span class="arithmatex">\(\text{exp}(\cdot)\)</span>：表示指数函数<span class="arithmatex">\(e^{(\cdot)}\)</span></li>
+</ul>
+<h4 id="_8">特性<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
+<ol>
+<li><strong>对称性</strong>：正态分布是关于均值 <span class="arithmatex">\(\mu\)</span> 对称的。</li>
+<li><strong>单峰性</strong>：在均值处达到最大值，是一个单峰分布。</li>
+<li><strong>68-95-99.7 法则</strong>：对于标准正态分布，数据分别有约 68%、95% 和 99.7% 的概率落在 <span class="arithmatex">\([ \mu \pm \sigma ]\)</span>、<span class="arithmatex">\([ \mu \pm 2\sigma ]\)</span>、<span class="arithmatex">\([ \mu \pm 3\sigma ]\)</span> 范围内。</li>
+<li><strong>无界性</strong>：正态分布的值域是整个实数轴，虽然概率密度远离均值时会趋于零，但理论上并不为零。</li>
+<li><strong>积分归一性</strong>：概率密度函数在整个范围内的积分为1：<span class="arithmatex">\(\int_{-\infty}^{\infty} f(x) dx = 1\)</span></li>
+</ol>
+<h4 id="1">1. <strong>一维高斯分布</strong><a class="headerlink" href="#1" title="Permanent link">&para;</a></h4>
+<p>对于一维高斯分布（单变量），概率密度函数为：
+$$
+f(x) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)
+$$</p>
+<p><img alt="alts text" src="../../../../../PageImage/image202411222257.png" /></p>
+<p>在这种情况下，只有一个变量 <span class="arithmatex">\(x\)</span>，方差 <span class="arithmatex">\(\sigma^2\)</span> 描述该变量的分布宽度。因此，只需要一个标量方差即可描述分布。</p>
+<h4 id="2">2. <strong>多维高斯分布</strong><a class="headerlink" href="#2" title="Permanent link">&para;</a></h4>
+<p>对于多维高斯分布（多变量）（（Multivariate gaussian distribution）），概率密度函数为：
+$$
+f(\mathbf{X}) = \frac{1}{\sqrt{(2\pi)^d |\Sigma|}} \exp\left(-\frac{1}{2} (\mathbf{X} - \boldsymbol{\mu})^T \Sigma^{-1} (\mathbf{X} - \boldsymbol{\mu})\right)
+$$</p>
+<p>从上面的式子可以看出，高斯分布完全由均值向量<span class="arithmatex">\(\mu\)</span>和协方差矩阵<span class="arithmatex">\(\Sigma\)</span>这两个参数确定。常常将高斯分布的概率密度函数记为<span class="arithmatex">\(\mathcal{N}(\boldsymbol{x} \mid \boldsymbol{\mu}, \Sigma)\)</span>。</p>
+<p><img alt="alt text" src="../../../../../PageImage/image202411221304.png" /></p>
+<h4 id="3">3. <strong>高斯混合分布</strong><a class="headerlink" href="#3" title="Permanent link">&para;</a></h4>
+<p>根据上面的可以定义 <strong>高斯混合分布:</strong>
+$$
+\begin{aligned}
+p_{\mathcal{M}}(\boldsymbol{x}) &amp; =\sum_{k=1}^K \pi_k \cdot \mathcal{N}\left(\boldsymbol{x} \mid \boldsymbol{\mu}<em k="1">{\boldsymbol{k}}, \Sigma_k\right) \
+\sum</em>^K \pi_k &amp; =1, \quad \pi_k&gt;0
+\end{aligned}
+$$
+该分布由<span class="arithmatex">\(K\)</span>个混合成分(component)组成，每个混合成分对应一个高斯分布。其中<span class="arithmatex">\(\mu_k\)</span>与<span class="arithmatex">\(\Sigma_k\)</span>是第<span class="arithmatex">\(k\)</span>个高斯混合成分的参数，而<span class="arithmatex">\(\pi_k\)</span>为相应的“混合系数”(mixture coefficient)。</p>
+<p><strong>这里协方差矩阵的作用：</strong></p>
+<ol>
+<li><strong>多变量的分布宽度</strong>：协方差矩阵 <span class="arithmatex">\(\Sigma\)</span> 的对角线元素 <span class="arithmatex">\(\Sigma_{ii}\)</span> 表示每个变量的方差，用于刻画每个变量的分布范围。</li>
+<li><strong>变量之间的相关性</strong>：协方差矩阵的非对角线元素 <span class="arithmatex">\(\Sigma_{ij}\)</span> 表示变量 <span class="arithmatex">\(i\)</span> 和变量 <span class="arithmatex">\(j\)</span> 的协方差，用于描述变量之间的线性相关性。</li>
+</ol>
+<h4 id="_9">为什么需要协方差矩阵？<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
+<ul>
+<li>在多维情况下，变量之间可能不是独立的，因此不能仅用方差描述分布。</li>
+<li>协方差矩阵不仅提供每个变量的分布信息，还提供它们之间的交互信息。</li>
+<li>协方差矩阵允许描述 <strong>分布的方向性和形状</strong>：</li>
+<li>如果协方差矩阵是对角矩阵（变量独立），分布是对称的。</li>
+<li>如果协方差矩阵包含非零的非对角线元素，分布会倾斜，反映变量之间的线性关系。</li>
+</ul>
+<h4 id="_10">标准正态分布<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h4>
+<p>标准正态分布是正态分布的一种特殊情况，均值 <span class="arithmatex">\(\mu = 0\)</span>，标准差 <span class="arithmatex">\(\sigma = 1\)</span>。其概率密度函数为：</p>
+<div class="arithmatex">\[
+f(x) = \frac{1}{\sqrt{2 \pi}} \exp\left(-\frac{x^2}{2}\right)
+\]</div>
+<p>通常用 <span class="arithmatex">\(Z\)</span> 表示标准正态分布中的随机变量。</p>
+<h4 id="_11">应用<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h4>
+<ol>
+<li><strong>数据建模</strong>：描述实际数据的分布，例如身高、体重等。</li>
+<li><strong>统计推断</strong>：假设检验、区间估计等。</li>
+<li><strong>机器学习</strong>：用于生成随机数据、特征标准化（归一化）、高斯朴素贝叶斯等。</li>
+<li><strong>信号处理</strong>：噪声通常假设为高斯分布。</li>
+</ol>
+<h3 id="_12">算法步骤<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<p>高斯混合模型聚类（Gaussian Mixture Model Clustering）</p>
+<p><img alt="GMM聚类过程" src="https://help-static-aliyun-doc.aliyuncs.com/assets/img/zh-CN/7576770861/p623214.png" /></p>
+<h4 id="_13">步骤一：初始化<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h4>
+<p><strong>Step #1: 初始化K个高斯分布（Initialize K Gaussian Distributions）</strong></p>
+<p>协方差类型（Covariance_type）:</p>
+<ul>
+<li>Spherical</li>
+<li>Full</li>
+</ul>
+<p>初始化（Initialization）:</p>
+<ul>
+<li>Manual</li>
+<li>k-means</li>
+</ul>
+<p><img alt="alt text" src="../../../../../PageImage/image202411231424.png" /></p>
+<h4 id="e-step">步骤二：E-Step<a class="headerlink" href="#e-step" title="Permanent link">&para;</a></h4>
+<p><strong>Step #2： Soft-Cluster Data - “Expection”</strong></p>
+<p><img alt="alt text" src="../../../../../PageImage/image202411231424-1.png" /></p>
+<h4 id="m-step">步骤三：M-Step<a class="headerlink" href="#m-step" title="Permanent link">&para;</a></h4>
+<p><strong>Step #3： Re-Estimate The Gaussians - “Manximization”</strong></p>
+<p><img alt="alt text" src="../../../../../PageImage/image202411231424-2.png" /></p>
+<p><img alt="alt text" src="../../../../../PageImage/image202411231424-3.png" /></p>
+<p><strong>Step #4： 对数似然函数 Evaluate Log-likelihood to check for convergence</strong>
+具体公式如下：</p>
+<div class="arithmatex">\[
+\ln p\left(X \mid \mu, \sigma^2\right)=\sum_{i=1}^N \ln \left(\sum_{k=1}^K \pi_k \mathcal{N}\left(X_i \mid \mu_k, \sigma_k^2\right)\right)
+\]</div>
+<p><strong>混合高斯模型的生成机制</strong></p>
+<p>数据 <span class="arithmatex">\(X_i\)</span> 是从 <span class="arithmatex">\(K\)</span> 个高斯分布中随机生成的，每个高斯分布 <span class="arithmatex">\(k\)</span> 的选择概率是 <span class="arithmatex">\(\pi_k\)</span>。因此，单个数据点 <span class="arithmatex">\(X_i\)</span> 的概率可以表示为：</p>
+<div class="arithmatex">\[
+p(X_i \mid \mu, \sigma^2) = \sum_{k=1}^K \pi_k \mathcal{N}(X_i \mid \mu_k, \sigma_k^2)
+\]</div>
+<p>这里的加和反映了 <span class="arithmatex">\(X_i\)</span> 的分布是由 <span class="arithmatex">\(K\)</span> 个高斯分布加权混合而成。</p>
+<p><strong>观测数据的总似然</strong></p>
+<p>对于整个数据集 <span class="arithmatex">\(X\)</span>，假设样本是独立同分布的（i.i.d.），则其联合似然为：
+$$
+p(X \mid \mu, \sigma^2) = \prod_{i=1}^N p(X_i \mid \mu, \sigma^2) = \prod_{i=1}^N \sum_{k=1}^K \pi_k \mathcal{N}(X_i \mid \mu_k, \sigma_k^2)
+$$</p>
+<p><strong>对数似然函数</strong></p>
+<p>为了方便计算（乘法变为加法），对联合似然取对数：
+$$
+\ln p(X \mid \mu, \sigma^2) = \sum_{i=1}^N \ln \left(\sum_{k=1}^K \pi_k \mathcal{N}(X_i \mid \mu_k, \sigma_k^2)\right)
+$$</p>
+<h4 id="_14">步骤四：重复前两步<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h4>
+<p><strong>Repeat from Step #2 until converged</strong></p>
+<p>重复E步和M步，直到模型收敛或者达到最大迭代次数。</p>
+<h3 id="_15">算法实现<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<h3 id="_16">概况<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
+<p>优势</p>
+<ul>
+<li>软聚类Soft-clustering(样本可以属于多个簇sample membership of multiple clusters)</li>
+<li>簇形状的灵活性Cluster shape flexibility</li>
+</ul>
+<p>缺点</p>
+<ul>
+<li>对初始值敏感 Sensitive to initialization values</li>
+<li>可能会收敛到局部最优解 Possible to coverge to a local optimum</li>
+<li>收敛速度慢 Slow convergence rate</li>
+</ul>
+<h2 id="_17">两种聚类算法的性能比较<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h2>
+<p>算法没有绝对意义上的谁的性能比另外的性能好，只能说在解决某个问题上面，该算法比其他算法性能更好，这里来讨论下这两种聚类算法。</p>
+<p>K-means 和高斯混合模型 (GMM, Gaussian Mixture Model) 是两种常用的聚类算法。它们的性能和适用场景存在显著差异，下面从多个方面进行比较：</p>
+<hr />
+<p><strong>1. 基本原理</strong></p>
+<p><strong>K-means</strong>  </p>
+<ul>
+<li>假设簇是球形分布的。</li>
+<li>目标是最小化样本到其所属簇中心的平方距离之和 (即最小化 SSE, Sum of Squared Errors)。</li>
+<li>硬聚类：每个样本严格属于一个簇。</li>
+</ul>
+<p><strong>GMM</strong>  </p>
+<ul>
+<li>假设数据来自若干高斯分布的混合。</li>
+<li>目标是通过最大化似然估计找到最佳参数（使用期望最大化算法, EM）。</li>
+<li>软聚类：每个样本属于每个簇的概率由模型输出。</li>
+</ul>
+<hr />
+<p><strong>2. 数据分布的适用性</strong></p>
+<p><strong>K-means</strong>  </p>
+<ul>
+<li>适合簇形状为球形或近似对称的情况。</li>
+<li>对于复杂形状的簇或非球形分布（如月牙形），表现较差。</li>
+</ul>
+<p><strong>GMM</strong>  </p>
+<ul>
+<li>可以拟合不同形状的分布（例如椭圆形、高维空间中的复杂形状）。</li>
+<li>更适合数据分布具有较强的统计结构或不同维度间相关性时。</li>
+</ul>
+<hr />
+<p><strong>3. 参数估计和模型复杂度</strong></p>
+<p><strong>K-means</strong>  </p>
+<ul>
+<li>参数较少，仅需指定簇数 <span class="arithmatex">\( K \)</span>。</li>
+<li>计算复杂度低，适合大规模数据。</li>
+<li>对初始中心点敏感，可能收敛到局部最优解。</li>
+</ul>
+<p><strong>GMM</strong> </p>
+<ul>
+<li>参数较多，需要估计每个簇的均值、协方差矩阵和权重。</li>
+<li>计算复杂度高，特别是数据维度高时。</li>
+<li>收敛性可能受初始值影响，但通过多次运行或更好的初始化方法可改善。</li>
+</ul>
+<hr />
+<p><strong>4. 结果解释</strong></p>
+<p><strong>K-means</strong>  </p>
+<ul>
+<li>提供每个样本所属的簇（离散标签）。</li>
+<li>结果解释简单直接。</li>
+</ul>
+<p><strong>GMM</strong>  </p>
+<ul>
+<li>输出每个样本属于每个簇的概率分布（软划分）。</li>
+<li>能更准确地表示样本的不确定性。</li>
+</ul>
+<hr />
+<p><strong>5. 对噪声和异常值的鲁棒性</strong></p>
+<p><strong>K-means</strong>  </p>
+<ul>
+<li>对噪声和异常值敏感，异常点可能显著拉动簇中心。</li>
+<li>数据预处理和归一化对结果影响较大。</li>
+</ul>
+<p><strong>GMM</strong>  </p>
+<ul>
+<li>对噪声的鲁棒性略强，异常点会被视为低概率事件，不严重影响模型参数。</li>
+<li>但如果数据中的噪声很复杂，可能导致模型拟合异常。</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">鲁棒性</p>
+<p>鲁棒性是 robustness 的音译，在中文中常常也被表达为健壮性和强壮性，总体来说其可以用于反映一个系统在面临着内部结构或外部环境的改变时也能够维持其功能稳定运行的能力。</p>
+</div>
+<hr />
+<p><strong>6. 性能和精度</strong></p>
+<p><strong>K-means</strong>  </p>
+<ul>
+<li>速度快，适合快速粗略聚类。</li>
+<li>性能较差时，可能需要多次运行选取最佳结果。</li>
+</ul>
+<p><strong>GMM</strong>  </p>
+<ul>
+<li>精度通常高于 K-means，特别是在数据分布复杂或簇形状多样时。</li>
+<li>性能取决于样本数量、维度和簇数。</li>
+</ul>
+<hr />
+<p><strong>7. 算法应用场景</strong></p>
+<p><strong>K-means</strong>  </p>
+<ul>
+<li>应用于初步数据分组、大规模数据快速聚类。</li>
+<li>适用于具有明确分割界限的任务（如图像分割、文档分类）。</li>
+</ul>
+<p><strong>GMM</strong>  </p>
+<ul>
+<li>应用于复杂分布建模、概率密度估计。</li>
+<li>适用于更精细的聚类分析和统计推断（如异常检测、生成模型）。</li>
+</ul>
+<hr />
+<p><strong>总结</strong></p>
+<ul>
+<li>如果数据简单、球形且需要快速结果，<strong>选择 K-means</strong>。</li>
+<li>如果数据分布复杂或需要软划分和概率信息，<strong>选择 GMM</strong>。</li>
+</ul>
+<blockquote>
+<p>可以通过实验和性能评估（如轮廓系数、AIC/BIC准则）判断哪种算法更适合特定场景。</p>
+</blockquote>
+<h2 id="_18">数据处理系统的设计与实现<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h2>
+<p>目的：编写一个数据接受功能，能够接受<code>json</code>、<code>excel</code>、<code>csv</code>的功能。</p>
+<h3 id="_19">数据存储格式<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h3>
+<p>一、Excel</p>
+<p>Excel是一种电子表格软件，以<code>.xlsx/.xls</code>格式存储数据。它通过行和列的交叉点来组织和存储数据，支持公式、图表和格式选项等功能，提供了强大的数据分析和处理功能。Excel的可视化程度高，支持图表和图像的生成，方便数据可视化和展示。在实际应用中，Excel广泛应用于办公和数据处理，如财务分析、销售报表等。</p>
+<p><strong>文件格式</strong></p>
+<p><code>.xls</code>文件底层是二进制组成，基于Compound Binary File Format（CBF）的封闭文件格式，<code>.xlsx</code>文件底层是由各个<code>xml</code>文件组成的，以便更好地与其他软件和平台进行互操作。</p>
+<p><strong>文件大小</strong></p>
+<p>由于xlsx文件使用基于ZIP的压缩技术，因此它通常比xls文件更小。这意味着在传输和存储方面，xlsx文件更具优势。然而，在Excel2003及更早版本中，xls文件的处理速度通常比xlsx文件更快。</p>
+<p><strong>兼容性</strong></p>
+<p>xlsx文件具有更好的兼容性，因为它是基于开放标准的文件格式。这意味着它可以在其他支持XML和ZIP的应用程序中打开和编辑。然而，xls文件仅限于在Microsoft Excel中打开和编辑，在其他应用程序中可能会遇到兼容性问题。</p>
+<p>示例：</p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>age</th>
+<th>department</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>John</td>
+<td>30</td>
+<td>Engineering</td>
+</tr>
+<tr>
+<td>Jane</td>
+<td>25</td>
+<td>Marketing</td>
+</tr>
+<tr>
+<td>Alice</td>
+<td>35</td>
+<td>Human Resources</td>
+</tr>
+<tr>
+<td>Bob</td>
+<td>40</td>
+<td>Finance</td>
+</tr>
+</tbody>
+</table>
+<p>二、CSV</p>
+<p>CSV（Comma-Separated Values，逗号分隔值）格式是一种以纯文本形式存储表格数据的简单文件格式。其中逗号作为字段分隔符，不支持多个表格和复杂数据类型，常用扩展名为.csv。CSV格式直接以文本文件形式存储数据，没有特殊类型、格式和样式，因此文件体积小、读取速度快、易读易写、跨平台通用，适合存储简单数据和进行数据迁移等操作。在实际应用中，CSV格式常用于数据交换和备份。</p>
+<p>示例：
+<div class="highlight"><span class="filename">example.csv</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>name,age,department
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>John Doe,30,Engineering
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>Jane Smith,25,Marketing
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>Alice Brown,35,Human Resources
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>Bob White,40,Finance
+</code></pre></div></p>
+<p>三、JSON</p>
+<p>JSON（JavaScript Object Notation，JavaScript 对象表示法）是一种轻量级的数据交换格式。它常用于前后端数据传输，其数据格式为键值对，常用扩展名为.json。JSON具有语法简单、易于读写和跨平台兼容等优点，因此在Web开发中广泛使用。在实际应用中，JSON可以用于数据交换、配置文件和数据持久化等场景。</p>
+<p>示例：
+<div class="highlight"><span class="filename">example.json</span><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="nt">&quot;employees&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">        </span><span class="p">{</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">            </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;John Doe&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">            </span><span class="nt">&quot;age&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">            </span><span class="nt">&quot;department&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Engineering&quot;</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">        </span><span class="p">},</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">        </span><span class="p">{</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">            </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Jane Smith&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">            </span><span class="nt">&quot;age&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">            </span><span class="nt">&quot;department&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Marketing&quot;</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">    </span><span class="p">],</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">    </span><span class="nt">&quot;company&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TechCorp&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">    </span><span class="nt">&quot;location&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;New York&quot;</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="p">}</span>
+</code></pre></div></p>
+<h3 id="_20">算法实现<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h3>
+<div class="highlight"><span class="filename">data_loader.py</span><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">class</span> <span class="nc">DataLoader</span><span class="p">:</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="nd">@staticmethod</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="k">def</span> <span class="nf">read_json</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;读取JSON文件&quot;&quot;&quot;</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>        <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>                <span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>                <span class="n">data</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="o">.</span><span class="n">parse_json</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error reading JSON file </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>        <span class="k">return</span> <span class="n">data</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>    <span class="nd">@staticmethod</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>    <span class="k">def</span> <span class="nf">parse_json</span><span class="p">(</span><span class="n">content</span><span class="p">):</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;实现一个简单的JSON解析器&quot;&quot;&quot;</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>        <span class="kn">import</span> <span class="nn">re</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>        <span class="kn">import</span> <span class="nn">ast</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>        <span class="n">content</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;//.*&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span>  <span class="c1"># 删除注释</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>        <span class="k">return</span> <span class="n">ast</span><span class="o">.</span><span class="n">literal_eval</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>    <span class="nd">@staticmethod</span>
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>    <span class="k">def</span> <span class="nf">read_excel</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;读取简单Excel文件&quot;&quot;&quot;</span>
+<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>        <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a>        <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a>            <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+<a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a>            <span class="n">data</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a>            <span class="k">return</span> <span class="n">data</span>
+<a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a>        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error reading Excel file </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a>
+<a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a>    <span class="nd">@staticmethod</span>
+<a id="__codelineno-3-34" name="__codelineno-3-34" href="#__codelineno-3-34"></a>    <span class="k">def</span> <span class="nf">read_csv</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+<a id="__codelineno-3-35" name="__codelineno-3-35" href="#__codelineno-3-35"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;读取CSV文件&quot;&quot;&quot;</span>
+<a id="__codelineno-3-36" name="__codelineno-3-36" href="#__codelineno-3-36"></a>        <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-3-37" name="__codelineno-3-37" href="#__codelineno-3-37"></a>        <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-3-38" name="__codelineno-3-38" href="#__codelineno-3-38"></a>            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<a id="__codelineno-3-39" name="__codelineno-3-39" href="#__codelineno-3-39"></a>                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+<a id="__codelineno-3-40" name="__codelineno-3-40" href="#__codelineno-3-40"></a>                    <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+<a id="__codelineno-3-41" name="__codelineno-3-41" href="#__codelineno-3-41"></a>                    <span class="k">if</span> <span class="n">line</span><span class="p">:</span>
+<a id="__codelineno-3-42" name="__codelineno-3-42" href="#__codelineno-3-42"></a>                        <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">))</span>
+<a id="__codelineno-3-43" name="__codelineno-3-43" href="#__codelineno-3-43"></a>        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-3-44" name="__codelineno-3-44" href="#__codelineno-3-44"></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error reading CSV file </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-45" name="__codelineno-3-45" href="#__codelineno-3-45"></a>
+<a id="__codelineno-3-46" name="__codelineno-3-46" href="#__codelineno-3-46"></a>        <span class="k">return</span> <span class="n">data</span>
+<a id="__codelineno-3-47" name="__codelineno-3-47" href="#__codelineno-3-47"></a>
+<a id="__codelineno-3-48" name="__codelineno-3-48" href="#__codelineno-3-48"></a>    <span class="nd">@staticmethod</span>
+<a id="__codelineno-3-49" name="__codelineno-3-49" href="#__codelineno-3-49"></a>    <span class="k">def</span> <span class="nf">load_data</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+<a id="__codelineno-3-50" name="__codelineno-3-50" href="#__codelineno-3-50"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;根据文件类型加载数据&quot;&quot;&quot;</span>
+<a id="__codelineno-3-51" name="__codelineno-3-51" href="#__codelineno-3-51"></a>        <span class="k">if</span> <span class="n">file_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.json&#39;</span><span class="p">):</span>
+<a id="__codelineno-3-52" name="__codelineno-3-52" href="#__codelineno-3-52"></a>            <span class="k">return</span> <span class="n">DataLoader</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+<a id="__codelineno-3-53" name="__codelineno-3-53" href="#__codelineno-3-53"></a>        <span class="k">if</span> <span class="n">file_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.xls&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">file_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.xlsx&#39;</span><span class="p">):</span>
+<a id="__codelineno-3-54" name="__codelineno-3-54" href="#__codelineno-3-54"></a>            <span class="k">return</span> <span class="n">DataLoader</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+<a id="__codelineno-3-55" name="__codelineno-3-55" href="#__codelineno-3-55"></a>        <span class="k">if</span> <span class="n">file_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.csv&#39;</span><span class="p">):</span>
+<a id="__codelineno-3-56" name="__codelineno-3-56" href="#__codelineno-3-56"></a>            <span class="k">return</span> <span class="n">DataLoader</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+<a id="__codelineno-3-57" name="__codelineno-3-57" href="#__codelineno-3-57"></a>
+<a id="__codelineno-3-58" name="__codelineno-3-58" href="#__codelineno-3-58"></a>
+<a id="__codelineno-3-59" name="__codelineno-3-59" href="#__codelineno-3-59"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<a id="__codelineno-3-60" name="__codelineno-3-60" href="#__codelineno-3-60"></a>    <span class="n">json_data</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="s1">&#39;../data/example.json&#39;</span><span class="p">)</span>
+<a id="__codelineno-3-61" name="__codelineno-3-61" href="#__codelineno-3-61"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">json_data</span><span class="p">)</span>
+<a id="__codelineno-3-62" name="__codelineno-3-62" href="#__codelineno-3-62"></a>    <span class="n">xls_data</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="s1">&#39;../data/example.xls&#39;</span><span class="p">)</span>
+<a id="__codelineno-3-63" name="__codelineno-3-63" href="#__codelineno-3-63"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">xls_data</span><span class="p">)</span>
+<a id="__codelineno-3-64" name="__codelineno-3-64" href="#__codelineno-3-64"></a>    <span class="n">xlsx_data</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="s1">&#39;../data/example.xlsx&#39;</span><span class="p">)</span>
+<a id="__codelineno-3-65" name="__codelineno-3-65" href="#__codelineno-3-65"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">xlsx_data</span><span class="p">)</span>
+<a id="__codelineno-3-66" name="__codelineno-3-66" href="#__codelineno-3-66"></a>    <span class="n">csv_data</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="s1">&#39;../data/example.csv&#39;</span><span class="p">)</span>
+<a id="__codelineno-3-67" name="__codelineno-3-67" href="#__codelineno-3-67"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">csv_data</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="_21">资料参考与数据来源<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h2>
+<p><a href="https://www.showmeai.tech/article-detail/197">图解机器学习|聚类算法详解</a></p>
+<p><a href="https://gitcode.com/open-source-toolkit/f4a24/overview">聚类算法数据集资源</a>
+该数据集资源包括：
+- Iris鸢尾花数据集
+- Wine葡萄酒数据集
+- Seed小麦种子数据集
+- glass数据集
+- WDBD乳腺癌数据集
+- 人工数据集（Flame、Spiral等）</p>
+<p><a href="https://cloud.tencent.com/developer/news/1224037">XLSX vs XLS：了解Excel文件格式的差异与优势</a></p>
+<p><a href="https://blog.csdn.net/qq_36777143/article/details/131087742">.xls 和 .xlsx的区别是什么？底层原理是什么？</a></p>
+<p><a href="https://www.bilibili.com/video/BV1KJ411U7cP">非监督学习之高斯混合模型GMM</a></p>
+<p><a href="https://aandds.com/blog/gmm.html#50a124ac">GMM(Gaussian Mixture Model)</a></p>
+<p><a href="https://aandds.com/blog/expectation-maximization.html">Expectation–maximization algorithm</a></p>
+<p><a href="https://houbb.github.io/2020/01/28/math-08-em">EM Algorithm 最大期望算法(Expectation Maximization)</a></p>
+<p><a href="https://www.hrwhisper.me/machine-learning-guassian-mixed-model/">『我爱机器学习』高斯混合模型(GMM)</a></p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+      
+    </article>
+  </div>
+
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+        
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../pyqt5-python%E6%A1%8C%E9%9D%A2%E5%BC%80%E5%8F%91/" class="md-footer__link md-footer__link--prev" aria-label="上一页: PyQt5 Python桌面开发">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                PyQt5 Python桌面开发
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../19/%E4%B8%93%E9%A2%986-ubuntu%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95%E6%9D%83%E9%99%90/" class="md-footer__link md-footer__link--next" aria-label="下一页: 专题6-Ubuntu文件和目录权限">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                专题6-Ubuntu文件和目录权限
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 Caicloudcat
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://wakecai.github.io/CaiCloudCatBlog" target="_blank" rel="noopener" title="wakecai.github.io" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.395 15.035a40 40 0 0 0-.803-2.264l-1.079-2.695c.001-.032.014-.562.014-.836C19.526 4.632 17.351 0 12 0S4.474 4.632 4.474 9.241c0 .274.013.804.014.836l-1.08 2.695a39 39 0 0 0-.802 2.264c-1.021 3.283-.69 4.643-.438 4.673.54.065 2.103-2.472 2.103-2.472 0 1.469.756 3.387 2.394 4.771-.612.188-1.363.479-1.845.835-.434.32-.379.646-.301.778.343.578 5.883.369 7.482.189 1.6.18 7.14.389 7.483-.189.078-.132.132-.458-.301-.778-.483-.356-1.233-.646-1.846-.836 1.637-1.384 2.393-3.302 2.393-4.771 0 0 1.563 2.537 2.103 2.472.251-.03.581-1.39-.438-4.673"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.top", "navigation.footer", "navigation.indexes", "navigation.sections", "navigation.tabs", "navigation.tabs.sticky", "search.suggest", "content.code.copy", "search.highlight", "navigation.instant.progress", "navigation.instant.prefetch", "toc.follow"], "search": "../../../../../assets/javascripts/workers/search.6ce7567c.min.js", "tags": {"Default": "default-tag", "Hardware": "hardware-tag", "Software": "software-tag"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
