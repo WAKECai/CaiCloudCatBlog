@@ -1,6 +1,6 @@
-# 过往标签和UP主
+# 过往书签和UP主
 
-## 过往标签
+## 过往书签
 
 ### ChatGPTAndAI
 [ChatGPT-Free](https://freegpt.one/)
@@ -168,9 +168,27 @@ SilenceOB
 
 [老耗游戏](https://space.bilibili.com/328538733/)
 
+[胡凯利_洞主](https://space.bilibili.com/393671271/)
 
+[布锅锅](https://space.bilibili.com/25503580/)
 
+[镜灵白](https://space.bilibili.com/3493105242212799/)
 
+[Steam官方特惠](https://space.bilibili.com/518876755/)
+
+[龙崎棒棒糖](https://space.bilibili.com/4564056/)
+
+[游戏X博士](https://space.bilibili.com/356798697/)
+
+[-勾魂公狒狒-](https://space.bilibili.com/419121167/)
+
+[冲男阿凉](https://space.bilibili.com/239060440/)
+
+[BBGG丶狮子喵](https://space.bilibili.com/237311595/)
+
+[框框老师课堂](https://space.bilibili.com/661141753/)
+
+[南原不圆](https://space.bilibili.com/83987060/)
 
 ### 游戏官号
 
@@ -180,11 +198,7 @@ SilenceOB
 
 [战双帕弥什](https://space.bilibili.com/382651856/)
 
-
-
-
-
-
+[苍翼-混沌效应](https://space.bilibili.com/1663803541/)
 
 ### 杂七杂八
 
@@ -222,43 +236,22 @@ SilenceOB
 
 [大老师Sam](https://space.bilibili.com/429741851/)
 
-[布锅锅](https://space.bilibili.com/25503580/)
-
 [一个蟹蟹梨](https://space.bilibili.com/480305216/)
 
 [泛式](https://space.bilibili.com/63231/)
 
-[镜灵白](https://space.bilibili.com/3493105242212799/)
-
-[Steam官方特惠](https://space.bilibili.com/518876755/)
-
 [YJango](https://space.bilibili.com/344849038/)
 
-[胡凯利_洞主](https://space.bilibili.com/393671271/)
 
-[南原不圆](https://space.bilibili.com/83987060/)
 
 [苗儿老师Joyce](https://space.bilibili.com/495816697/)
 
-[苍翼-混沌效应](https://space.bilibili.com/1663803541/)
-
 [阿文今天吃什么丶](https://space.bilibili.com/3461565930015324/)
-
-[BBGG丶狮子喵](https://space.bilibili.com/237311595/)
 
 [郭本尼](https://space.bilibili.com/8365699/)
 
-[龙崎棒棒糖](https://space.bilibili.com/4564056/)
-
-[游戏X博士](https://space.bilibili.com/356798697/)
-
-[框框老师课堂](https://space.bilibili.com/661141753/)
-
-[-勾魂公狒狒-](https://space.bilibili.com/419121167/)
-
 [开心嘴炮](https://space.bilibili.com/203337614/)
 
-[冲男阿凉](https://space.bilibili.com/239060440/)
 
 [小米公司](https://space.bilibili.com/23920239/)
 

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>网站测试页面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background: #50b3a2;
+            color: white;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #e8491d 3px solid;
+        }
+        header a {
+            color: #ffffff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+        header ul {
+            padding: 0;
+            list-style: none;
+        }
+        header li {
+            display: inline;
+            margin: 0 20px;
+        }
+        header #branding {
+            float: left;
+        }
+        header #branding h1 {
+            margin: 0;
+        }
+        header nav {
+            float: right;
+            margin-top: 10px;
+        }
+        header .highlight, header .current a {
+            color: #e8491d;
+            font-weight: bold;
+        }
+        header a:hover {
+            color: #ffffff;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1>CaiCloudCat的测试网站</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li class="current"><a href="#">首页</a></li>
+                    <li><a href="#">关于我们</a></li>
+                    <li><a href="#">服务</a></li>
+                    <li><a href="#">联系我们</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <section id="showcase">
+            <h1>欢迎来到我的网站</h1>
+            <p>这是一个测试页面，用于检查网站的基本功能。</p>
+        </section>
+        <section id="newsletter">
+            <h2>订阅我们的新闻通讯</h2>
+            <p>订阅以获取最新的更新和优惠。</p>
+            <form>
+                <input type="email" placeholder="输入你的邮箱...">
+                <button type="submit" class="button_1">订阅</button>
+            </form>
+        </section>
+        <section id="boxes">
+            <div class="box">
+                <h3>服务一</h3>
+                <p>描述服务一的内容。</p>
+            </div>
+            <div class="box">
+                <h3>服务二</h3>
+                <p>描述服务二的内容。</p>
+            </div>
+            <div class="box">
+                <h3>服务三</h3>
+                <p>描述服务三的内容。</p>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>版权所有 &copy; 2024 我的网站</p>
+    </footer>
+</body>
+</html>

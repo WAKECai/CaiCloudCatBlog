@@ -39,3 +39,35 @@ $$
 比Ctrl+C/V快10倍的复制粘贴功能
 
 载自：[第03期：新技能，比Ctrl+C/V快10倍的复制粘贴功能](https://sspai.com/post/32331)
+
+## Chrome插件
+
+### AdBlock - 拦截整个网络广告
+
+### Chrono 下载管理器
+
+### BewlyBewly
+
+B站的页面调整
+
+### Global Speed：视频速度控制
+
+### OneTab
+
+### Sider：ChatGPT
+
+### WebTab
+
+### 侧边翻译
+
+### 篡改猴
+
+### 沉浸式翻译
+
+
+## VsCode插件
+
+### Material Icon Theme
+
+编辑图标主题
+

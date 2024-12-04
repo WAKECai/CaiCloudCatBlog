@@ -6,6 +6,7 @@ categories:
 tags:
     - Programme
     - PyQt5
+    - Homework
 ---
 # 农夫过河 Farmer Crossing River
 
