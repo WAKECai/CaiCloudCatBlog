@@ -5,7 +5,7 @@ readtime: 30
 categories:
     - Linux
 ---
-# 专题6-Ubuntu文件和目录权限
+# 专题06-Ubuntu文件和目录权限
 
 简单介绍了Ubuntu文件和目录的权限，也比较详细的讲解了软链接（符号链接）和硬链接，是课上的学习。
 <!-- more -->

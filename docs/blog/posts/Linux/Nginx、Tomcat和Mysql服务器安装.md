@@ -1,19 +1,21 @@
 ---
 date:
     created: 2024-12-01
-    updated: 2024-12-04
+    updated: 2024-12-12
 draft: True
 readtime: 120
 categories:
-    - Linxu
+    - Linux
+    - Tomcat
+    - MySQL
 tags:
     - Linux
     - 服务器
     - Nginx
     - Tomcat
     - MySQL
-
 ---
+
 # 在Linux中安装Nginx、Tomcat和Mysql服务器
 
 本文章将在Linux操作系统中安装Nginx、Tomcat和MySQL服务器，采用虚拟机Linux进行操作，以Ubuntu24.04为例进行安装。
@@ -167,7 +169,7 @@ sudo make install # 安装Nginx
 
 ```bash
 sudo apt update
-sudo apt isstall make
+sudo apt install make
 ```
 
 安装完成后，使用`whereis`命令查看是否安装成功：
@@ -689,9 +691,619 @@ Very interesting article： [How to Install Nginx from Source on Ubuntu](https:/
 
 [Install an NGINX web server on Ubuntu and create a website!](https://medium.com/@terminalsandcoffee/create-a-website-with-nginx-on-ubuntu-7e80a3d17d09)
 
-
 ## Tomcat
+
+Tomcat是一个开源的Web服务器和Servlet容器，它由Apache Software Foundation开发，主要用于运行Java Servlet和JavaServer Pages（JSP）应用程序。Tomcat实现了Java EE规范中的Servlet和JSP部分，但并不包括EJB（Enterprise JavaBeans）等其他部分，因此它通常被认为是一个轻量级的Web容器。
+
+### 安装 Java
+
+通过下面的命令安装 OpenJDK（默认的JDK）：
+
+```shell
+sudo apt install default-jdk
+```
+
+整个下载过程比较长，安装完毕后，使用`java -version`命令查看是否安装成功：
+
+![](../../../PageImage/Pasted%20image%2020241202211652.png)
+可以看到已经安装成功！
+
+### 创建Tomcat用户
+
+为了安全起见，您不应在没有唯一用户的情况下使用 Tomcat。这将使 Tomcat 在 Ubuntu 上的安装更加容易。创建一个将运行该服务的新 tomcat 组：
+
+```shell
+sudo groupadd tomcat
+```
+现在，下一步骤是创建一个tomcat用户。创建 Tomcat 组的用户成员，并使用主目录 opt/tomcat 来运行 Tomcat 服务：
+
+```shell
+sudo useradd -s /bin/false -g tomcat -d /opt/tomcat tomcat
+```
+
+- **禁用登录**：通过将 shell 设置为 `/bin/false`，该用户无法直接登录系统，只能用作服务账户运行 Tomcat。
+- **组管理**：用户被添加到 `tomcat` 组，这样可以更好地管理与 Tomcat 相关的文件和权限。
+- **隔离**：为 Tomcat 服务创建一个独立的账户，可以有效地限制该账户的权限，只允许它访问与 Tomcat 相关的文件和资源，从而提高系统的安全性。
+
+如果想更加简洁的话，使用下面的命令：
+
+```shell
+sudo useradd -m -U -d /opt/tomcat -s /bin/false tomcat
+```
+- `-m`：自动创建该用户的主目录。系统会在默认的位置创建主目录，并将其作为该用户的家目录。在这里，它会在 `/opt/tomcat` 位置创建目录。
+- `-U`：自动创建一个与用户同名的用户组。即，`tomcat` 用户会被添加到一个名为 `tomcat` 的组中。
+- `-d`：指定用户的主目录。这里将 `tomcat` 用户的主目录设置为 `/opt/tomcat`，通常这是 Tomcat 安装目录所在的位置。
+
+### 下载 Tomcat
+
+接下来选择安装哪个Tomcat版本，这里我选择的是 [Tomcat 10版本](https://downloads.apache.org/tomcat/tomcat-10/v10.1.33/bin/)，命令如下：
+
+```shell
+sudo wget https://downloads.apache.org/tomcat/tomcat-10/v10.1.33/bin/apache-tomcat-10.1.33.tar.gz -P /tmp
+```
+
+![](../../../PageImage/Pasted%20image%2020241202214829.png)
+
+并将其解压到`/opt/tomcat`目录中：
+
+```shell
+sudo tar -xvf /tmp/apache-tomcat-10.1.33.tar.gz -C /opt/tomcat
+```
+说明：
+- `-xvf`：`tar`命令的三个选项
+- **`-x`**：表示解压（extract）文件。告诉 `tar` 解压归档文件中的内容。
+- **`-v`**：表示详细模式（verbose）。解压时，显示每个被解压的文件名。
+- **`-f`**：表示文件（file），后面跟着归档文件的路径。`tar` 将会操作该文件。
+- `-C` 选项告诉 `tar` 将文件解压到指定的目录。此处指定的是 `/opt/tomcat`，这意味着解压后的文件将被放置在 `/opt/tomcat` 目录下，如果你没有创建该目录，先手动创建它
+
+
+### 更新Tomcat权限
+
+将Tomcat目录的所有权更改为tomcat用户及组：
+
+```shell
+sudo chown -R tomcat:tomcat /opt/tomcat
+```
+
+![](../../../PageImage/Pasted%20image%2020241202215434.png)
+
+
+### 配置Tomcat
+
+在`/etc/systemd/system`目录下创建 systemd Unit file，名为：`tomcat.service`。
+
+执行下面的命令创建：
+
+```shell
+cd /etc/systemd/system
+sudo nano tomcat.service
+```
+
+将添加下面的内容：
+
+```
+[Unit] 
+Description=Tomcat Server 
+After=network.target 
+
+[Service] 
+Type=forking 
+User=tomcat 
+Group=tomcat 
+Environment="JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64" 
+WorkingDirectory=/opt/tomcat/apache-tomcat-10.1.33
+ExecStart=/opt/tomcat/apache-tomcat-10.1.24/bin/startup.sh 
+
+[Install] 
+WantedBy=multi-user.target
+```
+
+### 重新加载 systemd 并启动Tomcat
+
+重新加载systemd守护进程以应用更改。
+
+```shell
+sudo systemd daemon-reload
+```
+
+启动Tomcat服务：
+
+```shell
+sudo systemctl start tomcat
+```
+
+开启自启动服务：
+
+```shell
+sudo systemctl enable tomcat
+```
+
+接下来通过使用端口号8080的伺服器IP地址来验证是否正常：
+
+![](../../../PageImage/Pasted%20image%2020241202221934.png)
+
+
+参考资料：
+
+[How to Install Tomcat on Ubuntu 24.04 LTS](https://www.fosstechnix.com/how-to-install-tomcat-on-ubuntu-24-04-lts/)
+
+[How to Install Tomcat on Ubuntu in 2024](https://www.hostinger.com/tutorials/how-to-install-tomcat-on-ubuntu/)
+
+
+
+
 
 
 ## MySQL
 
+### 介绍
+
+MySQL的作用
+
+MySQL是一款开源的关系型数据库管理系统（RDBMS），由瑞典MySQL AB公司开发，目前属于Oracle公司旗下产品。它以其体积小、速度快、成本低、开放源码等特点广受中小型网站和开发者的青睐，成为全球最受欢迎的数据库之一。
+
+MySQL支持多种操作系统平台，包括Windows、Linux、macOS等，使得用户可以在不同环境下轻松部署和管理数据库。同时，MySQL还提供了简单易用的SQL语言接口，使得开发者可以方便地进行数据查询、插入、更新和删除等操作。
+
+### MySQL安装
+
+方法一：通过apt-get安装MySQL
+
+方法二：从源码包安装MySQL
+
+在安装前，如果是使用虚拟机的话，推荐先试用快照保存安装前的状态，防止遇到难以出现的问题而造成不必要的麻烦。
+#### 在线安装MySQL
+
+在线安装MySQL是比较方便的，只需要几个简单的命令即可安装MySQL服务，以`Ubuntu 24.04 LTS`版本来安装
+
+使用apt-get包进行安装MySQL，详细可以参考其官方文档[Installing MySQL on Linux Using the MySQL APT Repository](https://dev.mysql.com/doc/refman/8.4/en/linux-installation-apt-repo.html)
+
+添加MySQL官方自带的Apt下载源
+
+去官方下载源文件：
+
+```bash
+sudo wget -c -P /home https://repo.mysql.com//mysql-apt-config_0.8.32-1_all.deb
+```
+
+`wget`是一个用于从网络上下载文件的命令行工具，支持多种网络协议，如 HTTP、HTTPS 和 FTP 等。
+
+`-c`参数表示支持断点续传。如果在下载过程中出现网络中断或其他问题导致下载中断，再次执行相同的`wget`命令加上`-c`参数，`wget`会从上次中断的地方继续下载，而不是重新开始，这样可以节省时间和网络流量。
+
+`-P /home`：`-P`参数用于指定下载文件的保存目录。这里指定将文件下载到`/home`目录下。如果不指定该参数，`wget`通常会将文件下载到当前工作目录。
+
+
+
+在Ubuntu中安装刚下载的源：
+
+> 会出现配置弹框，让你配置要安装啥MySQL版本，一般而言直接使用默认即可
+
+```bash
+sudo apt-get install /home/mysql-apt-config_0.8.32-1_all.deb
+```
+
+如果需要修改安装的MySQL版本（一般无需执行此命令，使用默认即可，但是想要其它MySQL版本方式则需要执行如下命令）
+
+更改MySQL产品版本【会出现一个和上面一样的配置弹框】： 
+
+```bash
+sudo dpkg-reconfigure mysql-apt-config
+```
+
+
+通过MySQL源来加载所选的包列表：
+
+```bash
+sudo apt-get update
+```
+
+
+使用Apt安装MySQL：
+
+```bash
+sudo apt-get install mysql-server
+```
+
+注：若安装是弹出“Enter root password:”则是密码输入框，输入两次即可，后面登录MySQL则使用此密码。
+
+注：若安装是未弹出密码输入框，那么用户则需要通过无密码登录root用户，进去再修改密码。
+
+到这里就已经成功安装了MySQL，通过下面的命令查看MySQL状态：
+
+```bash
+systemctl status mysql
+```
+
+![](../../../PageImage/Pasted%20image%2020241210112303.png)
+
+当然也可以使用`mysql -V`来检查是否安装成功
+
+![](../../../PageImage/Pasted%20image%2020241210133137.png)
+
+#### 离线方式安装MySQL
+
+不是所有的服务器或者电脑都是有公网的，离线方式安装虽然难受，但也是必须要了解的；要将下载的包上传到服务器，在安装的同时遇到了缺少依赖问题，还得再去下载并上传，下面将介绍如何安装对应版本的MySQL。
+
+Ubuntu和Debain缺少的依赖包可以在这个链接下载：[pkgs.org/](https://pkgs.org/)
+
+首先去去下载`Ubuntu24.04`版本的MySQL，下载地址为：[MySQL下载](https://www.mysql.com/downloads/)，进入后可以看到如下：
+![](../../../PageImage/Pasted%20image%2020241210143628.png)
+
+我们进入MySQL社区版下载：
+
+![](../../../PageImage/Pasted%20image%2020241210143705.png)
+
+接着点击MySQL Community Server，进入详细下载：
+
+![](../../../PageImage/Pasted%20image%2020241210144524.png)
+
+最后我们选择下载的页面如下：
+
+![](../../../PageImage/Pasted%20image%2020241210200735.png)
+
+我们这里直接下载DEB Bundle的全量包，将然后解压进行进行安装。
+
+将下载的MySQL8.4的deb包上传到服务器，我将其上传到`/home/caicloudcat/Downloads`目录下，然后通过dpkg安装。
+
+```bash
+tar -xvf mysql-server_8.4.3-1ubuntu24.04_amd64.deb-bundle.tar
+```
+
+![](../../../PageImage/Pasted%20image%2020241210201706.png)
+
+`dpkg`是一个非常重要的软件包管理工具，用于安装、卸载、查询和管理`.deb`软件包
+
+```text
+dpkg [option] [package_name.deb]
+```
+其中，`option`是各种可选操作参数，`package_name.deb`是要操作的`.deb`软件包文件名或已安装软件包的名称。
+
+**常用参数及操作**
+
+- 安装软件包
+    - 语法：`dpkg -i package.deb`
+    - 示例：`dpkg -i myapp_1.0.0.deb`，将名为`myapp_1.0.0.deb`的软件包安装到系统中。
+- 卸载软件包
+    - 语法：`dpkg -r package_name` 或 `dpkg -P package_name`
+    - 示例：`dpkg -r myapp`，将名为`myapp`的已安装软件包卸载，但保留其配置文件；若使用`dpkg -P myapp`，则会彻底删除软件包及相关配置文件。
+- 查询软件包信息
+    - 查询已安装软件包的详细信息：`dpkg -s package_name`，例如`dpkg -s firefox`，会显示`firefox`软件包的详细信息，包括版本、安装状态、依赖关系等。
+    - 查询系统中所有已安装的软件包列表：`dpkg -l`，会列出系统中所有已安装软件包的名称、版本、架构等信息。
+    - 查询指定软件包的安装位置：`dpkg -L package_name`，如`dpkg -L vim`，会显示`vim`软件包在系统中的安装目录及文件列表。
+    - 查询未安装软件包的信息：`dpkg -I package.deb`，可以查看未安装的`.deb`软件包的详细信息，如包名、版本、依赖关系等。
+- 重新配置软件包
+    - 语法：`dpkg-reconfigure package_name`
+    - 示例：`dpkg-reconfigure locales`，可以重新配置`locales`软件包的设置，如语言环境等。
+
+**依赖关系处理**
+
+- `dpkg`本身在处理软件包依赖关系时比较简单直接，如果安装的软件包存在依赖问题，可能会出现安装失败的情况。
+- 通常在这种情况下，需要先手动安装依赖的软件包，或者使用更高级的包管理工具如`apt`来解决依赖问题，因为`apt`在安装软件包时会自动处理依赖关系。
+
+**注意事项**
+
+- 使用`sudo`权限：大多数`dpkg`操作需要`sudo`权限，因为这些操作涉及到系统软件包的安装和管理，普通用户通常没有足够的权限进行这些操作。
+- 谨慎卸载：在卸载软件包时要谨慎，尤其是使用`dpkg -P`彻底删除软件包及配置文件时，可能会导致一些配置丢失或系统功能异常，特别是对于一些系统关键软件包。
+- 依赖问题：安装软件包前最好先了解其依赖关系，确保所需的依赖软件包已安装或可通过其他方式获取，以避免安装失败。
+
+使用`dpkg`的安装顺序：
+
+```bash
+sudo dpkg -i  mysql-community-client-plugins_8.4.3-1ubuntu24.04_amd64.deb
+sudo dpkg -i  mysql-community-client-core_8.4.3-1ubuntu24.04_amd64.deb
+sudo dpkg -i  mysql-common_8.4.3-1ubuntu24.04_amd64.deb
+sudo dpkg -i  mysql-community-client_8.4.3-1ubuntu24.04_amd64.deb
+sudo dpkg -i  mysql-client_8.4.3-1ubuntu24.04_amd64.deb
+sudo dpkg -i  libmysqlclient24_8.4.3-1ubuntu24.04_amd64.deb
+sudo dpkg -i  libmysqlclient-dev_8.4.3-1ubuntu24.04_amd64.deb
+sudo dpkg -i  mysql-community-server-core_8.4.3-1ubuntu24.04_amd64.deb
+sudo dpkg -i  mysql-community-server_8.4.3-1ubuntu24.04_amd64.deb
+sudo dpkg -i  mysql-server_8.4.3-1ubuntu24.04_amd64.deb
+# 如遇失败：sudo apt-get remove --purge ...
+```
+
+
+![](../../../PageImage/Pasted%20image%2020241210201910.png)
+
+![](../../../PageImage/Pasted%20image%2020241210201923.png)
+
+mysql server安装过程中会提示输入root用户密码，我这里使用的密码是`root`，待所有安装完成后，使用命令登陆即可。
+
+通过`mysql -V`来检查是否安装成功：
+![](../../../PageImage/Pasted%20image%2020241210202153.png)
+
+安装完成后，可以通过`find / -name mysql`来查看相关文件，下面是一些具体的主目录：
+
+```shell
+/etc/mysql 这是MySQL的主配置目录，存放MySQL服务器的配置文件（'my.cnf文件就在这'）
+
+/var/lib/mysql 这是MySQL数据库的数据存储目录，包含实际的数据库文件（'重要的目录，我们创建的数据库数据都在这'）
+
+/var/lib/mysql/mysql 这是MySQL系统数据库mysql的专用目录
+
+/var/log/mysql 这是MySQL的日志目录，存放MySQL服务器的日志文件
+
+/usr/lib/mysql 这是MySQL库文件的存储目录
+
+/usr/bin/mysql 这是MySQL客户端工具的可执行文件位置
+
+/usr/include/mysql 这是MySQL开发库的头文件存放位置，用于开发与MySQL交互的应用程序
+
+/usr/include/mysql/mysql 这个子目录通常包含MySQL库的更具体的头文件。
+```
+
+
+dpkg和apt-get有什么区别？
+
+在 Ubuntu 及其他基于 Debian 的 Linux 系统中，`dpkg`和`apt-get`都是常用的软件包管理工具，它们之间存在以下一些区别：
+
+功能侧重
+
+- **dpkg**：主要用于对本地的`.deb`软件包进行底层操作，如安装、卸载、查询等，侧重于对单个软件包文件的直接处理，不自动解决软件包之间的依赖关系。
+- **apt-get**：是一个更高级的软件包管理工具，在`dpkg`的基础上进行了封装，不仅可以安装、卸载和查询软件包，还能自动处理软件包之间的依赖关系，从软件源中获取软件包并进行安装。
+
+依赖关系处理
+
+- **dpkg**：在安装或卸载软件包时，如果存在依赖关系问题，通常会直接报错并停止操作，需要用户手动解决依赖关系后再继续。
+- **apt-get**：会自动检测并解决软件包的依赖关系，在安装一个软件包时，它会自动下载并安装该软件包所依赖的其他软件包，在卸载时也会根据依赖情况决定是否删除相关软件包。
+
+软件源管理
+
+- **dpkg**：不直接涉及软件源的管理，它只对本地的`.deb`文件进行操作，安装软件包时需要用户手动指定本地软件包文件的路径。
+- **apt-get**：与软件源紧密相关，通过配置的软件源来获取软件包列表和软件包本身。用户可以方便地使用`apt-get`命令添加、删除或更新软件源，系统会根据软件源中的信息自动下载最新版本的软件包。
+
+操作的便捷性与灵活性
+
+- **dpkg**：操作相对较为简单直接，适合对单个`.deb`文件进行快速安装、卸载或查询等基本操作，对于熟悉软件包内部结构和依赖关系的用户来说，具有较高的灵活性。
+- **apt-get**：提供了更丰富的命令选项和功能，使用起来更加方便和友好，适合普通用户进行日常的软件安装、更新和卸载等操作。例如，`apt-get update`用于更新软件源列表，`apt-get upgrade`用于升级系统中所有可升级的软件包。
+
+系统完整性和稳定性
+
+- **dpkg**：由于不自动处理依赖关系，如果用户在使用`dpkg`安装或卸载软件包时不小心处理不当，可能会导致系统中软件包的依赖关系混乱，影响系统的稳定性和正常运行。
+- **apt-get**：在处理软件包操作时会更加谨慎和全面，自动解决依赖关系有助于保持系统的完整性和稳定性，降低因软件包管理不当而导致系统故障的风险。
+
+### 卸载MySQL
+
+Ubuntu卸载MySQL，以`Ubuntu24.04(LTS)`为例
+
+首先查看以及安装的MySQL信息
+
+```bash
+dpkg --get-selections | grep "mysql"
+```
+
+![](../../../PageImage/Pasted%20image%2020241210112936.png)
+
+卸载查询出来的关于MySQL的依赖信息
+
+```bash
+sudo apt-get remove --purge mysql-apt-config mysql-client-8.0 mysql-client-core-8.0 mysql-common mysql-server mysql-server-8.0 mysql-server-core-8.0
+```
+
+卸载的过程中会弹出确认框，我们选择 Yes 即可卸载。
+
+具体也可以参考这两篇文章：
+
+[在 Ubuntu 中如何完全卸载 MySQL 服务器？](https://cloud.tencent.com/developer/article/2295215)
+
+[How to Uninstall MySQL from Ubuntu 24.04 (for Beginners)](https://ubuntushell.com/uninstall-mysql-from-ubuntu/)
+
+### MySQL服务状态处理
+
+注意：
+
+- 在Ubuntu下的MySQL服务名为`mysql.service`
+- 在CentOS下的MySQL服务名为`mysqld.service`
+
+基本命令
+
+```bash
+systemctl status mysql.service 【查询MySQL在系统的状态】 
+systemctl start mysql.service 【启动MySQL服务】 
+systemctl stop mysql.service 【关闭MySQL服务】 
+systemctl restart mysql.service 【重启MySQL服务】 
+ps -ef | grep mysql 【查看MySQL进程】
+```
+
+其他命令
+
+```shell
+# 查询MySQL服务是否是自启动
+systemctl list-unit-files | grep mysql.service
+# enabled和disable分别为是和否
+
+# 设置开机自启动
+systemctl enable mysql.service
+# 设置开机不自启动
+systemctl disable mysql.service
+```
+
+也可以使用下面的命令开启或关闭服务
+
+```bash
+sudo service mysql start
+sudo service mysql stop
+
+sudo service mysql restart
+```
+
+![](../../../PageImage/Pasted%20image%2020241210133656.png)
+
+
+### 远程连接MySQL
+
+在本地（Windows系统）安装Navicat等客户端工具，并远程连接MySQL。
+
+#### 本机ping远程的IP地址
+
+首先在本机ping一下远程的IP地址是否网络通畅
+
+![](../../../PageImage/Pasted%20image%2020241210132032.png)
+
+
+#### 防火墙放行
+
+确保当前MySQL端口已被开放或者关闭了防火墙
+
+Ubuntu的防火墙操作（ufw）：
+
+```bash
+# 查看防火墙状态
+ufw status
+# 开启或关闭防火墙
+ufw enable
+ufw disable
+# 若开启了防火墙需要开启3306端口
+ufw allow 3306 comment "MySQL端口放行"
+# 更新防火墙规则
+ufw reload
+```
+
+可以看到一开始防火墙是没有放行的：
+
+![](../../../PageImage/Pasted%20image%2020241210132824.png)
+
+输入下面的命名后，即可打开：
+
+```shell
+sudo ufw allow 3306 comment "MySQL端口放行"
+sudo ufw reload
+```
+
+![](../../../PageImage/Pasted%20image%2020241210132943.png)
+
+#### MySQL命令行操作
+
+**进入MySQL**
+
+默认是没有密码的，但不能用当前用户进入，而是需要提权
+
+注：需要提权，是因为没有启动服务，如果启动服务，后就不再需要提权了，下面也是。
+
+```bash
+sudo mysql -uroot -p
+```
+
+![](../../../PageImage/Pasted%20image%2020241210133859.png)
+
+如果是离线下载，这里会弹出错误：
+
+![](../../../PageImage/Pasted%20image%2020241210204118.png)
+
+可以在`etc/mysql/mysql.conf.d/mysqld.cnf`MySQL配置文件中添加`mysql_native_password=ON`再重启服务即可解决。
+
+**修改密码**
+
+在进入MySQL的命令行模式后，进行下面的操作：
+
+```mysql
+alter user 'root'@'localhost' identified by 'root';
+
+flush privileges;
+
+exit;
+```
+
+![](../../../PageImage/Pasted%20image%2020241210134153.png)
+
+再次使用`sudo mysql -uroot -p`命令，进入mysql，输入修改后的密码`root`，即可进入mysql。
+
+完成后，重启服务`sudo service mysql restart`
+
+
+先进入mysql，查看所有的数据库：
+
+```mysql
+show database;
+```
+
+```bash
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.01 sec)
+
+```
+
+选择mysql数据库：
+
+```mysql
+use mysql;
+```
+
+允许任何IP远程连接：
+
+```mysql
+update user set Host='%' where User='root';
+```
+
+在 MySQL 的用户表中，`Host`字段表示允许用户登录的主机地址。
+
+默认情况下，`root`用户可能只允许从本地（`127.0.0.1`）登录。将`Host`字段的值设置为`%`，这是一个通配符，表示允许`root`用户从任何 IP 地址登录，`Host=192.168.1.%`表示只要是IP地址为`192.168.1.*`的客户端都可以连接。
+
+通过`update`语句，可以修改用户表中的记录，更新`root`用户的主机访问权限。
+
+设置密码规则：
+
+```mysql
+ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'root';
+```
+
+在这里，将`root`用户（`'root'@'%'`表示从任何主机访问的`root`用户）的认证方式设置为`mysql_native_password`，并将密码设置为`root`。
+
+`mysql_native_password`是 MySQL 的一种常见的密码认证方式，通过这种方式设置密码后，用户在登录时需要提供正确的密码才能访问数据库。
+
+设置远程访问：
+
+```mysql
+grant all privileges on *.* to 'root'@'%' with grant option;
+```
+
+`grant`语句用于授予用户权限。`all privileges`表示授予所有权限，`*.*`表示对所有数据库和所有数据表（第一个`*`代表数据库，第二个`*`代表数据表）。`'root'@'%'`表示从任何主机访问的`root`用户，`with grant option`表示被授予权限的用户（这里是`root`用户）可以将这些权限再授予其他用户。这样就全面地设置了`root`用户从任何主机访问时的所有权限。
+
+指令刷新并退出：
+
+```mysql
+flush privileges;
+exit;
+```
+
+`flush privileges;`命令用于刷新 MySQL 的权限缓存。当对用户权限进行修改（如通过`update`或`grant`语句）后，MySQL 不会立即生效这些更改，需要执行这个命令来使新的权限设置生效。
+
+
+注释掉`mysqld.cnf`中`bind-address=127.0.0.1`：
+
+打开文件`/etc/mysql/mysql.conf.d/mysqld.cnf`，设置成如下内容，即将其注释掉。
+
+```bash
+#bind-address=127.0.0.1
+mysqlx-bind-address  = 127.0.0.1
+```
+
+在 MySQL 的配置文件`etc/mysql/mysql.conf.d/mysqld.cnf`中，`bind-address`选项用于指定 MySQL 服务器监听的 IP 地址。默认情况下，设置为`127.0.0.1`，这意味着 MySQL 服务器只接受来自本地（本机）的连接。通过将其注释掉，MySQL 服务器将监听所有可用的网络接口，从而允许来自其他主机（远程主机）的连接，前提是已经设置了用户权限允许远程访问。
+
+最后重启服务：
+
+```bash
+sudo service mysql restart
+```
+
+在本机中的Navicat中测试连接，输入你的虚拟机IP以及密码，进行测试连接，若连接成功会有弹窗。
+
+![](../../../PageImage/Pasted%20image%2020241210141429.png)
+
+
+### 参考资料
+
+[MySQL安装配置及卸载（超详细、各种安装方式）](https://juejin.cn/post/7409675898326597671)
+
+[ubuntu离线安装mysql](https://www.cnblogs.com/-llf/p/18528260)
+
+[在 Ubuntu 中如何完全卸载 MySQL 服务器？](https://cloud.tencent.com/developer/article/2295215)
+
+[How to Uninstall MySQL from Ubuntu 24.04 (for Beginners)](https://ubuntushell.com/uninstall-mysql-from-ubuntu/)

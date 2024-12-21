@@ -17,11 +17,15 @@ categories:
 测试PDF：[example.pdf](https://mathpix.com/examples.pdf)
 
 
+## SimpleTex 推荐
+
+同Mathpix，重点是免费，也比较好用，与Mathpix相同，由国内制作，非常推荐，需求不高可以使用，也可以冲会员来获取优先使用流量。
+
 $$
 f(x)=\frac{1}{\sqrt{2 \pi \sigma x}} e^{-\frac{(x-\mu)^2}{2 \sigma^2}}
 $$
 
-## Snipaste
+## Snipaste 推荐
 
 一款极简的屏幕截屏软件
 

@@ -190,6 +190,12 @@ SilenceOB
 
 [南原不圆](https://space.bilibili.com/83987060/)
 
+谁不重要i
+
+森纳映画
+
+
+
 ### 游戏官号
 
 千年之旅ELF
@@ -242,7 +248,7 @@ SilenceOB
 
 [YJango](https://space.bilibili.com/344849038/)
 
-
+哦呼w
 
 [苗儿老师Joyce](https://space.bilibili.com/495816697/)
 
@@ -264,10 +270,6 @@ SilenceOB
 [中国联合航空](https://space.bilibili.com/3493105516940037/)
 
 [佟大大还是ETT](https://space.bilibili.com/123321175/)
-
-
-
-
 
 
 
@@ -317,6 +319,22 @@ GPT中英字幕课程资源
 
 [孤烟暮蝉](https://space.bilibili.com/19248926/)
 
+乌鸦校尉
 
 
+## 其他
+
+上将王司徒
+
+丹尼斯deniss
+
+kou仔
+
+声物课
+
+AndrewCap
+
+逍遥散人
+
+钱丢丢
 

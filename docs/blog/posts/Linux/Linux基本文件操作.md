@@ -8,7 +8,7 @@ tags:
     - Linux
 ---
 
-# 专题2-Linux基本文件操作
+# 专题02-Linux基本文件操作
 
 Linux基本文件操作讲解。
 <!-- more -->

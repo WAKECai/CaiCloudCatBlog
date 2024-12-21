@@ -7,7 +7,7 @@ tags:
     - Linux
 ---
 
-# 专题5-Ubuntu用户管理
+# 专题05-Ubuntu用户管理
 
 简单介绍下Ubuntu的用户管理
 <!-- more -->

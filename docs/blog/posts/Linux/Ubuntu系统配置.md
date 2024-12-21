@@ -8,7 +8,7 @@ tags:
     - Linux
 ---
 
-# 专题7-Ubuntu系统配置
+# 专题07-Ubuntu系统配置
 
 ## 1 引言
 
