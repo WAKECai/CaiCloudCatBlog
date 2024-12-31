@@ -1,12 +1,14 @@
 ---
 date:
     created: 2024-12-17
+
 categories:
     - Linux
 
 tags:
     - Linux
 ---
+
 
 # 专题12-使用 systemctl 命令
 
@@ -221,5 +223,4 @@ sudo systemctl enable nginx
 sudo systemctl enable mysql
 ```
 
-如果是自己用源码安装Nginx，则可以通过配置Systemd File之后，就可以使用`systemctl`来操作，具体操作在之前的[Nginx、Tomcat和Mysql服务器安装](Nginx、Tomcat和Mysql服务器安装.md)中的配置Systemd File。
-
+如果是自己用源码安装Nginx，则可以通过配置Systemd File之后，就可以使用`systemctl`来操作，具体操作在之前的[Nginx、Tomcat和Mysql服务器安装](./Nginx、Tomcat和Mysql服务器安装.md)中的配置Systemd File。
