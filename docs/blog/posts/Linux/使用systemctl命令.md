@@ -25,8 +25,7 @@ systemd 是一个系统和服务管理器，提供了一个统一的框架来启
 
 在Windows中，有一个类似的”服务“管理器，点击桌面左下角的Windows图标或按下键盘上的Win键，打开“开始”菜单，在开始菜单的搜索栏中键入“服务”，然后在搜索结果中选择“服务”应用程序。
 
-![](../../../PageImage/Pasted%20image%2020241217103301.png)
-
+![image text](../../../PageImage/Pasted%20image%2020241217103301.png)
 
 ### 常用的 systemctl 命令及其功能
 
@@ -190,7 +189,6 @@ sudo systemctl isolate multi-user.target
 
 这些命令提供了对服务和系统管理的广泛控制，使得系统管理员能够轻松地管理系统运行的各种方面。
 
-
 ## 用 systemctl 命令管理 Nginx 和 MySQL 服务
 
 用 systemctl命令管理Nginx和MySQL服务，例如查看服务状态，把服务设置为开机自启动等。
@@ -202,9 +200,9 @@ sudo systemctl status nginx
 sudo systemctl status mysql
 ```
 
-![](../../../PageImage/Pasted%20image%2020241217104242.png)
+![image text](../../../PageImage/Pasted%20image%2020241217104242.png)
 
-![](../../../PageImage/Pasted%20image%2020241217104320.png)
+![image text](../../../PageImage/Pasted%20image%2020241217104320.png)
 
 检查一下两者的服务是否自启动：
 

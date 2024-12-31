@@ -15,7 +15,7 @@ tags:
 
 简单的介绍一下DNS、HTTPDNS和短地址。
 
-<!--more-->
+<!-- more -->
 
 ## DNS
 
