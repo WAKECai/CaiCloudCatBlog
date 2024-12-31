@@ -3,6 +3,7 @@
 ## 过往书签
 
 ### ChatGPTAndAI
+
 [ChatGPT-Free](https://freegpt.one/)
 
 [Chatgpt在线网页版-永久免费使用](https://chatgpt.qdymys.cn/#/chat/1002)
@@ -25,7 +26,6 @@
 
 [SGAMES-专注于精品游戏，各类可联机精品资源](https://www.s-sgames.com/)
 
-
 ### Learning
 
 [大家论坛](https://club.topsage.com/forum.php)
@@ -41,13 +41,12 @@
 ### Other
 
 [浙江理工大学导师制管理系统](http://124.71.187.97/inno-2.0/#/teacher?ts=1686979790888)
- 
+
 [byoungd](https://byoungd.gitbook.io/english-level-up-tips/part-i/1-understanding)
- 
+
 [Python for Data Analysis, 3E - 1  Preliminaries](https://wesmckinney.com/book/preliminaries)
 
 [免费学习测试](https://chat5.wuguokai.top/#/chat/1681890688675)
-
 
 [ScienceDirect.com | Science, health and medical journals, full text articles and books.](https://www.sciencedirect.com/)
 
@@ -58,7 +57,6 @@
 [聚合数据 - API接口开放平台_API接口大全_免费API数据接口服务](https://www.juhe.cn/)
 
 [在线工具 - 你的工具箱](https://tool.lu/)
-
 
 [ElAmigos official site](https://elamigos.site/)
 
@@ -111,8 +109,6 @@
 [Sci-Hub: 对每个人的知识](https://sci-hub.se/)
 
 [Eric Wong / Vim 从入门到精通 · GitLab](https://gitlab.com/wsdjeg/vim-galore-zh_cn#简介)
-
-
 
 ## 过往UP主
 
@@ -194,8 +190,6 @@ SilenceOB
 
 森纳映画
 
-
-
 ### 游戏官号
 
 千年之旅ELF
@@ -258,7 +252,6 @@ SilenceOB
 
 [开心嘴炮](https://space.bilibili.com/203337614/)
 
-
 [小米公司](https://space.bilibili.com/23920239/)
 
 [一只王霸天](https://space.bilibili.com/353019540/)
@@ -270,8 +263,6 @@ SilenceOB
 [中国联合航空](https://space.bilibili.com/3493105516940037/)
 
 [佟大大还是ETT](https://space.bilibili.com/123321175/)
-
-
 
 ### 学习
 
@@ -313,14 +304,11 @@ GPT中英字幕课程资源
 
 [科学探照灯er](https://space.bilibili.com/1513757311/)
 
-
-
 ### 时政
 
 [孤烟暮蝉](https://space.bilibili.com/19248926/)
 
 乌鸦校尉
-
 
 ## 其他
 
@@ -338,3 +326,14 @@ AndrewCap
 
 钱丢丢
 
+全球档案馆
+
+中国BOY超级大猩猩
+
+虫哥说电影
+
+GM的秘密基地
+
+歪果仁研究协会
+
+李玉刚

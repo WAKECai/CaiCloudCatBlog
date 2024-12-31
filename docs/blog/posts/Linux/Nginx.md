@@ -3,7 +3,6 @@ date:
     created: 2024-12-02
     updated: 2024-12-12
 
-draft: True
 categories:
     - Server
     - Nginx
@@ -25,6 +24,13 @@ Nginx最初由Igor Sysoev为俄罗斯访问量第二的Rambler.ru站点开发，
 
 ## 安装Nginx
 
+常用版本分为四大阵营：
+
+- Nginx开源版：<http://nginx.org/>
+- Nginx Plus商业版：<https://www.nginx.com/products/nginx/>
+- Tengine：<https://tengine.taobao.org/>
+- OpenResty：<https://openresty.org/>
+
 安装Nginx有几种常见的方法
 
 方法一：通过APT包管理器安装，即使用`apt-get`命令安装
@@ -32,7 +38,6 @@ Nginx最初由Igor Sysoev为俄罗斯访问量第二的Rambler.ru站点开发，
 方法二：从源码包安装
 
 详细具体操作看之前的笔记文章：[在Linux中安装Nginx、Tomcat和Mysql服务器](./Nginx、Tomcat和Mysql服务器安装.md)
-
 
 ## 创建Nginx虚拟主机(Virtual Host)
 
@@ -130,7 +135,6 @@ sudo vim /etc/nginx/sites-available/website1.com
 
 > Nginx 虚拟主机配置文件可以随意命名，但通常最好使用域名。
 
-
 将以下内容粘贴到虚拟主机文件`website1.com`中：
 
 ```bash
@@ -167,7 +171,6 @@ server {
 用来设定错误日志的存放位置。当 Nginx 在运行过程中出现错误，比如配置文件语法错误、无法正确读取网页文件等情况时，相关的错误信息会被记录到这个指定的日志文件中，方便管理员查看具体的错误原因，进而对服务器配置或者网站文件等进行修复和调整。
 
 同样，其余的域名命名操作也是重复上述操作。
-
 
 #### 4.启用Nginx虚拟主机
 
@@ -222,8 +225,6 @@ sudo vim /etc/hosts
 
 如果想让你的主机（Windows）也同样能够测试，则可以参考[window下配置hosts文件，使虚拟机主机名与IP地址映射](https://blog.csdn.net/mango_ZZY/article/details/109017647)，其`hosts`是在`C:\Windows\System32\drivers\etc`中。
 
-
-
 #### 6.禁用Nginx虚拟主机
 
 要在 Nginx 中禁用虚拟主机，我们必须删除在启用虚拟主机文件时创建的符号链接。例如，要禁用`website2.com` ，我们必须执行以下命令：
@@ -238,7 +239,6 @@ sudo rm -rf /etc/nginx/sites-enabled/website2.com
 sudo systemctl restart nginx
 ```
 
-
 ## 配置SSL
 
 ### 什么是SSL？
@@ -247,7 +247,7 @@ sudo systemctl restart nginx
 
 SSL（Secure Sockets Layer）安全套接层是一种为网络通信提供安全及数据完整性的协议。以下是详细内容：
 
-**一、SSL的基本概念**
+一、SSL的基本概念
 
 1. **历史背景**
    - SSL最初是由网景公司（Netscape）在1994年开发的，目的是为了解决互联网上数据传输的安全问题。随着互联网的发展，它逐渐成为保障网络通信安全的重要技术。后来，SSL协议的版本不断更新，虽然SSL 3.0由于安全漏洞等问题逐渐被弃用，但它为后续更安全的TLS（Transport Layer Security）协议奠定了基础。
@@ -260,7 +260,7 @@ SSL（Secure Sockets Layer）安全套接层是一种为网络通信提供安全
    - **验证身份**：SSL协议可以通过数字证书来验证通信双方的身份。服务器向客户端发送其数字证书，客户端可以通过验证证书的合法性（如检查证书是否由可信的证书颁发机构颁发、证书是否过期等）来确认服务器的身份。在一些双向认证的场景中，客户端也可以向服务器发送自己的数字证书，以实现双方身份的验证。
    - **保证数据完整性**：使用消息认证码（MAC）等技术来确保数据在传输过程中没有被篡改。发送方在发送数据时会计算数据的MAC值，并将其与数据一起发送。接收方在收到数据后，会重新计算MAC值，并与接收到的MAC值进行比较。如果两者一致，则说明数据没有被篡改。
 
-**二、SSL加密过程**
+二、SSL加密过程
 
 1. **密钥交换阶段**
    - 采用非对称加密算法进行密钥交换。例如，服务器有一对公私钥，公钥公开，私钥保密。当客户端与服务器建立SSL连接时，服务器将自己的公钥发送给客户端。客户端生成一个随机的对称加密密钥（也称为会话密钥），然后使用服务器的公钥对这个会话密钥进行加密，并发送给服务器。服务器使用自己的私钥解密收到的信息，得到会话密钥。这样，通信双方就共享了一个只有它们知道的对称加密密钥，用于后续的数据加密。
@@ -274,7 +274,7 @@ SSL（Secure Sockets Layer）安全套接层是一种为网络通信提供安全
    - 数字证书是SSL协议验证服务器身份的重要工具。数字证书包含了服务器的公钥、服务器的信息（如域名、组织名称等）以及证书颁发机构（CA）的签名。当客户端收到服务器发送的数字证书时，会首先检查证书是否是由可信的CA颁发的。客户端通常会预先安装一些CA的根证书，通过验证服务器证书上CA的签名来确认证书的合法性。
    - 如果证书验证通过，客户端就可以获取服务器的公钥，用于后续的密钥交换等操作。如果证书验证不通过，浏览器通常会显示安全警告，提示用户连接可能不安全。
 
-**三、SSL与TLS的关系**
+三、SSL与TLS的关系
 
 1. **TLS的出现**
    - 由于SSL协议存在一些安全漏洞，IETF（Internet Engineering Task Force）在SSL 3.0的基础上制定了TLS协议。TLS 1.0在1999年发布，它与SSL 3.0在结构和功能上非常相似，但在加密算法、消息认证码等方面进行了改进，提高了安全性。
@@ -283,7 +283,7 @@ SSL（Secure Sockets Layer）安全套接层是一种为网络通信提供安全
    - 随后，TLS协议不断更新，TLS 1.1、TLS 1.2和TLS 1.3相继发布。TLS 1.3相比之前的版本，在性能和安全性方面有了更大的提升。例如，TLS 1.3简化了握手过程，减少了密钥交换和认证过程中的消息数量，从而提高了连接建立的速度；同时，它禁止了一些不安全的加密算法和协议功能，增强了安全性。
    - 在实际应用中，现在大多数网站和网络应用都在逐渐迁移到TLS协议，并且推荐使用TLS 1.2及以上版本。许多浏览器和服务器软件也都对TLS协议提供了很好的支持。
 
-**四、SSL的应用场景**
+四、SSL的应用场景
 
 1. **网站安全（HTTPS）**
    - 这是SSL最常见的应用场景。当网站启用HTTPS（HTTP over SSL/TLS）时，用户与网站服务器之间传输的数据（如登录信息、个人资料、支付信息等）都受到SSL协议的保护。例如，在电子商务网站上，用户的信用卡信息等敏感数据在传输过程中通过SSL加密，防止信息泄露。
@@ -291,7 +291,6 @@ SSL（Secure Sockets Layer）安全套接层是一种为网络通信提供安全
    - S/MIME（Secure/Multipurpose Internet Mail Extensions）是一种用于电子邮件安全的标准，它基于SSL/TLS协议对电子邮件进行加密和签名。同时，SSL/TLS也可以用于保护SMTP（Simple Mail Transfer Protocol）协议，即邮件传输过程中的安全。这样可以确保电子邮件在发送和接收过程中的隐私性和完整性。
 3. **虚拟专用网络（VPN）**
    - 许多VPN（Virtual Private Network）技术也使用SSL协议来建立安全的通信通道。通过SSL - VPN，用户可以在公共网络（如互联网）上建立一个安全的连接，访问企业内部网络或其他受限制的网络资源。SSL - VPN通常具有较好的兼容性，用户可以通过浏览器等多种方式访问，不需要安装专门的客户端软件。
-
 
 ### 如何获取免费的SSL证书？
 
@@ -361,7 +360,6 @@ include /etc/nginx/sites-enabled/*;
 
 ![alt text](../../../PageImage/image20241217110341-12.png)
 
-
 ## 核心配置
 
 找到Nginx安装目录下的`nginx.conf`文件，如果是`Ubuntu24.04`版本的用apt包安装的话，应该在`etc/nginx/`下，Nginx 的基本功能配置是由它提供的。
@@ -375,8 +373,6 @@ Nginx 的配置文件整体上分为如下几个部分：
 | http块     | 配置代理、缓存、日志记录、虚拟主机等配置               |
 | server块   | 配置虚拟主机的相关参数，一个http快中可以有多个server块 |
 | location块 | 配置请求的路由，以及各种页面的处理情况                 |
-
-
 
 ### 配置文件示例
 
@@ -418,7 +414,7 @@ http {
     # 第一个Server区块开始，表示一个独立的虚拟主机站点
     server {
         keepalive_requests 120; #单连接请求上限次数。
-        listen	4545;   #监听端口
+        listen 4545;   #监听端口
         server_name  127.0.0.1;   #监听地址       
         location  ~*^.+$ {       #请求的url过滤，正则匹配，~为区分大小写，~*为不区分大小写。
            #root path;  #根目录
@@ -431,8 +427,6 @@ http {
 }
 ```
 
-
-
 ### locat 路径映射讲解
 
 格式
@@ -443,8 +437,6 @@ location [ = | ~ | ~* | !~ | !~* | @ ] uri {...}
 
 参数解释
 
-
-
 - `=` 表示精确匹配，如果找到，立即停止搜索并立即处理此请求。
 - `~` 表示执行一个正则匹配，区分大小写匹配
 - `~*` 表示执行一个正则匹配，不区分大小写匹配
@@ -453,8 +445,6 @@ location [ = | ~ | ~* | !~ | !~* | @ ] uri {...}
 - `^~` 即表示只匹配普通字符（空格）。使用前缀匹配，^表示“非”，即不查询正则表达式。如果匹配成功，则不再匹配其他 location。
 - `@` 指定一个命名的 location，一般只用于内部重定向请求。例如 error_page, try_files
 - `uri` 是待匹配的请求字符串，可以不包含正则表达式，也可以包含正则表达式；
-
-
 
 优先级和示例
 
@@ -487,8 +477,6 @@ location / {
 }
 ```
 
-
-
 ## 反向代理
 
 ### 概述
@@ -499,13 +487,13 @@ location / {
 
 ![alt text](../../../PageImage/image20241217110341-14.png)
 
-**概念**
+概念
 
 正向代理：是一个位于客户端和目标服务器之间的代理服务器，客户端通过正向代理服务器来访问目标服务器，对于目标服务器而言，它 **只知道请求来自代理服务器** ，而不知道真实的客户端。
 
 反向代理：也是位于客户端和目标服务器之间的代理服务器，但它是代理后端的目标服务器来接收客户端的请求，对于客户端而言，它只知道自己访问的是代理服务器，而不知道后端具体的目标服务器。
 
-**应用场景**
+应用场景
 
 - 正向代理
 
@@ -521,7 +509,7 @@ location / {
 
 缓存静态资源：反向代理可以缓存一些经常被访问的静态资源，如图片、脚本、样式表等，当客户端再次请求这些资源时，直接从代理服务器返回，减少后端服务器的压力，提高响应速度。
 
-**实现目的**
+实现目的
 
 - 正向代理：主要是为了满足客户端的特定需求，如访问控制、隐私保护等，帮助客户端更方便、安全地访问外部资源。
 
@@ -533,8 +521,6 @@ location / {
 
 **反向代理** ：那什么是反向代理呢。比如：我们访问淘宝的时候，淘宝内部肯定不是只有一台服务器，它的内部有很多台服务器，那我们进行访问的时候，因为服务器中间session不共享，那我们是不是在服务器之间访问需要频繁登录，那这个时候淘宝搭建一个过渡服务器，对我们是没有任何影响的，我们是登录一次，但是访问所有，这种情况就是反向代理。对我们来说，客户端对代理是无感知的，客户端不需要任何配置就可以访问，我们只需要把请求发送给反向代理服务器，由反向代理服务器去选择目标服务器获取数据后，再返回给客户端，此时反向代理服务器和目标服务器对外就是一个服务器，暴露的是代理服务器地址，隐藏了真实服务器的地址。（ **在服务器中配置代理服务器** ）
 
-
-
 ### Nginx作为反向代理服务器的优势
 
 高性能：Nginx使用了异步事件驱动架构，能够高效地处理大量的并发连接。通过使用高效的请求处理机制和缓存技术，Nginx可以有效地减轻后端服务器的负载，提高整体性能。
@@ -545,13 +531,9 @@ location / {
 
 静态资源优化：Nginx可以作为静态Web服务器来部署静态资源，如HTML页面、图片、视频等。相对于动态内容，静态资源更加易于缓存和压缩，通过Nginx进行优化可以显著提高Web应用程序的性能。
 
-
-
 ### 反向代理在Nginx中的配置
 
 要在Nginx中启用反向代理功能，需要在配置文件中进行相应的设置。以下是一个示例：
-
-
 
 ```nginx
 server {
@@ -574,8 +556,6 @@ server {
 
 当我们访问 localhost 的时候，ngnix 就将我们的请求转到 localhost:8081 了
 
-
-
 ## 负载均衡
 
 ### 什么是负载均衡？
@@ -588,13 +568,9 @@ server {
 
 简单来说就是：现有的请求使服务器压力太大无法承受，所有我们需要搭建一个服务器集群，去分担原先一个服务器所承受的压力，那现在我们有A、B、C、D等等多台服务器，我们需要把请求分给这些服务器，但是服务器可能大小也有自己的不同，所以怎么分？如何分配更好？又是一个问题。
 
-
-
 ### 负载均衡策略
 
 Nginx 目前支持多种复杂均衡策略，这里讲解比较常见的几种。
-
-
 
 #### RR（round robin：轮询）
 
@@ -618,8 +594,6 @@ server {
     }
 ```
 
-
-
 #### 热备
 
 假设有 2 台服务器，当一台服务器发生事故时，才启用第二台服务器给提供服务。服务器处理请求的顺序：AAAAAA 突然 A 挂了，服务器处理请求的顺序：BBBBBBBBBBBBBB.....
@@ -630,8 +604,6 @@ upstream web_servers {
       server 192.168.10.121:3333 backup;  # 热备     
     }
 ```
-
-
 
 #### 权重（加权轮询）
 
@@ -661,8 +633,8 @@ upstream test {
     server localhost:8081;
 }
 ```
-![alt text](../../../PageImage/image20241217110341-16.png)
 
+![alt text](../../../PageImage/image20241217110341-16.png)
 
 #### fair（第三方）
 
@@ -675,8 +647,6 @@ upstream backend {
     server localhost:8081;
 }
 ```
-
-
 
 #### url_hash（第三方）
 
@@ -691,11 +661,7 @@ upstream backend {
 }
 ```
 
-
-
 以上 6 种负载均衡各自适用不同情况下单独或者混合使用，可以根据实际情况选择使用，fair 和 url_hash 需要安装第三方模块才能使用。
-
-
 
 ## 动静分离
 
@@ -710,8 +676,6 @@ Nginx的静态处理能力很强，但是动态处理能力不足，因此，在
 在Nginx的配置中，是通过`location`配置段配合正则匹配实现静态与动态页面的不同处理方式。
 
 ![alt text](../../../PageImage/image20241217110341-17.png)
-
-
 
 ```nginx
 upstream web_servers {
@@ -742,11 +706,6 @@ server {
 
 访问 `http://localhost/index.html` 就会访问后端服务器(tomcat 等)
 
-
-
-
-
-
 ## 参考
 
 [How to Use Certbot to Get a Free Let’s Encrypt SSL Certificate](https://linuxiac.com/lets-encrypt-free-ssl-certificate/)
@@ -757,24 +716,19 @@ server {
 
 [nginx配置SSL证书，使用https](https://blog.csdn.net/qq_45846022/article/details/138319186)
 
-
 [从零开始获取和使用免费的SSL证书保护您的网站](https://www.didispace.com/article/richang/20240426-zerossl.html)中文翻译于[ZeroSSL: How to Secure Your Website with a Free SSL Certificate](https://linuxiac.com/zerossl-how-to-install-ssl-certificate/)
 
 [Ubuntu安装nginx到配置ssl证书](https://blog.csdn.net/daitianjun/article/details/129328986)
 
 [如何在 Ubuntu 上安装和使用 Nginx？](https://blog.gaomeluo.com/archives/UbuntuNginx/)
 
-
-
 [Nginx 常用配置及和基本功能讲解](https://xie.infoq.cn/article/bea66421ea6cac09d10f35d7a)
 
 [Nginx详解（一文带你搞懂Nginx](https://blog.csdn.net/hyfsbxg/article/details/122322125)
 
-[一篇就够了—NGINX配置详解 ](https://www.cnblogs.com/AllenWongFly/p/17323718.html)
+[一篇就够了—NGINX配置详解](https://www.cnblogs.com/AllenWongFly/p/17323718.html)
 
 [Nginx配置详解](https://www.runoob.com/w3cnote/nginx-setup-intro.html)
-
-
 
 [nginx 一把梭！（超详细讲解+实操）](https://juejin.cn/post/7306041273822527514)
 

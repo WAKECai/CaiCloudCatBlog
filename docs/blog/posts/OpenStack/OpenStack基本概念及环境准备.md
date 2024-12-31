@@ -1,6 +1,7 @@
 ---
 date:
     created: 2024-12-09
+    updated: 2024-12-27
 categories:
     - Linux
     - OpenStack
@@ -28,7 +29,7 @@ IaaS平台：主要来提供基础设施：
 
 概念架构（Conceptual architecture）
 
-![alt text](image.png)
+![alt text](../../../PageImage/image20241227225626.png)
 
 ## OpenStack组件
 
@@ -46,17 +47,14 @@ Horizon组件，Web的管理。
 
 逻辑架构（Logical architecture）：
 
-![alt text](image-1.png)
+![alt text](../../../PageImage/image20241227225626-1.png)
 
 组件与组件之间通讯，通过api进行通讯。
 组件内则通过Queue通讯队列进行通讯。
 
-
 架构规划
 
-![alt text](image-2.png)
-
-
+![alt text](../../../PageImage/image20241227225626-2.png)
 
 ## 虚拟机安装与环境准备
 
@@ -66,7 +64,7 @@ CentOS7
 
 ### 节点类型
 
-**控制Controller节点**
+#### 控制Controller节点
 
 - 内存Mem：8G+
 - CPU：2+
@@ -79,12 +77,11 @@ CentOS7
 
 例如：
 
-![alt text](image-3.png)
+![alt text](../../../PageImage/image20241227225626-3.png)
 
 SOFTWARE SELECTION：安装Server with GUI
 
-![alt text](image-6.png)
-
+![alt text](../../../PageImage/image20241227225626-6.png)
 
 网卡分配：
 
@@ -92,12 +89,11 @@ SOFTWARE SELECTION：安装Server with GUI
 
 - ManageNetWork：10.10.10.0/24 10.10.10.10，不需要配置Gateway
 
-![alt text](image-8.png)
+![alt text](../../../PageImage/image20241227225626-8.png)
 
 - Tenant Network：不需要配配置IP，做隧道VXLAN
 
 controller.example.com
-
 
 分区：
 
@@ -107,17 +103,15 @@ controller.example.com
 
 选择自定义分区：
 
-![alt text](image-9.png)
+![alt text](../../../PageImage/image20241227225626-9.png)
 
-
-![alt text](image-7.png)
+![alt text](../../../PageImage/image20241227225626-7.png)
 
 Root密码：caicloudcat
 
 用户名：caicloudcat，密码也是caicloudcat
 
-
-**计算Compute节点**
+#### 计算Compute节点
 
 - 内存Mem：8G以上
 - CPU：2+
@@ -134,8 +128,7 @@ Windows11下可能会出现无法虚拟化，解决方式参考以下的文章�
 
 例如：
 
-![alt text](image-4.png)
-
+![alt text](../../../PageImage/image20241227225626-10.png)
 
 网卡分配
 
@@ -143,11 +136,9 @@ Windows11下可能会出现无法虚拟化，解决方式参考以下的文章�
 
 - ManageNetWork：10.10.10.0/24 10.10.10.10，不需要配置Gateway
 
-![alt text](image-10.png)
-
+![alt text](../../../PageImage/image20241227225626-11.png)
 
 分区和密码与Controller节点一致
-
 
 存储节点：
 
@@ -159,15 +150,15 @@ Windows11下可能会出现无法虚拟化，解决方式参考以下的文章�
 
 比如：
 
-![alt text](image-5.png)
+![alt text](../../../PageImage/image20241227225626-12.png)
 
+![alt text](../../../PageImage/image20241227225626-13.png)
 
-![alt text](image-11.png)
+### 网络配置
 
-**网络类型**
+网络类型：
 
 Networking Option： Self-service networks
-
 
 The following minimum requirements should support a proof-of-concept environment with core services and several CirrOS instances:
 
@@ -175,12 +166,7 @@ The following minimum requirements should support a proof-of-concept environment
 
 - Compute Node: 1 processor, 2 GB memory, and 10 GB storage
 
-
-
-### 网络配置
-
 Controller节点：
-
 
 ```shell
 su -
@@ -194,8 +180,7 @@ nmcli connection show
 nmcli connection modify ens34 autoconnect yes ipv4.method manual
 ```
 
-![alt text](image-12.png)
-
+![alt text](../../../PageImage/image20241227225626-12.png)
 
 其余节点也一样：
 
@@ -205,16 +190,13 @@ nmcli connection modify ens34 autoconnect yes ipv4.method manual
 
 这是未修改之前：
 
-![alt text](image-13.png)
+![alt text](../../../PageImage/image20241227225626-14.png)
 
-![alt text](image-14.png)
-
+![alt text](../../../PageImage/image20241227225626-15.png)
 
 检查各个节点是否可以连接：
 
-![alt text](image-15.png)
-
-
+![alt text](../../../PageImage/image20241227225626-16.png)
 
 然后配置`hosts`，在Controller节点下使用该命令：
 
@@ -237,9 +219,7 @@ cp /etc/hosts root@compute:/etc/
 cp /etc/hosts root@storage:/etc/
 ```
 
-![alt text](image-16.png)
-
-
+![alt text](../../../PageImage/image20241227225626-17.png)
 
 ## 关闭防火墙
 
@@ -249,7 +229,6 @@ cp /etc/hosts root@storage:/etc/
 systemctl disable firewalld.service
 systemctl stop firewalld.service
 ```
-
 
 ```shell
 setenforce 0    # 临时关闭selinux防火墙，0表示关闭，1表示开启
@@ -265,13 +244,11 @@ SELINUX=permissive
 
 配置所有节点的网卡
 
-
-
 查看VM虚拟机网段：
 
-![alt text](image-18.png)
+![alt text](../../../PageImage/image20241227225626-18.png)
 
-![alt text](image-17.png)
+![alt text](../../../PageImage/image20241227225626-17.png)
 
 Controller的IP地址
 
@@ -286,11 +263,9 @@ Compute的IP地址
 
 配置两张网卡，以Controller节点为例：
 
-![alt text](image-19.png)
+![alt text](../../../PageImage/image20241227225626-19.png)
 
-
-
-**ens33**
+ens33
 
 ```bash
 vim /etc/sysconfig/network-scripts/ifcfg-ens33
@@ -303,13 +278,9 @@ NETMASK=255.255.255.0
 DNS1=8.8.8.8
 ```
 
+![alt text](../../../PageImage/image20241227225626-20.png)
 
-
-![alt text](image-21.png)
-
-
-
-**ens34**
+ens34
 
 ```bash
 vim /etc/sysconfig/network-scripts/ifcfg-ens34
@@ -317,11 +288,7 @@ vim /etc/sysconfig/network-scripts/ifcfg-ens34
 
 与上面的类似，将IPADDR改为：`10.10.10.10`
 
-
-
 而其他的节点也做同样的处理。
-
-
 
 在修改上述网卡配置文件后，进行 **重启网卡** ，并测试是否可以访问：
 
@@ -329,8 +296,6 @@ vim /etc/sysconfig/network-scripts/ifcfg-ens34
 systemctl restart network
 ping www.baidu.com
 ```
-
-
 
 ### 硬盘分区
 
@@ -346,7 +311,7 @@ lsblk # 查看分区
 
 以Controller节点为例：
 
-![alt text](image-22.png)
+![alt text](../../../PageImage/image20241227225626-21.png)
 
 1. 在这个输出中：
    - `sda`是一个 100G 的磁盘。
@@ -355,17 +320,13 @@ lsblk # 查看分区
    - `centos - root`是一个逻辑卷管理（LVM）设备，大小为 99G，挂载在`/`。
    - `sr0`是一个 4.3G 的只读设备，挂载在`/run/media/caicloud/CentOS 7 x86_64`。
 
-
-
-
-
 ## Controller配置
 
 ### 挂载镜像
 
 上传镜像文件到Controller控制节点（使用Xftp8），上传至root用户根目录下。
 
-![alt text](image-20.png)
+![alt text](../../../PageImage/image20241227225626-22.png)
 
 ```shell
 [root@controller ~]# ls
@@ -419,17 +380,11 @@ yum clean all
 yum repolist
 ```
 
-
-
-![alt text](image-23.png)
-
-
+![alt text](../../../PageImage/image20241227225626-23.png)
 
 ```shell
 yum install -y vim vsftpd iaas-xiandian   #安装所需的软件包
 ```
-
-
 
 ### 配置vsftpd服务
 
@@ -441,19 +396,17 @@ systemctl start vsftpd
 systemctl enable vsftpd
 ```
 
-
-
 ### 修改脚本
 
-在Linux的`vim`编辑器中，在非插入模式下按下`Ctrl+v`，然后按`Shift+g`选中到文件末尾，再按`D`来删除从当前光标位置到文件末尾的内容，包括注释符号等。以下是对这一系列操作的详细解释： 
+在Linux的`vim`编辑器中，在非插入模式下按下`Ctrl+v`，然后按`Shift+g`选中到文件末尾，再按`D`来删除从当前光标位置到文件末尾的内容，包括注释符号等。以下是对这一系列操作的详细解释：
 
-`Ctrl+v` ：在`vim`的非插入模式下按下`Ctrl+v`进入可视块模式（Visual Block mode）。在这种模式下，可以通过移动光标来选择一个矩形区域的文本，方便进行批量操作，如删除、复制、粘贴等。 
+`Ctrl+v` ：在`vim`的非插入模式下按下`Ctrl+v`进入可视块模式（Visual Block mode）。在这种模式下，可以通过移动光标来选择一个矩形区域的文本，方便进行批量操作，如删除、复制、粘贴等。
 
-`Shift+g`：在可视块模式下按下`Shift+g`，会将光标快速定位到文件的末尾，并选中从当前光标位置到文件末尾的所有行。这是一种快速选择大量文本的方法，在处理长文件时非常有用。 
+`Shift+g`：在可视块模式下按下`Shift+g`，会将光标快速定位到文件的末尾，并选中从当前光标位置到文件末尾的所有行。这是一种快速选择大量文本的方法，在处理长文件时非常有用。
 
 `D` ：在可视块模式下选中文本后，按下`D`键会删除所选中的文本。
 
-这一系列操作就会删除从当前光标位置到文件末尾的所有内容，包括注释符号以及其他任何文本。 
+这一系列操作就会删除从当前光标位置到文件末尾的所有内容，包括注释符号以及其他任何文本。
 
 ```shell
 [root@controller yum.repos.d]# cd /etc/xiandian/
@@ -612,8 +565,6 @@ BARBICAN_DBPASS=caicloudcat
 BARBICAN_PASS=caicloudcat
 ```
 
-
-
 ## Compute配置
 
 ### yum 源文件处理
@@ -623,8 +574,6 @@ cd /etc/yum.repos.d/
 mv * /media/
 ls
 ```
-
-
 
 ### 创建yum源文件
 
@@ -652,8 +601,8 @@ Cleaning up list of fastest mirrors
 [root@compute yum.repos.d]# yum repolist
 Loaded plugins: fastestmirror, langpacks
 Determining fastest mirrors
-centos              					| 3.6 kB  00:00:00     
-iaas                					| 2.9 kB  00:00:00     
+centos                   | 3.6 kB  00:00:00     
+iaas                     | 2.9 kB  00:00:00     
 (1/3): centos/group_gz                  | 166 kB  00:00:00     
 (2/3): iaas/primary_db                  | 1.4 MB  00:00:00     
 (3/3): centos/primary_db                | 3.1 MB  00:00:00     
@@ -664,7 +613,7 @@ repolist: 7,253
 [root@compute yum.repos.d]# yum install -y vim iaas-xiandian
 ```
 
-### 修改脚本
+### 脚本修改
 
 ```shell
 [root@compute yum.repos.d]# scp 10.10.10.10:/etc/xiandian/openrc.sh /etc/xiandian/openrc.sh
@@ -733,21 +682,15 @@ INTERFACE_IP=192.168.64.132      #本机IP地址
 ......
 ```
 
+==注意，刷完该脚本后需要重启reboot重启==
 
-
-**注意，刷完该脚本后需要重启reboot重启**
-
-
-
-![alt text](image-24.png)
-
-
+![alt text](../../../PageImage/image20241227225626-24.png)
 
 ```shell
 yum downgrade iptables-1.4.21-28.el7.x86_64
 ```
 
-![alt text](image-25.png)
+![alt text](../../../PageImage/image20241227225626-25.png)
 
 ```shell
 yum remove net-snmp-libs # 卸载当前版本
@@ -757,30 +700,23 @@ yum remove1 ibxslt # 卸载当前版本
 yum insta111ibxs1t-1.1.28-5.e17.x8664 # 安装符合依赖要求的版本
 ```
 
-
-
-
-
-
 ## 登录
 
 可打开浏览器输入：
 
-`http://192.168.140.14/ dashboard` 
+`http://192.168.140.14/ dashboard`
 
-`http://192.168.140.14/dashboard/auth/login/  `
+`http://192.168.140.14/dashboard/auth/login/`
 
 即：`http: ip(controller的ip) /dashboard`
 
-
-![alt text](image-26.png)
+![alt text](../../../PageImage/image20241227225626-26.png)
 
 Domian：demo
 用户名：admin
 密码：caicloudcat
 
-![alt text](image-27.png)
-
+![alt text](../../../PageImage/image20241227225626-27.png)
 
 ## 配置Chronyd
 
@@ -813,12 +749,9 @@ systemctl enable chronyd
 server controller.example.com iburst
 ```
 
-
-
 ## 版本选择
 
 **由于CentOS已经停止支持，因此yum源已经失效了，下面的已经无法正常操作**
-
 由于用的是CentOS7，所以使用的是T版(Train)
 
 首先更换国内镜像源：推荐使用阿里云、清华大学、网易等国内知名的 CentOS 镜像源。例如，阿里云镜像源的配置方法如下：
@@ -844,8 +777,6 @@ yum install python-openstackclient
 yum install openstack-selinux
 yum upgrade
 ```
-
-
 
 ## 参考
 

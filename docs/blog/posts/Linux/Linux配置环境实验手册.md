@@ -28,19 +28,17 @@ VMware Workstation之前已经安装完成，这里不再赘述，安装也比�
 
 ![](../../../PageImage/Pasted%20image%2020240924120915.png)
 
-
-
 ## 实验手册2：在虚拟机中安装Ubuntu
 
 ### 1.安装Linux发行版的安装包
 
-官网：https://cn.ubuntu.com/
+官网：<https://cn.ubuntu.com/>
 
 注：Ubuntu也有很多版本
 
 !!! not "桌面版和服务器版的区别"
     Ubuntu Desktop是新手或刚开始使用Linux系统用户的完美选择，因为它简洁直观的用户界面和默认应用程序可以帮助用户入门。
-    
+
     Ubuntu Server是为服务器环境而构建的，它是一个轻量级和简约的版本，它剥离了任何GUI应用程序和元素，以提高运行生产级应用程序的速度和性能。它可以用作Web服务器、文件服务器、开发服务器和DNS服务器，当然还包括其它一些应用。
 
     如果对Linux很熟悉的话，可以下Ubuntu的服务器版（Server），如果不是特别熟悉Linux命令，可以使用Desktop版本。两者的功能是一样的。
@@ -49,7 +47,7 @@ VMware Workstation之前已经安装完成，这里不再赘述，安装也比�
 
 ??? info "tips"
     Ubuntu 长期支持（LTS）与临时发布版本
-    
+
     Ubuntu版本号由年份和月份组成，例如，Ubuntu 23.10代表2023年10月发布的版本。
     
     Ubuntu发布版本分为 长期支持版本（LTS）和 临时发布版本（Interim Release）。
@@ -70,13 +68,11 @@ VMware Workstation之前已经安装完成，这里不再赘述，安装也比�
 
 ![](../../../PageImage/Pasted%20image%2020240924185114.png)
 
-这时候可以选择阿里的镜像网站下载Ubuntu：https://mirrors.aliyun.com/oldubuntu-releases/releases/?spm=a2c6h.25603864.0.0.63826f0frd44zC
+这时候可以选择阿里的镜像网站下载Ubuntu：<https://mirrors.aliyun.com/oldubuntu-releases/releases/?spm=a2c6h.25603864.0.0.63826f0frd44zC>
 
 我选择的是24.04版本
 
 ![](../../../PageImage/Pasted%20image%2020240924185400.png)
-
-
 
 ### 2.使用虚拟机安装Ubuntu
 
@@ -111,24 +107,16 @@ VMware Workstation之前已经安装完成，这里不再赘述，安装也比�
 
 ![](../../../PageImage/Pasted%20image%2020240924190354.png)
 
-
-
-
-
 处理器配置，设置2颗处理器，每个处理器的内核数是2
-
-
 
 内存设置，设置4G内存
 
-
-
 网络类型（重点）主要使用两种
 
-桥接原理图：参考 https://mango-chen.blog.csdn.net/article/details/130779901
+桥接原理图：参考 <https://mango-chen.blog.csdn.net/article/details/130779901>
 ![](../../../PageImage/Pasted%20image%2020240924190550.png)
 
-NAT原理图：参考 https://blog.csdn.net/qq_42700289/article/details/130779927
+NAT原理图：参考 <https://blog.csdn.net/qq_42700289/article/details/130779927>
 
 ![](../../../PageImage/Pasted%20image%2020240924190614.png)
 
@@ -148,7 +136,6 @@ NAT原理图：参考 https://blog.csdn.net/qq_42700289/article/details/13077992
 选择磁盘，使用默认设置
 
 ![](../../../PageImage/Pasted%20image%2020240924190919.png)
-
 
 分配磁盘容量，使用默认设置（20G）
 
@@ -261,11 +248,8 @@ vmware左边出现了两台虚拟机，以后上课就用“Linux实训”这台
 
 ![](../../../PageImage/Pasted%20image%2020240924201221.png)
 
-
-
 #### 虚拟机删除
 
 1、选中要删除的虚拟机操作系统，单击右键，选择“管理”选项
 
 2、然后在选择“从磁盘中删除”选项即可删除该虚拟机操作系统
-
