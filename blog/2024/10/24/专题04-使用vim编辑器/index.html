@@ -1,0 +1,1936 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://wakecai.github.io/CaiCloudCatBlog/blog/2024/10/24/%E4%B8%93%E9%A2%9804-%E4%BD%BF%E7%94%A8vim%E7%BC%96%E8%BE%91%E5%99%A8/">
+      
+      
+        <link rel="prev" href="../../15/%E4%B8%93%E9%A2%9803-ubuntu%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E5%92%8C%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5/">
+      
+      
+        <link rel="next" href="../../29/%E4%B8%93%E9%A2%9805-ubuntu%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/">
+      
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>专题04-使用vim编辑器 - CaiCloudCat</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+  
+  
+  
+  
+  <style>:root{--md-annotation-icon:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 13h-4v4h-2v-4H7v-2h4V7h2v4h4m-5-9A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2"/></svg>');}</style>
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather+Sans:300,300i,400,400i,700,700i%7CRed+Hat+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Merriweather Sans";--md-code-font:"Red Hat Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#04-vim" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../../../.." title="CaiCloudCat" class="md-header__button md-logo" aria-label="CaiCloudCat" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CaiCloudCat
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              专题04-使用vim编辑器
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="deep-purple"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-orange"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/WAKECai/CaiCloudCatBlog" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    WAKECai/CaiCloudCatBlog
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../../" class="md-tabs__link">
+          
+  
+    
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../tags/" class="md-tabs__link">
+        
+  
+    
+  
+  Tags
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../../other/" class="md-tabs__link">
+          
+  
+    
+  
+  Other
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="CaiCloudCat" class="md-nav__button md-logo" aria-label="CaiCloudCat" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CaiCloudCat
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/WAKECai/CaiCloudCatBlog" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    WAKECai/CaiCloudCatBlog
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Blog
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Blog
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    归档
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            归档
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2024%20%E5%8D%81%E4%BA%8C%E6%9C%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2024 十二月
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2024%20%E5%8D%81%E4%B8%80%E6%9C%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2024 十一月
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2024%20%E5%8D%81%E6%9C%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2024 十月
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    分类
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            分类
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/ai/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/book/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Book
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/computernetwork/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ComputerNetwork
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/k8s/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    K8S
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/linux/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/ml/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ML
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/nginx/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nginx
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/server/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/tools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tools
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/%E7%A1%AC%E7%9B%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    硬盘
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tags/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tags
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../other/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Other
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Other
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../other/posts/%E4%B8%93%E6%B2%BB%E7%96%91%E9%9A%BE%E7%B3%BB%E5%88%97/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    专治疑难系列
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../other/posts/%E5%8A%9F%E8%83%BD%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    功能技巧
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../other/posts/%E6%97%A0%E8%81%8A%E6%95%B0%E6%8D%AE%E8%AE%B0%E5%BD%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    无聊数据记录
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../other/posts/%E8%BF%87%E5%BE%80%E4%B9%A6%E7%AD%BE%E5%92%8CUP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    过往书签和UP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../other/posts/%E5%BD%B1%E8%A7%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    影视
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../other/posts/%E6%B8%B8%E6%88%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    游戏
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../other/posts/%E6%A2%AF%E5%AD%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    梯子
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1 引言
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-vim" class="md-nav__link">
+    <span class="md-ellipsis">
+      2 Vim概述
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2 Vim概述">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 基本特点
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 主要功能
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-vim" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 安装Vim
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-vim" class="md-nav__link">
+    <span class="md-ellipsis">
+      3 Vim使用方法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3 Vim使用方法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-vim" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 用vim打开和关闭文件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-vim" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 vim中的文本操作
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2 vim中的文本操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      复制多行
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      删除多行
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      快捷键
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-vim" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 vim其他常用命令
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.3 vim其他常用命令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      查找文本
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      快速定位
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      行号
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      替换文本
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      删除文本
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      复制粘贴文本
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-grep" class="md-nav__link">
+    <span class="md-ellipsis">
+      4 grep 命令用法介绍
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4 grep 命令用法介绍">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-grep" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 grep 命令简介
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-grep" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 grep 命令使用范例
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      5 具体参考资料
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+  <div class="md-content md-content--post" data-md-component="content">
+    <div class="md-sidebar md-sidebar--post" data-md-component="sidebar" data-md-type="navigation">
+      <div class="md-sidebar__scrollwrap">
+        <div class="md-sidebar__inner md-post">
+          <nav class="md-nav md-nav--primary">
+            <div class="md-post__back">
+              <div class="md-nav__title md-nav__container">
+                <a href="../../../../" class="md-nav__link">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+                  <span class="md-ellipsis">
+                    回到主页
+                  </span>
+                </a>
+              </div>
+            </div>
+            
+            <ul class="md-post__meta md-nav__list">
+              <li class="md-nav__item md-nav__item--section">
+                <div class="md-post__title">
+                  <span class="md-ellipsis">
+                    元数据
+                  </span>
+                </div>
+                <nav class="md-nav">
+                  <ul class="md-nav__list">
+                    <li class="md-nav__item">
+                      <div class="md-nav__link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
+                        <time datetime="2024-10-24 00:00:00+00:00" class="md-ellipsis">2024年10月24日</time>
+                      </div>
+                    </li>
+                    
+                    
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3zm3 2 4 13 3-1-4-13zM5 5v13h3V5zM3 19v2h18v-2z"/></svg>
+                          <span class="md-ellipsis">
+                            分类于
+                            
+                              <a href="../../../../category/linux/">Linux</a></span>
+                        </div>
+                      </li>
+                    
+                    
+                      
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
+                          <span class="md-ellipsis">
+                            
+                              需要 5 分钟阅读时间
+                            
+                          </span>
+                        </div>
+                      </li>
+                    
+                  </ul>
+                </nav>
+              </li>
+            </ul>
+          </nav>
+          
+        </div>
+      </div>
+    </div>
+    <article class="md-content__inner md-typeset">
+      
+        
+  
+  
+
+<nav class="md-tags" >
+  
+    
+    
+      
+      
+    
+    
+      <a href="../../../../tags/#linux" class="md-tag md-tag-icon">Linux</a>
+    
+  
+    
+    
+      
+      
+    
+    
+      <a href="../../../../tags/#vim" class="md-tag md-tag-icon">vim</a>
+    
+  
+</nav>
+
+
+  
+  
+
+
+<h1 id="04-vim">专题04-使用vim编辑器<a class="headerlink" href="#04-vim" title="Permanent link">&para;</a></h1>
+<p>使用vim编辑器进行文本编辑Linux系统中的文件。</p>
+<!-- more -->
+
+<h2 id="1">1 引言<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<p>Vim编辑器是一个功能强大且高度可定制的文本编辑器，最初由Bram Moolenaar在80年代末基于vi编辑器开发而来，是 vi 编辑器的增强版本。</p>
+<p>vi 最初是为 Unix 系统设计的，而 Vim（Vi IMproved）则增加了更多功能，如语法高亮、多级撤销树、图形界面支持等，使其成为类Unix系统用户以及程序员中最受欢迎的文本编辑器之一。</p>
+<p>我们在安装和配置Ubuntu服务器时，经常需要修改各种配置文件，因此需要掌握vim的使用方法。</p>
+<h2 id="2-vim">2 Vim概述<a class="headerlink" href="#2-vim" title="Permanent link">&para;</a></h2>
+<h3 id="21">2.1 基本特点<a class="headerlink" href="#21" title="Permanent link">&para;</a></h3>
+<ul>
+<li>多模式设计：Vim具有多种操作模式，包括命令模式（Normal mode）、插入模式（Insert mode）和末行模式（Ex mode/Command-line mode）等。每种模式都有其特定的操作方式和快捷键，使得Vim能够快速切换和执行各种文本编辑任务。<img alt="" src="../../../../../PageImage/Pasted%20image%2020241022141232.png" /></li>
+<li>高度可定制性：Vim允许用户通过配置文件（如.vimrc）进行个性化设置，包括快捷键、插件、语法高亮、代码折叠等。这种高度可定制性使得Vim能够满足不同用户的需求和偏好。</li>
+<li>跨平台支持：Vim可以在Unix、Linux、macOS和Windows等多个操作系统上运行，为用户提供一致的编辑体验。</li>
+</ul>
+<h3 id="22">2.2 主要功能<a class="headerlink" href="#22" title="Permanent link">&para;</a></h3>
+<ul>
+<li>文本编辑：Vim提供了丰富的文本编辑功能，如移动光标、复制粘贴、删除文本、撤销与重做等。这些功能在命令模式下通过快捷键实现，大大提高了编辑效率。</li>
+<li>代码编辑：Vim特别适合于程序员使用，它支持代码补全、编译及错误跳转等编程功能。此外，Vim还提供了代码折叠、语法高亮等特性，帮助程序员更好地理解和编辑代码。</li>
+<li>文件操作：在末行模式下，Vim支持文件的保存、退出、查找与替换、显示行号等操作。用户可以通过输入相应的命令来快速完成这些任务。</li>
+</ul>
+<h3 id="23-vim">2.3 安装Vim<a class="headerlink" href="#23-vim" title="Permanent link">&para;</a></h3>
+<p>Ubuntu中并没有自带vim，先要安装：<code>sudo apt install vim</code></p>
+<p>apt模式安装vim需要几分钟时间。</p>
+<p><img alt="" src="../../../../../PageImage/3e5c7f4a075b6378c50bfab4c57ded7.png" /></p>
+<h2 id="3-vim">3 Vim使用方法<a class="headerlink" href="#3-vim" title="Permanent link">&para;</a></h2>
+<h3 id="31-vim">3.1 用vim打开和关闭文件<a class="headerlink" href="#31-vim" title="Permanent link">&para;</a></h3>
+<p>使用 vim编辑器 打开 test.txt</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>vim<span class="w"> </span>test.txt<span class="w">  </span>
+</code></pre></div>
+<blockquote>
+<p>！！！若打开后异常退出(<code>ctrl+z</code>)，可手动删除**交换文**件（即vim创建的临时文件），如果是正常保存则不用删除，因为**交换文件**被保存为了你需要的那个文件了。</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>rm<span class="w"> </span>-rf<span class="w"> </span>.test.txt.swp
+</code></pre></div>
+<ul>
+<li><code>i</code>  进入编辑模式<code>[i:insert 插入]</code>，这样就可以编辑文件了。</li>
+</ul>
+<p><img alt="" src="../../../../../PageImage/61d120d5719daab865087fe660ad491.png" /></p>
+<ul>
+<li><code>Esc键</code> 退出编辑模式，进入命令模式，这样就可以输入各种vim命令了，注意命令模式下光标会跑到编辑器的最左下方去。</li>
+</ul>
+<blockquote>
+<p>备注：在命令模式下，可以输入命令了，例如输入<code>“:wq”</code>命令后敲回车来保存文件并退出vim。</p>
+</blockquote>
+<p><img alt="" src="../../../../../PageImage/d493eca4f8d601fce3e4846fa46610b.png" /></p>
+<p>vim命令模式下的几个文件保存命令：</p>
+<ul>
+<li><code>:q</code>   退出不保存<code>[q:quit 退出]</code></li>
+<li><code>:q!</code>   强制退出不保存</li>
+<li><code>:w</code>   保存文件<code>[w:write 写入]</code></li>
+<li><code>:wq</code>   保存退出 ------ 这个用的很多</li>
+</ul>
+<p>在图形环境下，从桌面上看新创建了一个文件<code>test.txt</code>，并且内容已经修改，双击可以打开这个文件，这个界面类似于Windows中的记事本程序。</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241022101655.png" /></p>
+<p>既然我们可以在图形界面中用可视化的方式编辑文件内容，为什么还要用vim呢？</p>
+<p>这是因为很多服务器只安装了Shell模式，没有安装图形化的桌面环境，所以需要掌握vim的用法。</p>
+<h3 id="32-vim">3.2 vim中的文本操作<a class="headerlink" href="#32-vim" title="Permanent link">&para;</a></h3>
+<h4 id="_1">复制多行<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h4>
+<p>（1）移动光标到要开始复制的第一行（在命令模式下或编辑模式下均可）。</p>
+<p>（2）按<code>esc</code>键，进入命令模式，输入 <code>v</code>   进入可视模式<code>[v:visual 可视]</code>，这样就可以按行选择需要的文本了。</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241022102525.png" /></p>
+<p>（3）使用方向键上下移动选择多行。</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241022102608.png" />
+（4）按下<code>y</code>复制选择的文本。此时 vim 会自动将光标定位到选中文本的开始的地方，并退出可视模式。</p>
+<p>（5）移动光标到要粘贴的位置，按<code>p</code>粘贴。</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241022102634.png" /></p>
+<h4 id="_2">删除多行<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<p>（1）移动光标到要开始复制的第一行（在命令模式下或编辑模式下均可）。</p>
+<p>（2）按<code>esc</code>键，进入命令模式，输入 <code>v</code>   进入可视模式 <code>[v:visual 可视]</code>，这样就可以按行选择需要的文本了。</p>
+<p>（3）使用方向键上下移动选择多行。</p>
+<p>（4）按下<code>d</code>删除选择的文本。此时 vim 会自动将光标定位到选中文本的开始的地方，并退出可视模式。</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241022102843.png" /></p>
+<h4 id="_3">快捷键<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<p>我们在使用windows系统时，经常使用<code>ctrl+z</code>用于撤销，使用<code>ctrl+y</code>用于重做，在vim中对应的快捷键如下：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>u<span class="w">     </span>撤消
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>ctrl+r<span class="w">   </span>重做
+</code></pre></div>
+<blockquote>
+<p>注意使用这些快捷键需要在 命令模式 下</p>
+</blockquote>
+<h3 id="33-vim">3.3 vim其他常用命令<a class="headerlink" href="#33-vim" title="Permanent link">&para;</a></h3>
+<h4 id="_4">查找文本<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
+<p><code>/xxx</code>   ：从光标所在位置==向前==查找字符串<code>xxx</code></p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241022103346.png" /></p>
+<p><code>/^xxx</code>：查找以xxx为行首的行</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241022141802.png" /></p>
+<p><code>/abc$</code>：查找以xxx为行尾的行</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241022141913.png" /></p>
+<p><code>?xxx</code>：从光标所在为主==向后==查找字符串xxx</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241022142011.png" /></p>
+<blockquote>
+<p>注意?和/的区别</p>
+</blockquote>
+<p><code>n</code>：向同一方向重复上次的查找指令</p>
+<p><code>N</code>：向相反方向重复上次的查找指定</p>
+<h4 id="_5">快速定位<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<p>当你的文件打开后页数很多时，在命令模式下通过这几个快捷键可以快速定位</p>
+<ul>
+<li>
+<p><code>ctrl+f</code>   <code>[f:forward 向前]</code>       向下翻一页</p>
+</li>
+<li>
+<p><code>ctrl+b</code>  <code>[b:backward 向后]</code>    向上翻一页 </p>
+</li>
+<li>
+<p><code>[[</code>                跳转到文件开头</p>
+</li>
+<li>
+<p><code>]]</code>                跳转到文件结尾</p>
+</li>
+<li>
+<p><code>数字gg</code>   跳转到指定行 </p>
+</li>
+</ul>
+<blockquote>
+<p>示例：跳转到第10行 10gg </p>
+<p>gg 是 go to line 的缩写形式 "跳 转到指定的行"</p>
+</blockquote>
+<ul>
+<li>
+<p><code>0</code>     移动到行首</p>
+</li>
+<li>
+<p><code>$</code>     移动到行尾<code>[$:shift+4]</code></p>
+</li>
+</ul>
+<h4 id="_6">行号<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
+<p>有时候行数很多，为了方便定位，我们可以显示行号，在命令模式下输入</p>
+<p><code>:set nu</code>   显示行号 [nu 是 number 的缩写形式]</p>
+<p><code>:set nonu</code>  取消显示行号 [nu 是 number 的缩写形式]</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241022103658.png" /></p>
+<h4 id="_7">替换文本<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
+<p>如果需要替换文本，则使用在命令模式下输入：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>:%s/要被替换的文本/用来替换的文本/g
+</code></pre></div>
+<p>示例： <code>:%s/test/test1/g</code> （将文档中所有的单词 test 替换成 test1）</p>
+<ul>
+<li>%表示对整个文档进行操作 </li>
+<li>s表示替换操作 </li>
+<li>g表示全局替换,若不加g,则只会替换每行中第一个匹配到的文本</li>
+</ul>
+<p>执行前：</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241022103857.png" /></p>
+<p>执行后：</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241022103935.png" /></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">快捷键</th>
+<th style="text-align: center;">功能描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><code>/old/new</code></td>
+<td style="text-align: center;">用new替换当前行第一个old</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>/a1/a2/g</code></td>
+<td style="text-align: center;">将当前光标所在行中的所有 a1 用 a2 替换</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>:n1,n2s/a1/a2/g</code></td>
+<td style="text-align: center;">将文件中 n1 到 n2 行中所有 a1 都用 a2 替换</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>:%s/a1/a2/g</code></td>
+<td style="text-align: center;">将文件中所有的 a1 都用 a2 替换</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>:%s/^/xxx/g</code></td>
+<td style="text-align: center;">在每一行的行首插入xxx，<code>^</code>表示行首</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>:%s//xxx/g</code></td>
+<td style="text-align: center;">−在每一行的行尾插入xxx，<code>/xxx/g</code>在每一行的行尾插入xxx，表示行尾</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_8">删除文本<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">快捷键</th>
+<th style="text-align: center;">功能描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><code>x</code></td>
+<td style="text-align: center;">删除光标所在位置的字符</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>dd</code></td>
+<td style="text-align: center;">删除光标所在行</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>ndd</code></td>
+<td style="text-align: center;">删除当前行（包括此行）后 n 行文本</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>dG</code></td>
+<td style="text-align: center;">删除光标所在行一直到文件末尾的所有内容</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>D</code></td>
+<td style="text-align: center;">删除光标位置到行尾的内容</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>:a1,a2d</code></td>
+<td style="text-align: center;">函数从 a1 行到 a2 行的文本内容</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_9">复制粘贴文本<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">快捷键</th>
+<th style="text-align: center;">功能描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><code>p</code></td>
+<td style="text-align: center;">将剪贴板中的内容粘贴到光标后</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>P</code>（大写）</td>
+<td style="text-align: center;">将剪贴板中的内容粘贴到光标前</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>y</code></td>
+<td style="text-align: center;">复制已选中的文本到剪贴板</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>yy</code></td>
+<td style="text-align: center;">将光标所在行复制到剪贴板，此命令前可以加数字 n，可复制多行</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>yw</code></td>
+<td style="text-align: center;">将光标位置的单词复制到剪贴板</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4-grep">4 grep 命令用法介绍<a class="headerlink" href="#4-grep" title="Permanent link">&para;</a></h2>
+<h3 id="41-grep">4.1 grep 命令简介<a class="headerlink" href="#41-grep" title="Permanent link">&para;</a></h3>
+<p><code>grep(Global Regular Expression Print[全局正则表达式打印])</code>命令是一个强大的文本搜索工具，它能使用正则表达式搜索文本，并把匹配的行打印出来。我们在检索文本内容时，常使用这个命令。</p>
+<blockquote>
+<p>关于正则表达式：https://www.bilibili.com/video/BV1da4y1p7iZ/?spm_id_from=333.337.search-card.all.click&amp;vd_source=1be27cbe131b9c3024ff27667bbda481</p>
+<p>正则表达式在线测试工具：https://regex101.com/</p>
+</blockquote>
+<p><code>grep</code>命令的基本格式为 <code>grep [options] pattern [file]</code></p>
+<p><code>grep</code>命令的主要参数有：</p>
+<ul>
+<li><code>-i</code>：忽略大小写</li>
+<li><code>-v</code>：显示不包含匹配文本的所有行（相当于求反）</li>
+<li><code>-r</code>：递归搜索</li>
+<li><code>-l</code>：只列出匹配的文件名</li>
+<li><code>-n</code>：显示匹配行及行号</li>
+<li><code>-c</code>：只输出匹配行的计数</li>
+<li><code>-w</code>：只匹配整个单词，而不是字符串的一部分</li>
+<li><code>-x</code>：只匹配整行</li>
+<li><code>-e</code>：可以指定多个搜索模式</li>
+<li><code>-f</code>：从文件获取模式</li>
+</ul>
+<h3 id="42-grep">4.2 grep 命令使用范例<a class="headerlink" href="#42-grep" title="Permanent link">&para;</a></h3>
+<p>首先使用vim在Desktop下创建两个文件<code>web1.txt</code>和<code>web2.txt</code></p>
+<p><code>vim web1.txt</code></p>
+<p>在<code>web1.txt</code>里面写上这些内容，等会儿我们测试用，注意区分大小写，保存并退出。</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241022105107.png" /></p>
+<p><code>vim web2.txt</code></p>
+<p>在<code>web2.txt</code>里面写上这些内容，等会儿我们测试用，注意区分大小写，保存并退出。</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241022105226.png" /></p>
+<hr />
+<p>输入下列命令，在 <code>web1.txt</code> 文件中查找包含<code>ubuntu</code>字符串的所有行并打印出来</p>
+<p><code>grep ubuntu web1.txt</code></p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241022110020.png" /></p>
+<p>输入下列命令，在<code>web1.txt</code>文件中查找包含<code>ubuntu</code>字符串的所有行并打印出来，同时输出匹配行的行号</p>
+<blockquote>
+<p>其中<code>-n</code>的全称是 <code>"line-number"</code></p>
+</blockquote>
+<p><code>grep -n ubuntu web1.txt</code></p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241022110046.png" /></p>
+<p>输入下列命令，在<code>web1.txt</code>文件中查找包含<code>ubuntu</code>字符串的所有行并打印出来，注意忽略了字母的大小写</p>
+<blockquote>
+<p>其中<code>-i</code>的全称是<code>"ignore-case"</code></p>
+</blockquote>
+<p><code>grep -i ubuntu web1.txt</code></p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241022110211.png" /></p>
+<p>输入下列命令，在<code>web1.txt</code>文件中查找包含<code>ubuntu</code>字符串的所有行并打印出来，注意忽略了字母的大小写并输出匹配行的行号，下面两种写法都可以 </p>
+<p><code>grep -i -n ubuntu web1.txt</code></p>
+<p><code>grep -in ubuntu web1.txt</code></p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241022110224.png" /></p>
+<p>输入下列命令，在<code>web1.txt</code>文件中查找包含<code>ubuntu2024</code>字符串的所有行并打印出来，注意同时显示了匹配行后1行的内容</p>
+<blockquote>
+<p>其中<code>-A</code>全称<code>"after-context"</code></p>
+<p><code>-A1</code>表示显示匹配行后1行的内容</p>
+</blockquote>
+<p><code>grep -n -A1 ubuntu2024 web1.txt</code></p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241022110713.png" /></p>
+<p>输入下列命令，在<code>web1.txt</code>文件中查找包含<code>ubuntu2024</code>字符串的所有行并打印出来，注意同时显示了匹配行前1行的内容</p>
+<blockquote>
+<p>其中<code>-B</code>全称<code>"before-context"</code></p>
+<p><code>-B1</code>表示显示匹配行前1行的内容</p>
+</blockquote>
+<p><code>grep -n -B1 ubuntu2024 web1.txt</code></p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241022110731.png" /></p>
+<p>输入下列命令，在<code>web1.txt</code>文件中查找包含<code>ubuntu2024</code>字符串的所有行并打印出来，注意同时显示了匹配行前后1行的内容</p>
+<blockquote>
+<p>其中<code>-C</code>全称<code>"context"</code></p>
+<p><code>-C1</code> 表示显示匹配行上下各1行的内容</p>
+</blockquote>
+<p><code>grep -n -C1 ubuntu2024 web1.txt</code></p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241022110813.png" /></p>
+<p>输入下列命令，在<code>web1.txt</code>和<code>web2.txt</code>文件中查找包含<code>ubuntu</code>字符串的所有行并打印出来</p>
+<p><code>grep -n ubuntu web1.txt web2.txt</code></p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241022110851.png" /></p>
+<p>输入下列命令，在<code>web1.txt</code>和<code>web2.txt</code>文件中查找包含<code>ubuntu</code>字符串的所有行并打印出来，注意这次使用全词匹配, 即只有匹配到整个单词才算匹配成功</p>
+<blockquote>
+<p>其中<code>-w</code>的全称是<code>"word-regexp”</code>，即全词匹配。</p>
+</blockquote>
+<p><code>grep -n -w ubuntu web1.txt web2.txt</code></p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241022110932.png" /></p>
+<h2 id="5">5 具体参考资料<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<p>浙江理工大学——姜毅
+<a href="https://www.cnblogs.com/Wayne123/p/17201671.html">Linux Vim操作看这篇文章就够了</a></p>
+<p><a href="https://www.runoob.com/linux/linux-vim.html">Linux vi/vim</a></p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+      
+    </article>
+  </div>
+
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+        
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../../15/%E4%B8%93%E9%A2%9803-ubuntu%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E5%92%8C%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 专题03-Ubuntu软件安装和远程连接">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                专题03-Ubuntu软件安装和远程连接
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../29/%E4%B8%93%E9%A2%9805-ubuntu%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" class="md-footer__link md-footer__link--next" aria-label="下一页: 专题05-Ubuntu用户管理">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                专题05-Ubuntu用户管理
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 Caicloudcat
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://wakecai.github.io/CaiCloudCatBlog" target="_blank" rel="noopener" title="wakecai.github.io" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.395 15.035a40 40 0 0 0-.803-2.264l-1.079-2.695c.001-.032.014-.562.014-.836C19.526 4.632 17.351 0 12 0S4.474 4.632 4.474 9.241c0 .274.013.804.014.836l-1.08 2.695a39 39 0 0 0-.802 2.264c-1.021 3.283-.69 4.643-.438 4.673.54.065 2.103-2.472 2.103-2.472 0 1.469.756 3.387 2.394 4.771-.612.188-1.363.479-1.845.835-.434.32-.379.646-.301.778.343.578 5.883.369 7.482.189 1.6.18 7.14.389 7.483-.189.078-.132.132-.458-.301-.778-.483-.356-1.233-.646-1.846-.836 1.637-1.384 2.393-3.302 2.393-4.771 0 0 1.563 2.537 2.103 2.472.251-.03.581-1.39-.438-4.673"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.top", "navigation.footer", "navigation.indexes", "navigation.sections", "navigation.tabs", "navigation.tabs.sticky", "search.suggest", "content.code.copy", "search.highlight", "navigation.instant.progress", "navigation.instant.prefetch", "toc.follow"], "search": "../../../../../assets/javascripts/workers/search.6ce7567c.min.js", "tags": {"Default": "default-tag", "Hardware": "hardware-tag", "Software": "software-tag"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="../../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
