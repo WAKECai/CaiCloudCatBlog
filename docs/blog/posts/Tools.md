@@ -16,7 +16,6 @@ categories:
 
 测试PDF：[example.pdf](https://mathpix.com/examples.pdf)
 
-
 ## SimpleTex 推荐
 
 同Mathpix，重点是免费，也比较好用，与Mathpix相同，由国内制作，非常推荐，需求不高可以使用，也可以冲会员来获取优先使用流量。
@@ -36,7 +35,6 @@ $$
 ## Quicker
 
 一款提供效率的软件
-
 
 ## TXMouse
 
@@ -68,10 +66,8 @@ B站的页面调整
 
 ### 沉浸式翻译
 
-
 ## VsCode插件
 
 ### Material Icon Theme
 
 编辑图标主题
-

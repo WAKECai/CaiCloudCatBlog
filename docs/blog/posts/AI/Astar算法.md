@@ -37,7 +37,7 @@ $$
 
 A*算法在运算过程中，每次从优先队列中选取$f(n)$值最小（优先级最高）的节点作为下一个待遍历的节点。
 
-![](../../../PageImage/Pasted%20image%2020241015234052.png)
+![image text](../../../PageImage/Pasted%20image%2020241015234052.png)
 
 ## 伪代码
 
@@ -45,23 +45,23 @@ A*算法在运算过程中，每次从优先队列中选取$f(n)$值最小（优
 - 初始化open_set和close_set；
 - 将起点加入open_set中，并设置优先级为0（优先级最高）；
 - 如果open_set不为空，则从open_set中选取优先级最高的节点n：
-	- 如果节点n为终点，则：
-		- 从终点开始逐步追踪parent节点，一直达到起点；
-		- 返回找到的结果路径，算法结束；
-	- 如果节点n不是终点，则：
-		- 将节点n从open_set中删除，并加入close_set中；
-		- 遍历节点n所有的邻近节点：
-			- 如果邻近节点m在close_set中，则：
-				- 跳过，选取下一个邻近节点
-			- 如果邻近节点m也不在open_set中，则：
-				- 设置节点m的parent为节点n
-				- 计算节点m的优先级
-				- 将节点m加入open_set中
+    - 如果节点n为终点，则：
+        - 从终点开始逐步追踪parent节点，一直达到起点；
+        - 返回找到的结果路径，算法结束；
+    - 如果节点n不是终点，则：
+        - 将节点n从open_set中删除，并加入close_set中；
+        - 遍历节点n所有的邻近节点：
+            - 如果邻近节点m在close_set中，则：
+                - 跳过，选取下一个邻近节点
+            - 如果邻近节点m也不在open_set中，则：
+                - 设置节点m的parent为节点n
+                - 计算节点m的优先级
+                - 将节点m加入open_set中
 ```
 
 ## 流程图
 
-![](../../../PageImage/未命名文件.jpg)
+![image text](../../../PageImage/未命名文件.jpg)
 
 ## 算法实现
 
@@ -342,7 +342,6 @@ class AStar:
 
 ## 测试
 
-
 `main.py`
 
 ```python
@@ -393,8 +392,8 @@ a_star = a_star.AStar(map)
 a_star.RunAndSaveImage(ax, plt) 
 ```
 
-![](../../../PageImage/1729050202575.png)
-![](../../../PageImage/1729050205867.png)
+![image text](../../../PageImage/1729050202575.png)
+![image text](../../../PageImage/1729050205867.png)
 
 ## 资料参考
 
@@ -403,9 +402,7 @@ a_star.RunAndSaveImage(ax, plt)
 [Introduction to the A* Algorithm](https://www.redblobgames.com/pathfinding/a-star/introduction.html)
 
 [Introduction to A*](https://theory.stanford.edu/~amitp/GameProgramming/AStarComparison.html)
- 
+
 [Implementation of A*](https://www.redblobgames.com/pathfinding/a-star/implementation.html)
 
 [A*寻路算法详解](https://www.bilibili.com/video/BV1bv411y79P/)
-
-

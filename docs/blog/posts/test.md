@@ -6,6 +6,7 @@ readtime: 15
 ---
 
 # Mkdocs for material 的语法测试
+
 Mkdocs的相关语法测试功能
 <!-- more -->
 
@@ -32,6 +33,7 @@ Example of an admonition/callout with a title:
     This is a warning.
 
 ## Part2
+
 An Example of a codeBlock for Python:
 
 ```python title="add_numbers.py" linenums="1"
@@ -57,6 +59,7 @@ console.log("The concenate string is " + result)
 ## Part3
 
 ### Content Tabs
+
 #### Generic Content
 
 === "Plain text"
@@ -76,6 +79,7 @@ console.log("The concenate string is " + result)
     3. Third item
 
 #### Code Blocks in Content Tabs
+
 <div class="annotate" markdown>
 === "Python"
 
@@ -98,7 +102,6 @@ console.log("The concenate string is " + result)
     ```
 </div>
 1.  打印Hello World！
-
 
 ## Part4 Diagram Example
 
@@ -130,16 +133,17 @@ sequenceDiagram
 ```
 
 ## Part5 Annotations
+
 Lorem ipsum dolor sit amet, (1) consectetur adipiscing elit.
 { .annotate }
 
-1.  :man_raising_hand: I'm an annotation! I can contain `code`, __formatted
+1. :man_raising_hand: I'm an annotation! I can contain `code`, __formatted
     text__, images, ... basically anything that can be expressed in Markdown.
 
 Lorem ipsum dolor sit amet, (1) consectetur adipiscing elit.
 { .annotate }
 
-1.  :man_raising_hand: I'm an annotation! (1)
+1. :man_raising_hand: I'm an annotation! (1)
     { .annotate }
 
-    1.  :woman_raising_hand: I'm an annotation as well!
+    1. :woman_raising_hand: I'm an annotation as well!

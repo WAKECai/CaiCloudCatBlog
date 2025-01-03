@@ -12,7 +12,7 @@ tags:
     - Nginx
 ---
 
-# Nginx
+# Nginx概述
 
 如果我们需要上传一个网站到服务器，需要安装HTTP Server（也称为Web服务器）。常用的Web服务器有nginx和Apache HTTP Server，当然我们常用的Tomcat也集成了Web服务的功能。
 
