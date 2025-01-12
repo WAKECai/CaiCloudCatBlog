@@ -1,0 +1,2012 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://wakecai.github.io/CaiCloudCatBlog/blog/2024/11/26/%E4%B8%93%E9%A2%9807-ubuntu%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/">
+      
+      
+        <link rel="prev" href="../../21/%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90pca/">
+      
+      
+        <link rel="next" href="../../29/%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/">
+      
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>专题07-Ubuntu系统配置 - CaiCloudCat</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+  
+  
+  
+  
+  <style>:root{--md-annotation-icon:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 13h-4v4h-2v-4H7v-2h4V7h2v4h4m-5-9A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2"/></svg>');}</style>
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather+Sans:300,300i,400,400i,700,700i%7CRed+Hat+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Merriweather Sans";--md-code-font:"Red Hat Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#07-ubuntu" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../../../.." title="CaiCloudCat" class="md-header__button md-logo" aria-label="CaiCloudCat" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CaiCloudCat
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              专题07-Ubuntu系统配置
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="deep-purple"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-orange"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/WAKECai/CaiCloudCatBlog" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    WAKECai/CaiCloudCatBlog
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../../" class="md-tabs__link">
+          
+  
+    
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../tags/" class="md-tabs__link">
+        
+  
+    
+  
+  Tags
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../../other/" class="md-tabs__link">
+          
+  
+    
+  
+  Other
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="CaiCloudCat" class="md-nav__button md-logo" aria-label="CaiCloudCat" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CaiCloudCat
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/WAKECai/CaiCloudCatBlog" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    WAKECai/CaiCloudCatBlog
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Blog
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Blog
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    归档
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            归档
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2024%20%E5%8D%81%E4%BA%8C%E6%9C%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2024 十二月
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2024%20%E5%8D%81%E4%B8%80%E6%9C%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2024 十一月
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2024%20%E5%8D%81%E6%9C%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2024 十月
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    分类
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            分类
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/ai/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/book/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Book
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/computernetwork/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ComputerNetwork
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/k8s/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    K8S
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/linux/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/ml/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ML
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/nginx/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nginx
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/server/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/tools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tools
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/%E7%A1%AC%E7%9B%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    硬盘
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tags/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tags
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../other/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Other
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Other
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../other/posts/%E4%B8%93%E6%B2%BB%E7%96%91%E9%9A%BE%E7%B3%BB%E5%88%97/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    专治疑难系列
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../other/posts/%E5%8A%9F%E8%83%BD%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    功能技巧
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../other/posts/%E6%97%A0%E8%81%8A%E6%95%B0%E6%8D%AE%E8%AE%B0%E5%BD%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    无聊数据记录
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../other/posts/%E8%BF%87%E5%BE%80%E4%B9%A6%E7%AD%BE%E5%92%8CUP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    过往书签和UP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../other/posts/%E5%BD%B1%E8%A7%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    影视
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../other/posts/%E6%B8%B8%E6%88%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    游戏
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../other/posts/%E6%A2%AF%E5%AD%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    梯子
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1 引言
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2 网络配置
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2 网络配置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-ipnat" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 关于网络的基础知识（IP地址、子网掩码、网关、NAT等）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-ubuntu" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 查看Ubuntu网络配置
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 查看Ubuntu网络配置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1ifconfignetwork-interfaces-configuring" class="md-nav__link">
+    <span class="md-ellipsis">
+      1、ifconfig命令（network interfaces configuring）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2ping" class="md-nav__link">
+    <span class="md-ellipsis">
+      2、ping命令
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      3、ip命令
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      4、Windows查看网络配置
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-ubuntu" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 修改Ubuntu网络配置
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3 日期和时间管理
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3 日期和时间管理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 显示当前日期、时间和时区
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 设定日期和时间格式
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 把日期和时间写入文件
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4 查看进程信息
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4 查看进程信息">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 显示进程信息
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 强制结束进程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-cpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      5 查看cpu、内存等系统信息
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5 查看cpu、内存等系统信息">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-top" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 使用top命令查看系统的实时信息
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-free" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 使用free命令显示系统内存
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+  <div class="md-content md-content--post" data-md-component="content">
+    <div class="md-sidebar md-sidebar--post" data-md-component="sidebar" data-md-type="navigation">
+      <div class="md-sidebar__scrollwrap">
+        <div class="md-sidebar__inner md-post">
+          <nav class="md-nav md-nav--primary">
+            <div class="md-post__back">
+              <div class="md-nav__title md-nav__container">
+                <a href="../../../../" class="md-nav__link">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+                  <span class="md-ellipsis">
+                    回到主页
+                  </span>
+                </a>
+              </div>
+            </div>
+            
+            <ul class="md-post__meta md-nav__list">
+              <li class="md-nav__item md-nav__item--section">
+                <div class="md-post__title">
+                  <span class="md-ellipsis">
+                    元数据
+                  </span>
+                </div>
+                <nav class="md-nav">
+                  <ul class="md-nav__list">
+                    <li class="md-nav__item">
+                      <div class="md-nav__link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
+                        <time datetime="2024-11-26 00:00:00+00:00" class="md-ellipsis">2024年11月26日</time>
+                      </div>
+                    </li>
+                    
+                    
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3zm3 2 4 13 3-1-4-13zM5 5v13h3V5zM3 19v2h18v-2z"/></svg>
+                          <span class="md-ellipsis">
+                            分类于
+                            
+                              <a href="../../../../category/linux/">Linux</a></span>
+                        </div>
+                      </li>
+                    
+                    
+                      
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
+                          <span class="md-ellipsis">
+                            
+                              需要 40 分钟阅读时间
+                            
+                          </span>
+                        </div>
+                      </li>
+                    
+                  </ul>
+                </nav>
+              </li>
+            </ul>
+          </nav>
+          
+        </div>
+      </div>
+    </div>
+    <article class="md-content__inner md-typeset">
+      
+        
+  
+  
+
+<nav class="md-tags" >
+  
+    
+    
+      
+      
+    
+    
+      <a href="../../../../tags/#linux" class="md-tag md-tag-icon">Linux</a>
+    
+  
+</nav>
+
+
+  
+  
+
+
+<h1 id="07-ubuntu">专题07-Ubuntu系统配置<a class="headerlink" href="#07-ubuntu" title="Permanent link">&para;</a></h1>
+<h2 id="1">1 引言<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<p>本专题主要介绍了Ubuntu网络配置方法，日期和时间管理方法，使用ps命令查看进程信息，使用top和free命令查看CPU、内存等系统信息的方法。</p>
+<!-- more -->
+
+<h2 id="2">2 网络配置<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<h3 id="21-ipnat">2.1 关于网络的基础知识（IP地址、子网掩码、网关、NAT等）<a class="headerlink" href="#21-ipnat" title="Permanent link">&para;</a></h3>
+<p>感兴趣可以学习《计算机网络》课程或者书籍，这里不再赘述。</p>
+<h3 id="22-ubuntu">2.2 查看Ubuntu网络配置<a class="headerlink" href="#22-ubuntu" title="Permanent link">&para;</a></h3>
+<h4 id="1ifconfignetwork-interfaces-configuring">1、ifconfig命令（network interfaces configuring）<a class="headerlink" href="#1ifconfignetwork-interfaces-configuring" title="Permanent link">&para;</a></h4>
+<p><code>ifconfig</code> ：不加任何选项表示只显示接口为up状态的接口信息。</p>
+<p><code>Ifconfig -a</code>：表示显示所有接口的接口信息，不管该接口是up还是down都显示。这个用的多。</p>
+<p>输入<code>ifconfig</code>命令，查看服务器的ip地址：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ifconfig<span class="w"> </span>-a
+</code></pre></div>
+<p>如果有报错，先下载安装<code>net-tools</code> ,然后再运行<code>ifconfig</code>命令即可看到：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>net-tools
+</code></pre></div>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241126101109.png" /></p>
+<p>从上面可以看到，我这台服务器的网络配置为：</p>
+<p><strong>IPv4：</strong></p>
+<p>ip地址（inet）：<code>192.168.64.130</code> ，这是一个保留给内部使用的C类地址。</p>
+<p>子网掩码（netmask）：<code>255.255.255.0</code></p>
+<p>局域网广播地址（broadcast）：<code>192.168.64.255</code></p>
+<p><strong>IPv6：</strong></p>
+<p>ip地址（inet6）：<code>fe80::20c:29ff:feab:b83d</code></p>
+<p><strong>物理地址</strong>（ether）：<code>00:0c:29:ab:b8:3d</code></p>
+<div class="admonition info">
+<p class="admonition-title">注意</p>
+<p>ether是指ethernet，即以太网，这是我们现在使用的LAN（local area network，局域网）技术。现在局域网都是基于以太网技术。</p>
+</div>
+<h4 id="2ping">2、ping命令<a class="headerlink" href="#2ping" title="Permanent link">&para;</a></h4>
+<p>使用ping命令，可以和网络上的其他设备打招呼，看彼此之间是否处于连通状态，例如，我想测试一下当前主机和网关是否连通，输入下列命令：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>ping<span class="w"> </span><span class="m">192</span>.168.64.130
+</code></pre></div>
+<blockquote>
+<p>ping之后会一直收到对方主机的回复，可以使用 <strong>组合键Ctrl+Z</strong> 将Ping命令挂起，或者按 <strong>组合键Ctrl+C</strong> 中止命令执行。</p>
+</blockquote>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241126101628.png" /></p>
+<details class="tip">
+<summary>ping命令说明</summary>
+<p>ping 命令用于测试与目标主机之间的连接。它向目标主机发送一个ICMP（Internet Control Message Protocol）Internet控制报文协议回显请求，并等待它的回应。如果目标主机正常工作并且连接畅通，则会收到一个回显响应。如果没有收到响应，则说明有问题，需要进一步排除故障。ping可以用来测试本机与目标主机是否联通、联通速度如何、稳定性如何。</p>
+</details>
+<p>使用ping命令作用：</p>
+<ul>
+<li>
+<p><strong>检测网络连接问题</strong>：如果我们无法访问某个网站或主机，可以使用ping命令来检测网络连接是否正常。如果ping命令能够成功收到目标主机的回复，说明网络连接正常；如果无法收到回复，可能是网络故障或目标主机不可达。</p>
+</li>
+<li>
+<p><strong>测量网络延迟</strong>：通过ping命令可以测量网络延迟，即从发送ICMP请求到接收到回复所需的时间。可以使用ping命令的-c选项指定发送的ICMP请求次数，然后计算平均延迟时间。较高的延迟可能会导致网络连接缓慢，需要进一步排查网络问题。</p>
+</li>
+<li>
+<p><strong>检测丢包率</strong>：ping命令还可以用于检测网络丢包率，即发送的ICMP请求在传输过程中丢失的比例。可以观察ping命令的输出结果中的丢包率字段，如果丢包率较高，可能是网络拥堵或目标主机负载过高。</p>
+</li>
+</ul>
+<h4 id="3ip">3、ip命令<a class="headerlink" href="#3ip" title="Permanent link">&para;</a></h4>
+<p>Linux ip 命令与 ifconfig 命令类似，但比 ifconfig 命令更加强大，主要功能是用于显示或设置网络设备。
+ip 命令是 Linux 加强版的的网络配置工具，用于代替 ifconfig 命令。</p>
+<p>其语法结构如下：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>ip [ OPTIONS ] OBJECT { COMMAND | help }
+</code></pre></div>
+<p>OBJECT 为常用对象，值可以是以下几种：
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>OBJECT={ link | addr | addrlabel | route | rule | neigh | ntable | tunnel | maddr | mroute | mrule | monitor | xfrm | token }
+</code></pre></div>
+常用对象的取值含义如下：</p>
+<ul>
+<li>link：网络设备</li>
+<li>addr（address）：设备上的协议（IP或IPv6）地址</li>
+<li>addrlabel：协议地址选择的标签配置</li>
+<li>route：路由表条目</li>
+<li>rule：路由策略数据库中的规则</li>
+</ul>
+<p>OPTIONS 为常用选项，值可以是以下几种：
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>OPTIONS={ -V[ersion] | -s[tatistics] | -d[etails] | -r[esolve] | -h[uman-readable] | -iec | -f[amily] { inet | inet6 | ipx | dnet | link } | -o[neline] | -t[imestamp] | -b[atch] [filename] | -rc[vbuf] [size] }
+</code></pre></div>
+常用选项的取值含义如下：</p>
+<ul>
+<li>V：显示命令的版本信息；</li>
+<li>s：输出更详细的信息；</li>
+<li>f：强制使用指定的协议族；</li>
+<li>4：指定使用的网络层协议是IPv4协议；</li>
+<li>6：指定使用的网络层协议是IPv6协议；</li>
+<li>0：输出信息每条记录输出一行，即使内容较多也不换行显示；</li>
+<li>r：显示主机时，不使用IP地址，而使用主机的域名。</li>
+</ul>
+<p>输入以下命令，显示网络接口信息
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>ip<span class="w"> </span>link<span class="w"> </span>show
+</code></pre></div></p>
+<p><img alt="alt text" src="../../../../../PageImage/image202411262053-1.png" /></p>
+<p>输入下面命令，显示网卡IP信息
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>ip<span class="w"> </span>addr<span class="w"> </span>show
+</code></pre></div></p>
+<p><img alt="alt text" src="../../../../../PageImage/image202411262053-2.png" /></p>
+<p>输入下面的命令，显示系统路由
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>ip<span class="w"> </span>route<span class="w"> </span>show
+</code></pre></div></p>
+<p><img alt="alt text" src="../../../../../PageImage/image202411262053-3.png" /></p>
+<h4 id="4windows">4、Windows查看网络配置<a class="headerlink" href="#4windows" title="Permanent link">&para;</a></h4>
+<p>在Windows系统中，在命令提示符模式下查看网络配置的命令是</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>ipconfig<span class="w"> </span>-all
+</code></pre></div>
+<p>以下是我的电脑的部分网络配置截图：</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241126102003.png" /></p>
+<p>电脑上因为有无线网卡、蓝牙、wmware虚拟机的虚拟网卡等设备，显示信息可能会比上面的截图长很多！</p>
+<p>Windows系统同样可以使用ping命令。</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241126102222.png" /></p>
+<h3 id="23-ubuntu">2.3 修改Ubuntu网络配置<a class="headerlink" href="#23-ubuntu" title="Permanent link">&para;</a></h3>
+<p>注意：Ubuntu的不同版本网络配置方法差别很大，这里的网络配置方法仅限于ubuntu-24.04版本，其他版本可能会有区别。</p>
+<p>我们来给虚拟机设置静态IP地址。在以前使用虚拟机Vmware安装Ubuntu时，网络类型我们设置的是“NAT”模式。</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241126102351.png" /></p>
+<p>我们来看一下Vmware给Ubuntu分配的IP网段是什么。</p>
+<p>打开VMware：编辑 -&gt; 虚拟网络编辑器 -&gt; 更改设置 ，记住子网ip和子网掩码，我这里子网ip是192.168.64.0，C类网络IP地址0是指网络号，子网掩码是255.255.255.0，表示网络号为24位，这表示NAT子网IP地址可以在192.168.64.1~192.168.64.255中分配。</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241126102604.png" /></p>
+<p>如果需要修改，可以选择“更改设置”。</p>
+<p>点击NAT设置，记住网关地址。</p>
+<p><strong>正常情况下VMware的网关IP是以 192.168.x.2结尾的，因为 x.1是绑定在物理机的虚拟网卡上的，而 x.2是用于转发数据的。</strong></p>
+<p>因此我这里网关IP地址是192.168.64.2。</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241126102846.png" /></p>
+<p>在ubuntu中执行ifconfig，记住网卡名称，我的是ens33。</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241126103050.png" /></p>
+<p>接下来给Ubuntu配置静态IP地址</p>
+<p>注意：Ubuntu18固定IP的方式跟Ubuntu18之前版本的的配置方式不同，Ubuntu18之前在<code>/etc/network/interfaces</code>进行配置，Ubuntu18及之后版本在<code>/etc/netplan/*.yaml</code>进行配置，如<code>/etc/netplan/01-network-manager-all.yaml</code>，如果<code>/etc/netplan</code>目录下没有<code>yaml</code>文件，则可以新建一个。</p>
+<p>可以看到当前目录下没有该文件，默认有一个<code>50-cloud-init.yaml</code>：</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241126103703.png" /></p>
+<p>这里使用Chat基础介绍一下该文件以及其文件相关命名规则：</p>
+<p>在 Ubuntu 系统中，<code>/etc/netplan/50-cloud-init.yaml</code> 是 Netplan 网络配置工具的一个 YAML 文件，用于定义网络接口的配置。它通常是系统初始安装或配置时由 Cloud-Init 工具生成的，特别是在云环境中部署 Ubuntu 系统时。</p>
+<p><code>/etc/netplan/50-cloud-init.yaml</code> 是 Netplan 的配置文件之一，Netplan 用于管理网络接口，抽象出了一种简单的 YAML 配置方式，可以生成适配不同网络后端（如 NetworkManager 或 systemd-networkd）的配置。</p>
+<p><strong>数字优先级</strong> ：<code>50-cloud-init.yaml</code> 文件名中的数字 50 表示优先级，Netplan 会按数字顺序加载多个配置文件。如果有多个文件，数字较小的配置文件会被较早解析，后续配置文件可能覆盖前面的设置。</p>
+<p>该文件内容通常类似如下：
+<img alt="alt text" src="../../../../../PageImage/image202411262053.png" /></p>
+<ul>
+<li><code>network</code>：Netplan 配置的顶级键。</li>
+<li><code>version: 2</code>：Netplan 配置的版本号，2 是当前常用版本。</li>
+<li><code>ethernets</code>：定义以太网接口的设置。</li>
+<li><code>ens33</code>：网络接口的名称（如 ens33、eth0 等）。</li>
+<li><code>dhcp4</code>: true：启用 IPv4 的 DHCP。</li>
+</ul>
+<p>使用下面命令新建并进行修改：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>sudo<span class="w"> </span>vim<span class="w"> </span>/etc/netplan/01-network-manager-all.yaml
+</code></pre></div>
+<p>修改成以下形式：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Let NetworkManager manage all devices on this system</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="nt">network</span><span class="p">:</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">  </span><span class="nt">renderer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NetworkManager</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">  </span><span class="nt">ethernets</span><span class="p">:</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">    </span><span class="nt">ens33</span><span class="p">:</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">      </span><span class="nt">dhcp4</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">no</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">      </span><span class="nt">dhcp6</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">no</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="w">      </span><span class="nt">addresses</span><span class="p">:</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">192.168.64.10/24</span>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="w">      </span><span class="nt">routes</span><span class="p">:</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">to </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="w">          </span><span class="nt">via </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">192.168.64.2</span>
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="w">      </span><span class="nt">nameservers</span><span class="p">:</span>
+<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="w">        </span><span class="nt">addresses</span><span class="p">:</span>
+<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">192.168.64.2</span>
+</code></pre></div>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241126104322.png" /></p>
+<p>修改完成保存退出，执行</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>sudo<span class="w"> </span>netplan<span class="w"> </span>apply
+</code></pre></div>
+<p>出现警告，提醒权限问题，这是文件权限开的太高所致：</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241126104423.png" /></p>
+<p>执行</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">0600</span><span class="w"> </span>/etc/netplan/01-network-manager-all.yaml
+</code></pre></div>
+<p>再重新执行：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>sudo<span class="w"> </span>netplan<span class="w"> </span>apply
+</code></pre></div>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241126104735.png" /></p>
+<p>成功！可以使用<code>ifconfig</code>查看新的ip配置：</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241126104824.png" /></p>
+<p>可以看到ip地址已经变成了192.168.64.10了。</p>
+<h2 id="3">3 日期和时间管理<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<h3 id="31">3.1 显示当前日期、时间和时区<a class="headerlink" href="#31" title="Permanent link">&para;</a></h3>
+<p>输入date命令，显示当前日期、时间和时区</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241126105112.png" /></p>
+<p>其中， CST(China Standard Time) 表示中国标准时间的时区缩写。</p>
+<h3 id="32">3.2 设定日期和时间格式<a class="headerlink" href="#32" title="Permanent link">&para;</a></h3>
+<p>通过使用 + 和格式字符串，可以高度自定义时间的显示格式。格式字符串中的指令以 % 开头，后跟一个字符标识符。常见的格式化选项如下：</p>
+<ul>
+<li>%Y：年（Year），四位数的年份，即YYYY格式，如 2024</li>
+<li>%y：年（year），两位数的年份，即YY格式，如 24</li>
+<li>%m：月（month），两位数的月份，即MM格式，如 09</li>
+<li>%d：日（day），两位数的日期，即DD格式，如 29</li>
+<li>%H：小时（Hour），24小时制，即HH格式，如 14</li>
+<li>%M：分钟（Minute），分钟，即MM格式，如 35</li>
+<li>%S：秒（Second），即SS格式，如 02</li>
+</ul>
+<p>输入带格式的date命令，显示日期：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>date<span class="w"> </span>+%Y-%m-%d
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>date<span class="w"> </span>+%y-%m-%d
+</code></pre></div>
+<p>可以简化使用下列命令，其中 %F代表 YYYY-MM-DD date format 。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>date<span class="w"> </span>+%F
+</code></pre></div>
+<p>输入带格式的date命令，显示时间：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>date<span class="w"> </span>+%H:%M:%S
+</code></pre></div>
+<p>可以简化使用下列命令，其中 %T代表 HH:MM:SS time format。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>date<span class="w"> </span>+%T
+</code></pre></div>
+<p>输入带格式的date命令，显示日期+时间，注意必须不要忘记命令中的引号：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>date<span class="w"> </span>+<span class="s2">&quot;%Y-%m-%d %H:%M:%S&quot;</span>
+</code></pre></div>
+<p>可以简化使用下列命令：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>date<span class="w"> </span>+<span class="s2">&quot;%F %T&quot;</span>
+</code></pre></div>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241126105828.png" /></p>
+<h3 id="33">3.3 把日期和时间写入文件<a class="headerlink" href="#33" title="Permanent link">&para;</a></h3>
+<p>我们把日期和时间写入文件，输入下列命令</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="nb">echo</span><span class="w"> </span>date<span class="w"> </span>+<span class="s2">&quot;%F %T&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>log.txt
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>ls<span class="w"> </span>-l
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>cat<span class="w"> </span>log.txt
+</code></pre></div>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241126110408.png" /></p>
+<p>可以看到在<code>log.txt</code>中保存是命令本身，而不是date的执行结果。</p>
+<p>可以使用反引号<code>`</code>和<code>$()</code>表示执行命令或表达式的值，其中<code>$()</code>不仅可以引用命令的输出, 还可以引用变量的值、命令的参数等。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="nb">echo</span><span class="w"> </span><span class="sb">`</span>date<span class="w"> </span>+<span class="s2">&quot;%F %T&quot;</span><span class="sb">`</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>log.txt
+</code></pre></div>
+<p>推荐使用下面的命令：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="nb">echo</span><span class="w"> </span><span class="k">$(</span>date<span class="w"> </span>+<span class="s2">&quot;%F %T&quot;</span><span class="k">)</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>log.txt
+</code></pre></div>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241126110835.png" /></p>
+<p>可以看到当前时间被保存到<code>log.txt</code>文件中了。</p>
+<h2 id="4">4 查看进程信息<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<h3 id="41">4.1 显示进程信息<a class="headerlink" href="#41" title="Permanent link">&para;</a></h3>
+<p>进程是指在计算机中正在运行的程序。</p>
+<p>在windows系统中，在任务栏的空白处点右键，选择"任务管理器--进程"，可以查看系统的进程信息。</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241126111112.png" /></p>
+<p>Ubuntu的ps （Process Status）命令可以显示当前终端会话中运行的进程信息。输入下列命令，显示当前终端会话中运行的进程的基本信息：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>ps
+</code></pre></div>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241126111852.png" /></p>
+<p>输入下列命令，显示当前终端会话中运行的进程的详细信息，“-f”参数代表全格式/完整格式<mark>全格式/完整格式</mark>（full format）：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>ps<span class="w"> </span>-f
+</code></pre></div>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241126111928.png" /></p>
+<p>其中，</p>
+<ul>
+<li>UID (User ID) ：进程用户ID</li>
+<li>PID (Process ID)： 进程ID</li>
+<li>PPID (Parent Process ID) ：父进程ID</li>
+<li>C(CPU) ：进程占用 CPU 的百分比</li>
+<li>STIME (Start Time) ：进程启动的具体时间</li>
+<li>TTY (Teletypewriter) ：与进程交互的终端设备</li>
+<li>TIME：启动进程花费的 CPU 时间</li>
+<li>CMD：启动进程的命令</li>
+</ul>
+<p>输入下列命令，显示系统中所有正在运行的进程的详细信息, 包括系统进程和用户进程，“-e”参数代表every：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>ps<span class="w"> </span>-ef
+</code></pre></div>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241126112003.png" /></p>
+<p>注意：这个页面很长，这里没有完全截屏下来。</p>
+<p>如果你觉得显示的进程数量太多，可以使用管道符号缩小查找范围。 | 是管道符号，表示 将前一个命令的 "输出" 作为后一个命令的 "输入"。这样就可以一步一步缩小范围了。<code>grep ps</code> 会在 <code>ps -ef</code> 命令的 "输出" 中查找包含 ps 的进程信息。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>ps<span class="w"> </span>-ef<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>ps
+</code></pre></div>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241126112046.png" /></p>
+<p>输入下列命令，显示当前终端会话中当前用户正在运行的进程信息，“-u”参数代表user：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>ps<span class="w"> </span>-u
+</code></pre></div>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241126112350.png" /></p>
+<p>其中，</p>
+<ul>
+<li>USER：用户名</li>
+<li>PID (Process ID)：进程ID</li>
+<li>CPU：CPU使用率</li>
+<li>MEM：(Memory) 内存使用率</li>
+<li>VSZ：(Virtual Size) 虚拟内存大小(以KB为单位)</li>
+<li>RSS：(Resident Set Size) 常驻内存大小(以KB为单位)</li>
+<li>TTY：(Teletypewriter) 与进程交互的终端设备</li>
+<li>STAT：(State) 进程状态<ul>
+<li><code>R</code> 正在运行状态（正在使用CPU）</li>
+<li><code>S</code> 睡眠状态</li>
+<li><code>D</code> 不可中断睡眠，即在睡眠的过程中不可以接收信号唤醒=》执行的IO操作得不到硬件设备的响应</li>
+<li><code>T</code> 停止的进程</li>
+<li><code>Z</code> 僵尸进程</li>
+<li><code>X</code> 死掉的进程(几乎看不见，因为死了就立即回收了)</li>
+<li><code>&lt;</code>代表优先级较高的进程</li>
+<li><code>N</code> 代表优先级较低的进程</li>
+<li><code>s</code> 包含子进程</li>
+<li><code>+</code> 表示在前台运行的进程（前台运行就是指在命令行中运行）</li>
+<li><code>l</code> 小写字母l，代表以线程的方式运行，即多线程</li>
+<li><code>|</code> 管道符号代表多进程</li>
+</ul>
+</li>
+<li>START：进程启动时间</li>
+<li>TIME：启动进程花费的 CPU 时间</li>
+<li>COMMAND：启动进程的命令</li>
+</ul>
+<p><code>ps</code>命令中：</p>
+<ul>
+<li><code>-a</code> 显示一个终端的所有进程</li>
+<li><code>-u</code> 选择有效的用户id或者是用户名</li>
+<li><code>-x</code> 显示没有控制终端的进程，同时显示各个命令的具体路径。</li>
+</ul>
+<p>aux参数很多情况下可以一起使用，输入下列命令:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>ps<span class="w"> </span>-aux
+</code></pre></div>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241126135938.png" /></p>
+<div class="admonition note">
+<p class="admonition-title">-ef 和 -aux 之间的区别：</p>
+<ul>
+<li><code>-ef</code> 会打印出父级PID</li>
+<li><code>-aux</code> 会打印出CPU、内存相关的使用情况</li>
+</ul>
+</div>
+<h3 id="42">4.2 强制结束进程<a class="headerlink" href="#42" title="Permanent link">&para;</a></h3>
+<p>强制结束 id=4857 的进程</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="nb">kill</span><span class="w"> </span>-9<span class="w"> </span><span class="m">4857</span>
+</code></pre></div>
+<p>-9 表示发送 SIGKILL[signal kill] 信号给进程 id 为 4857 的进程，SIGKILL 信号是一种强制停止进程的信号</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241126140229.png" /></p>
+<blockquote>
+<p>我的系统中没有4857的进程，所以提示No such process。但是<code>kill</code>命令要记住，以后如果有哪个进程运行出现问题，就可以直接kill掉。</p>
+</blockquote>
+<h2 id="5-cpu">5 查看cpu、内存等系统信息<a class="headerlink" href="#5-cpu" title="Permanent link">&para;</a></h2>
+<h3 id="51-top">5.1 使用top命令查看系统的实时信息<a class="headerlink" href="#51-top" title="Permanent link">&para;</a></h3>
+<p>在windows系统中，在任务栏的空白处点右键，选择”任务管理器“--“性能”，可以查看系统CPU、内存、磁盘等设备的实时信息。</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241126140408.png" /></p>
+<p>在Ubuntu中，top是一个非常实用的动态实时显示系统运行状态的命令行工具。它能够提供系统概览，包括正在运行的进程信息、CPU 使用率、内存使用情况等。输入下列命令：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>top
+</code></pre></div>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241126140637.png" /></p>
+<p>上面显示信息的具体说明如下：</p>
+<p>（1）<strong>顶部区域</strong></p>
+<p>top - 11:44:33 up 1:37， 3 users， load average: 0.00， 0.00， 0. 00</p>
+<p><code>11:44:33</code>：当前系统时间。</p>
+<p><code>1:37</code>：系统运行时间，格式是小时:分钟。</p>
+<p><code>3 users</code>：当前登录的用户数量</p>
+<p><code>load average: 0.00， 0.00， 0. 00</code>：系统负载平均值，分别是过去1分钟、5分钟和15分钟的平均值。</p>
+<p>（2）<strong>任务（进程）区域</strong></p>
+<p>Tasks: 306 total， 1 running， 305 sleeping， 0 stopped， 0 zombie</p>
+<p><code>306 total</code>：系统中总的任务（进程）数。</p>
+<p><code>1 running</code>：正在运行的任务数。</p>
+<p><code>305 sleeping</code>：处于睡眠状态的任务数。</p>
+<p><code>0 stopped</code>：被停止的任务数。</p>
+<p><code>0 zombie</code>：僵尸进程数。僵尸进程是指在进程已经结束运行但其相关资源（如内存空间等）尚未被释放的情况下，该进程的状态是一个已经死亡但仍然存在于系统中的进程。</p>
+<p>（3）<strong>CPU 状态</strong></p>
+<p>%Cpu(s): 0.2 us， 0.5 sy， 0.0 ni， 99.3 id， 0.0 wa， 0.0 hi， 0.0 si， 0.0 st</p>
+<p><code>us</code>：user，用户空间占用CPU的百分比。</p>
+<p><code>sy</code>：system，内核空间占用CPU的百分比。</p>
+<p><code>ni</code>：nice，改变过优先级的进程占用CPU的百分比。nice 是指优先级调整值,用于调整进程的优先级，当一个进程被赋予较高的nice值时,它将以较低的优先级运行，从而使其他进程能够获得更多的 CPU 资源。</p>
+<p><code>id</code>：idle，空闲CPU百分比。99.3 id表示CPU大部分时间处于空闲状态，说明系统负载较低。</p>
+<p><code>wa</code>：wait，等待输入输出（I/O）的CPU时间百分比。I/O[Input/Output] 操作是指系统中的输入和输出操作，常见的 I/O 操作有：读取和写入文件、键盘输入、打印机输出等.</p>
+<p><code>hi</code>：hardware interrupt，处理硬件中断的时间百分比。<strong>硬中断</strong> 是由硬件设备(如键盘、鼠标等)   发出的信号，会打断 CPU 正在执行的任务,使其跳转到中断处进行处理。0.0 hi 表示没有硬中断发生。</p>
+<p><code>si</code>：software interrupt，处理软件中断的时间百分比。<strong>软中断</strong> 是由软件程序发出的信号,会打断CPU正在执行的任务，使其跳转到中断处进行处理，0.0 si 表示没有软中断发生。</p>
+<p><code>st</code>：被虚拟机偷去的时间百分比。0.0 st 表示没有虚拟机从物理机中窃取CPU时间，即虚拟化对 CPU 的占用为0.0%。</p>
+<p>（4）<strong>内存状态</strong></p>
+<p>MiB Mem : 3868.2 total， 1587.7 free， 1183.2 used， 1365.9 buff/ cache</p>
+<p>MiB Mem（Megabytes of Memory），内存的兆字节数。</p>
+<p>total：总内存。</p>
+<p>free：空闲内存。</p>
+<p>used：已使用的内存。</p>
+<p>buff/cache：用作缓冲和缓存的内存。</p>
+<p>（5）<strong>交换空间（Swap）状态</strong></p>
+<p>MiB Swap: 3769.0 total， 3769.0 free，0.0 used. 2685.0 avail Mem</p>
+<p>MiB Swap（Megabytes of Swap），交换空间兆字节数。<strong>交换空间</strong> (Swap Space) 是系统中的虚拟内存技术,用于在物理内存不足时，将部分内存数据暂时存储到磁盘上。</p>
+<p>total：总交换空间。</p>
+<p>free：空闲交换空间。</p>
+<p>used：已使用的交换空间。</p>
+<p>avail Mem：可用于启动新应用的内存量。</p>
+<p>（6）<strong>进程信息区</strong></p>
+<p>| PID  | USER | PR   | NI   | VIRT | RES  | SHR  | %CPU | %MEM | TIME+ | COMMAND |</p>
+<ul>
+<li>
+<p>PID：进程编号</p>
+</li>
+<li>
+<p>USER：用户名</p>
+</li>
+<li>
+<p>PR(Priority)：优先级</p>
+</li>
+<li>
+<p>NI(Nice)：优先级调整值,用于调整进程的优先级</p>
+</li>
+<li>
+<p>VIRT(Virtual Memory)：虚拟内存大小</p>
+</li>
+<li>
+<p>RES(Resident Memory)：物理内存大小</p>
+</li>
+<li>
+<p>SHR(Shared Memory)：共享内存大小</p>
+</li>
+<li>
+<p>%CPU(CPU Usage)：CPU使用率</p>
+</li>
+<li>
+<p>%MEM(Memory Usage)：内存使用率</p>
+</li>
+<li>
+<p>TIME+(Time Elapsed)：进程使用的CPU时间</p>
+</li>
+<li>
+<p>COMMAND：命令</p>
+</li>
+</ul>
+<p>在 top 命令的交互模式下：</p>
+<p>按键盘上1键, 切换CPU显示模式, 显示每个CPU的使用情况</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241126142306.png" /></p>
+<p>按键盘上大写字母M, 按照物理内存(RES)使用率对进程进行排序。</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241126142434.png" /></p>
+<p>按键盘上大写字母P, 按照CPU占用率对进程进行排序，用来查看CPU占用率最高的进程。</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241126142533.png" /></p>
+<p>输入下列命令，查看指定PID的进程信息：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>top<span class="w"> </span>-p<span class="w"> </span><span class="m">1</span>
+</code></pre></div>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241126142657.png" /></p>
+<h3 id="52-free">5.2 使用free命令显示系统内存<a class="headerlink" href="#52-free" title="Permanent link">&para;</a></h3>
+<p>如果只需要显示内存信息，可以使用free命令。free 命令是 Linux 和类 Unix 操作系统中用于显示内存使用情况的工具。通过 free 命令，可以查看系统中物理内存（RAM）、交换空间（swap）以及缓存和缓冲区的使用情况。输入下列命令显示内存的使用情况：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>free
+</code></pre></div>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241126142926.png" /></p>
+<p>这里默认以 KB 为单位显示内存使用情况，各字段的说明如下：</p>
+<ul>
+<li>total 总内存大小</li>
+<li>used 已使用的内存大小</li>
+<li>free 空闲内存大小</li>
+<li>shared 共享内存大小</li>
+<li>buff/cache 缓冲和缓存区内存大小</li>
+<li>available 可用的内存大小 = 空闲内存 + 缓冲和缓存区内存</li>
+</ul>
+<p>在输入free命令时，常用选项如下：</p>
+<ul>
+<li><code>-b</code>：以字节为单位显示内存使用情况。</li>
+<li><code>-k</code>：以 KB 为单位显示内存使用情况（默认）。</li>
+<li><code>-m</code>：以 MB 为单位显示内存使用情况。</li>
+<li><code>-g</code>：以 GB 为单位显示内存使用情况。</li>
+<li><code>-h</code>：以人类可读的格式显示内存使用情况（自动选择合适的单位，如 KB、MB、GB）。</li>
+<li><code>-t</code>：显示总计行，即在输出的开头显示内存和交换空间的总计。</li>
+<li><code>-s [秒]</code>：每隔指定的秒数重复显示内存使用情况。</li>
+<li><code>-c 计数</code>：重复显示内存使用情况指定的次数。</li>
+</ul>
+<p>例如，输入下列命令，以兆为单位显示内存的使用情况：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>free<span class="w"> </span>-m
+</code></pre></div>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241126142946.png" /></p>
+<p>上图中，虽然空闲内存为1598MB，缓冲和缓存区内存为 1375 MB，但实际可用的内存大小只有2705MB，这是因为还有其他一些内存区域被占用, 不能立即用于新的进程。</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+      
+    </article>
+  </div>
+
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+        
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../../21/%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90pca/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 主成分分析（PCA）">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                主成分分析（PCA）
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../29/%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/" class="md-footer__link md-footer__link--next" aria-label="下一页: 逻辑回归">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                逻辑回归
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 Caicloudcat
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://wakecai.github.io/CaiCloudCatBlog" target="_blank" rel="noopener" title="wakecai.github.io" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.395 15.035a40 40 0 0 0-.803-2.264l-1.079-2.695c.001-.032.014-.562.014-.836C19.526 4.632 17.351 0 12 0S4.474 4.632 4.474 9.241c0 .274.013.804.014.836l-1.08 2.695a39 39 0 0 0-.802 2.264c-1.021 3.283-.69 4.643-.438 4.673.54.065 2.103-2.472 2.103-2.472 0 1.469.756 3.387 2.394 4.771-.612.188-1.363.479-1.845.835-.434.32-.379.646-.301.778.343.578 5.883.369 7.482.189 1.6.18 7.14.389 7.483-.189.078-.132.132-.458-.301-.778-.483-.356-1.233-.646-1.846-.836 1.637-1.384 2.393-3.302 2.393-4.771 0 0 1.563 2.537 2.103 2.472.251-.03.581-1.39-.438-4.673"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.top", "navigation.footer", "navigation.indexes", "navigation.sections", "navigation.tabs", "navigation.tabs.sticky", "search.suggest", "content.code.copy", "search.highlight", "navigation.instant.progress", "navigation.instant.prefetch", "toc.follow"], "search": "../../../../../assets/javascripts/workers/search.6ce7567c.min.js", "tags": {"Default": "default-tag", "Hardware": "hardware-tag", "Software": "software-tag"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="../../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

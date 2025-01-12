@@ -1,0 +1,2265 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://wakecai.github.io/CaiCloudCatBlog/blog/2024/12/02/nginx%E6%A6%82%E8%BF%B0/">
+      
+      
+        <link rel="prev" href="../../../11/29/%E6%84%9F%E7%9F%A5%E6%9C%BA-perceptron/">
+      
+      
+        <link rel="next" href="../../03/%E4%B8%93%E9%A2%9808-%E5%8E%8B%E7%BC%A9%E5%92%8C%E8%A7%A3%E5%8E%8B%E7%BC%A9%E6%96%87%E4%BB%B6/">
+      
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>Nginx概述 - CaiCloudCat</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+  
+  
+  
+  
+  <style>:root{--md-annotation-icon:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 13h-4v4h-2v-4H7v-2h4V7h2v4h4m-5-9A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2"/></svg>');}</style>
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather+Sans:300,300i,400,400i,700,700i%7CRed+Hat+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Merriweather Sans";--md-code-font:"Red Hat Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#nginx" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../../../.." title="CaiCloudCat" class="md-header__button md-logo" aria-label="CaiCloudCat" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CaiCloudCat
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Nginx概述
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="deep-purple"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-orange"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/WAKECai/CaiCloudCatBlog" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    WAKECai/CaiCloudCatBlog
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../../" class="md-tabs__link">
+          
+  
+    
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../tags/" class="md-tabs__link">
+        
+  
+    
+  
+  Tags
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../../other/" class="md-tabs__link">
+          
+  
+    
+  
+  Other
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="CaiCloudCat" class="md-nav__button md-logo" aria-label="CaiCloudCat" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CaiCloudCat
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/WAKECai/CaiCloudCatBlog" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    WAKECai/CaiCloudCatBlog
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Blog
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Blog
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    归档
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            归档
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2024%20%E5%8D%81%E4%BA%8C%E6%9C%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2024 十二月
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2024%20%E5%8D%81%E4%B8%80%E6%9C%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2024 十一月
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2024%20%E5%8D%81%E6%9C%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2024 十月
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    分类
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            分类
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/ai/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/book/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Book
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/computernetwork/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ComputerNetwork
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/k8s/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    K8S
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/linux/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/ml/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ML
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/nginx/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nginx
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/server/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/tools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tools
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/%E7%A1%AC%E7%9B%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    硬盘
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tags/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tags
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../other/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Other
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Other
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../other/posts/%E4%B8%93%E6%B2%BB%E7%96%91%E9%9A%BE%E7%B3%BB%E5%88%97/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    专治疑难系列
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../other/posts/%E5%8A%9F%E8%83%BD%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    功能技巧
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../other/posts/%E6%97%A0%E8%81%8A%E6%95%B0%E6%8D%AE%E8%AE%B0%E5%BD%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    无聊数据记录
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../other/posts/%E8%BF%87%E5%BE%80%E4%B9%A6%E7%AD%BE%E5%92%8CUP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    过往书签和UP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../other/posts/%E5%BD%B1%E8%A7%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    影视
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../other/posts/%E6%B8%B8%E6%88%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    游戏
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../other/posts/%E6%A2%AF%E5%AD%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    梯子
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#nginx_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      安装Nginx
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nginxvirtual-host" class="md-nav__link">
+    <span class="md-ellipsis">
+      创建Nginx虚拟主机(Virtual Host)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="创建Nginx虚拟主机(Virtual Host)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      什么是虚拟主机？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      虚拟主机如何工作？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nginx_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      如何创建 Nginx 虚拟主机（服务器块）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="如何创建 Nginx 虚拟主机（服务器块）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.创建目录结构
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.为每个网站创建测试页面
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3nginx" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.创建Nginx虚拟机
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4nginx" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.启用Nginx虚拟主机
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.测试虚拟主机
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6nginx" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.禁用Nginx虚拟主机
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ssl" class="md-nav__link">
+    <span class="md-ellipsis">
+      配置SSL
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="配置SSL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ssl_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      什么是SSL？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ssl_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      如何获取免费的SSL证书？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nginxssl" class="md-nav__link">
+    <span class="md-ellipsis">
+      在Nginx中配置SSL证书
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      核心配置
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="核心配置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      配置文件示例
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#locat" class="md-nav__link">
+    <span class="md-ellipsis">
+      locat 路径映射讲解
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      反向代理
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="反向代理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      概述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nginx_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Nginx作为反向代理服务器的优势
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nginx_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      反向代理在Nginx中的配置
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      负载均衡
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="负载均衡">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      什么是负载均衡？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      负载均衡策略
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="负载均衡策略">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rrround-robin" class="md-nav__link">
+    <span class="md-ellipsis">
+      RR（round robin：轮询）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      热备
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      权重（加权轮询）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ip_hash" class="md-nav__link">
+    <span class="md-ellipsis">
+      ip_hash
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fair" class="md-nav__link">
+    <span class="md-ellipsis">
+      fair（第三方）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#url_hash" class="md-nav__link">
+    <span class="md-ellipsis">
+      url_hash（第三方）
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      动静分离
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      参考
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+  <div class="md-content md-content--post" data-md-component="content">
+    <div class="md-sidebar md-sidebar--post" data-md-component="sidebar" data-md-type="navigation">
+      <div class="md-sidebar__scrollwrap">
+        <div class="md-sidebar__inner md-post">
+          <nav class="md-nav md-nav--primary">
+            <div class="md-post__back">
+              <div class="md-nav__title md-nav__container">
+                <a href="../../../../" class="md-nav__link">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+                  <span class="md-ellipsis">
+                    回到主页
+                  </span>
+                </a>
+              </div>
+            </div>
+            
+            <ul class="md-post__meta md-nav__list">
+              <li class="md-nav__item md-nav__item--section">
+                <div class="md-post__title">
+                  <span class="md-ellipsis">
+                    元数据
+                  </span>
+                </div>
+                <nav class="md-nav">
+                  <ul class="md-nav__list">
+                    <li class="md-nav__item">
+                      <div class="md-nav__link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
+                        <time datetime="2024-12-02 00:00:00+00:00" class="md-ellipsis">2024年12月2日</time>
+                      </div>
+                    </li>
+                    
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 13h1.5v2.82l2.44 1.41-.75 1.3L15 16.69zm4-5H5v11h4.67c-.43-.91-.67-1.93-.67-3a7 7 0 0 1 7-7c1.07 0 2.09.24 3 .67zM5 21a2 2 0 0 1-2-2V5c0-1.11.89-2 2-2h1V1h2v2h8V1h2v2h1a2 2 0 0 1 2 2v6.1c1.24 1.26 2 2.99 2 4.9a7 7 0 0 1-7 7c-1.91 0-3.64-.76-4.9-2zm11-9.85A4.85 4.85 0 0 0 11.15 16c0 2.68 2.17 4.85 4.85 4.85A4.85 4.85 0 0 0 20.85 16c0-2.68-2.17-4.85-4.85-4.85"/></svg>
+                          <time datetime="2024-12-12 00:00:00+00:00" class="md-ellipsis">2024年12月12日</time>
+                        </div>
+                      </li>
+                    
+                    
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3zm3 2 4 13 3-1-4-13zM5 5v13h3V5zM3 19v2h18v-2z"/></svg>
+                          <span class="md-ellipsis">
+                            分类于
+                            
+                              <a href="../../../../category/server/">Server</a>, 
+                              <a href="../../../../category/nginx/">Nginx</a></span>
+                        </div>
+                      </li>
+                    
+                    
+                      
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
+                          <span class="md-ellipsis">
+                            
+                              需要 9 分钟阅读时间
+                            
+                          </span>
+                        </div>
+                      </li>
+                    
+                  </ul>
+                </nav>
+              </li>
+            </ul>
+          </nav>
+          
+        </div>
+      </div>
+    </div>
+    <article class="md-content__inner md-typeset">
+      
+        
+  
+  
+
+<nav class="md-tags" >
+  
+    
+    
+      
+      
+    
+    
+      <a href="../../../../tags/#linux" class="md-tag md-tag-icon">Linux</a>
+    
+  
+    
+    
+      
+      
+    
+    
+      <a href="../../../../tags/#" class="md-tag md-tag-icon">服务器</a>
+    
+  
+    
+    
+      
+      
+    
+    
+      <a href="../../../../tags/#nginx" class="md-tag md-tag-icon">Nginx</a>
+    
+  
+</nav>
+
+
+  
+  
+
+
+<h1 id="nginx">Nginx概述<a class="headerlink" href="#nginx" title="Permanent link">&para;</a></h1>
+<p>如果我们需要上传一个网站到服务器，需要安装HTTP Server（也称为Web服务器）。常用的Web服务器有nginx和Apache HTTP Server，当然我们常用的Tomcat也集成了Web服务的功能。</p>
+<p>Nginx 是开源的轻量级 Web 服务器、反向代理服务器，以及负载均衡器和 HTTP 缓存器。其特点是高并发，高性能和低内存。</p>
+<p>Nginx最初由Igor Sysoev为俄罗斯访问量第二的Rambler.ru站点开发，其将源代码以类BSD许可证的形式发布，因它的稳定性、丰富的功能集、简单的配置文件和低系统资源的消耗而闻名。Nginx可以在大多数Unix、Linux OS上编译运行，并有Windows移植版。</p>
+<!-- more -->
+
+<h2 id="nginx_1">安装Nginx<a class="headerlink" href="#nginx_1" title="Permanent link">&para;</a></h2>
+<p>常用版本分为四大阵营：</p>
+<ul>
+<li>Nginx开源版：<a href="http://nginx.org/">http://nginx.org/</a></li>
+<li>Nginx Plus商业版：<a href="https://www.nginx.com/products/nginx/">https://www.nginx.com/products/nginx/</a></li>
+<li>Tengine：<a href="https://tengine.taobao.org/">https://tengine.taobao.org/</a></li>
+<li>OpenResty：<a href="https://openresty.org/">https://openresty.org/</a></li>
+</ul>
+<p>安装Nginx有几种常见的方法</p>
+<p>方法一：通过APT包管理器安装，即使用<code>apt-get</code>命令安装</p>
+<p>方法二：从源码包安装</p>
+<p>详细具体操作看之前的笔记文章：<a href="../../01/%E5%9C%A8linux%E4%B8%AD%E5%AE%89%E8%A3%85nginxtomcat%E5%92%8Cmysql%E6%9C%8D%E5%8A%A1%E5%99%A8/">在Linux中安装Nginx、Tomcat和Mysql服务器</a></p>
+<h2 id="nginxvirtual-host">创建Nginx虚拟主机(Virtual Host)<a class="headerlink" href="#nginxvirtual-host" title="Permanent link">&para;</a></h2>
+<p>主要参考：<a href="https://linuxiac.com/nginx-virtual-host/#how-to-create-nginx-virtual-hosts-server-blocks">How to Create Nginx Virtual Host (Server Block)</a></p>
+<p>Nginx旨在处理单个服务器和 IP 地址上的多个域。换句话说，如果您有一台用作Web服务器的服务器并且只分配了一个IP地址，那么您需要使用Nginx虚拟主机来在该服务器上运行多个网站(website)或域(domian)。</p>
+<h3 id="_1">什么是虚拟主机？<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<p>虚拟主机是Apache HTTP 服务器术语；然而，Nginx 用户也常用它。 Nginx 的正确术语是server block，简而言之就是一种在一台服务器上托管多个域名的方法。</p>
+<p>相关文章：<a href="https://linuxiac.com/apache-vs-nginx/">Apache vs Nginx: Which Web Server You Should Choose</a></p>
+<h3 id="_2">虚拟主机如何工作？<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>当您在服务器上启动 Nginx 等 Web 服务器软件时，该 Web 服务器会将自身绑定到一个或多个网络端口。通常，对于 Web 服务器，该端口为 80 和 443 。</p>
+<p>当计算机访问网站时，它会通过互联网向服务器发送请求，服务器将接收该请求。但是，首先，服务器将查看请求发送到的目标端口。</p>
+<p>接下来，它将使用该目标端口来确定将该信息转发到的应用程序。这意味着您的 Web 服务器只能让一个应用程序接收请求。</p>
+<p>但是，如果您想在同一服务器上运行两个网站怎么办？当收到请求网站的数据包时，服务器必须先确定正在请求哪个网站，然后再决定返回哪些信息。</p>
+<p>需要注意的是，无论请求哪个网站，服务器都无法根据端口号和目标端口识别客户端尝试访问哪个网站。</p>
+<p>所以服务器要做的就是说：“我正在向 Nginx 发送这个请求。”从那里，Nginx 才决定发回什么信息。</p>
+<p>这就是服务器块发挥作用的时候。它们可用于根据请求的 IP 地址为其他网站提供服务，或根据所使用的域名为不同的网站提供服务。</p>
+<p><img alt="alt text" src="../../../../../PageImage/image20241217110341-3.png" /></p>
+<p>因此，当您输入网站名称（例如<code>www.example.com</code> ）并且服务器接收到该名称时，Nginx 将查看 HTTP 标头以查看请求的服务器名称。</p>
+<p>然后，服务器根据配置的虚拟主机确定网站文件存放在哪个目录，并根据服务器名称向客户端下发正确的响应。</p>
+<h3 id="nginx_2">如何创建 Nginx 虚拟主机（服务器块）<a class="headerlink" href="#nginx_2" title="Permanent link">&para;</a></h3>
+<p>我们可以在两个目录中创建和存储虚拟主机配置文件。它们都位于<code>/etc/nginx</code>目录中。这两个目录的名称是<code>sites-available</code>和<code>sites-enabled</code>。</p>
+<p><img alt="alt text" src="../../../../../PageImage/image20241217110341-4.png" /></p>
+<blockquote>
+<p>这里使用apt包下载安装的Nginx，如果是用源码安装的，可以自行找到自己Nginx对应的配置文件安装在哪里，其目录名称是相同的。</p>
+</blockquote>
+<ul>
+<li>
+<p><code>/etc/nginx/sites-available</code> ：定义各个虚拟主机（网站）的目录。请记住，Nginx 不会使用此目录中的配置文件，除非它们 <strong>链接</strong> 到<code>/etc/nginx/sites-enabled</code>目录。</p>
+</li>
+<li>
+<p><code>/etc/nginx/sites-enabled</code> ：Nginx 主动服务的虚拟主机（网站）列表。</p>
+</li>
+</ul>
+<p>那么为什么我们需要用两个目录来存储虚拟主机文件？</p>
+<p>因为通过这种方式，我们可以在 Nginx 服务器上创建许多虚拟主机文件，我们也可以根据我们需求来启用它们。</p>
+<p>在本文章中，我们将在 Nginx 服务器中创建虚拟主机文件来托管具有多个域的多个站点。</p>
+<p>域名为：<code>website1.com</code>和<code>website2.com</code></p>
+<h4 id="1">1.创建目录结构<a class="headerlink" href="#1" title="Permanent link">&para;</a></h4>
+<p>首先我们要为每个虚拟主机创建一个目录，用于存放不同的网站内容。</p>
+<p>我们将这些目录放在<code>/var/www</code>中，并以每个域名命名。</p>
+<p>运行下面的命令来创建：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/var/www/website1.com
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/var/www/website2.com
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/var/www/caicloudcat.publicvm.com
+</code></pre></div>
+<h4 id="2">2.为每个网站创建测试页面<a class="headerlink" href="#2" title="Permanent link">&para;</a></h4>
+<p>接下来，我们在域的文档根目录中创建一个<code>index.html</code>文件，以便我们可以显示一些测试内容。</p>
+<p>可以用vim进行创建和编辑内容：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>sudo<span class="w"> </span>vim<span class="w"> </span>/var/www/website1.com/index.html
+</code></pre></div>
+<p>或者将相关内容在主机（Windows）中内容先编辑好，然后上传。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>cp<span class="w"> </span>-T<span class="w"> </span>example.html<span class="w"> </span>/var/www/website1.com/index.html
+</code></pre></div>
+<p>对其他的目录也重复上面的操作。</p>
+<h4 id="3nginx">3.创建Nginx虚拟机<a class="headerlink" href="#3nginx" title="Permanent link">&para;</a></h4>
+<p>要在<code>sites-available</code>目录中创建Nginx虚拟主机文件<code>website1.com</code>，请执行以下命令：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>sudo<span class="w"> </span>vim<span class="w"> </span>/etc/nginx/sites-available/website1.com
+</code></pre></div>
+<blockquote>
+<p>Nginx 虚拟主机配置文件可以随意命名，但通常最好使用域名。</p>
+</blockquote>
+<p>将以下内容粘贴到虚拟主机文件<code>website1.com</code>中：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>server<span class="w"> </span><span class="o">{</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span>listen<span class="w"> </span><span class="m">80</span><span class="p">;</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span>server_name<span class="w"> </span>website1.com<span class="w"> </span>www.website1.com<span class="p">;</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span>root<span class="w"> </span>/var/www/website1.com<span class="p">;</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span>access_log<span class="w"> </span>/var/log/nginx/website1-access.log<span class="p">;</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span>error_log<span class="w"> </span>/var/log/nginx/website1-error.log<span class="p">;</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="o">}</span>
+</code></pre></div>
+<p>我们来了解各个参数的含义：</p>
+<p><code>listen</code>指令</p>
+<p>它用于指定 Nginx 服务器监听的端口号。在这里，Nginx 会在服务器的 80 端口上进行监听，等待来自客户端（比如浏览器等）的 HTTP 请求。80 端口是 HTTP 协议默认使用的端口，意味着用户在浏览器中输入网址访问网站时，如果不特别指定端口，就会默认尝试通过 80 端口连接到服务器。</p>
+<p><code>server_name</code>指令</p>
+<p>用来定义这个服务器块所对应的域名。这里指定了两个域名，即 <code>website1.com</code> 和 <code>www.website1.com</code>。当客户端通过浏览器访问这两个域名中的任何一个时，Nginx 会根据这个配置知道该请求应该由当前这个服务器块来处理。可以根据实际需要在这里配置多个域名，用空格进行分隔，这样一个 Nginx 服务器实例就能为多个不同域名提供服务。</p>
+<p><code>root</code>指令</p>
+<p>它定义了服务器的根目录，也就是网站文件存放的基础目录。当 Nginx 接收到针对当前 <code>server_name</code> 所配置域名的请求后，会在这个指定的根目录下去查找对应的网页文件来响应请求。例如，如果客户端请求的是 <code>http://website1.com/index.html</code>，Nginx 就会去 <code>/var/www/website1.com</code> 目录下查找 <code>index.html</code> 文件，并将其内容返回给客户端（前提是配置的其他相关规则也允许这样做等情况）。</p>
+<p><code>access_log</code>指令</p>
+<p>用于指定访问日志的存放路径。Nginx 会把接收到的每个请求的相关信息记录到这个指定的日志文件中，比如客户端的 IP 地址、请求的 URL、请求时间等。通过分析访问日志，可以了解网站的访问情况、用户行为、哪些页面受欢迎等诸多信息，便于进行网站性能分析、流量统计以及故障排查等工作。</p>
+<p><code>error_log</code>指令</p>
+<p>用来设定错误日志的存放位置。当 Nginx 在运行过程中出现错误，比如配置文件语法错误、无法正确读取网页文件等情况时，相关的错误信息会被记录到这个指定的日志文件中，方便管理员查看具体的错误原因，进而对服务器配置或者网站文件等进行修复和调整。</p>
+<p>同样，其余的域名命名操作也是重复上述操作。</p>
+<h4 id="4nginx">4.启用Nginx虚拟主机<a class="headerlink" href="#4nginx" title="Permanent link">&para;</a></h4>
+<p>在测试之前我们需要做的最后一件事是启用虚拟主机。</p>
+<p>我们可以通过创建从文件到<code>sites-enabled</code>目录的符号链接来做到这一点：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/etc/nginx/sites-available/website1.com<span class="w"> </span>/etc/nginx/sites-enabled/
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/etc/nginx/sites-available/website2.com<span class="w"> </span>/etc/nginx/sites-enabled/
+</code></pre></div>
+<p><img alt="alt text" src="../../../../../PageImage/image20241217110341-5.png" /></p>
+<p>在我们继续之前，让我们仔细检查一下是否有任何拼写错误。测试 Nginx 配置的语法是否正确：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>sudo<span class="w"> </span>nginx<span class="w"> </span>-t
+</code></pre></div>
+<p><img alt="alt text" src="../../../../../PageImage/image20241217110341-6.png" /></p>
+<p>没有问题，则重新启动Nginx服务：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>nginx
+</code></pre></div>
+<h4 id="5">5.测试虚拟主机<a class="headerlink" href="#5" title="Permanent link">&para;</a></h4>
+<p>为了测试Nginx虚拟主机，我们首先需要将域名记录指向服务器的IP地址。在我们的例子中，服务器 IP 地址是<code>192.168.64.10</code> 。</p>
+<p>如果您使用的是Linux ，请使用以下命令打开台式电脑（您将在其中执行测试的电脑）上的<code>/etc/hosts</code>文件：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>sudo<span class="w"> </span>vim<span class="w"> </span>/etc/hosts
+</code></pre></div>
+<p><img alt="alt text" src="../../../../../PageImage/image20241217110341-7.png" /></p>
+<p>并将虚拟域名一一添加，如下图：</p>
+<p><img alt="alt text" src="../../../../../PageImage/image20241217110341-8.png" /></p>
+<p>完成后保存并关闭文件。这种方式将允许我们测试我们不拥有的域。</p>
+<p>现在打开浏览器并一一输入<code>www.website1.com</code>和<code>www.website2.com</code> 。您将分别看到两个域的索引页。</p>
+<p><img alt="alt text" src="../../../../../PageImage/image20241217110341-9.png" /></p>
+<p>这样，就成功使用 Nginx 配置了两个独立的域。</p>
+<p>如果想让你的主机（Windows）也同样能够测试，则可以参考<a href="https://blog.csdn.net/mango_ZZY/article/details/109017647">window下配置hosts文件，使虚拟机主机名与IP地址映射</a>，其<code>hosts</code>是在<code>C:\Windows\System32\drivers\etc</code>中。</p>
+<h4 id="6nginx">6.禁用Nginx虚拟主机<a class="headerlink" href="#6nginx" title="Permanent link">&para;</a></h4>
+<p>要在 Nginx 中禁用虚拟主机，我们必须删除在启用虚拟主机文件时创建的符号链接。例如，要禁用<code>website2.com</code> ，我们必须执行以下命令：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>sudo<span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/etc/nginx/sites-enabled/website2.com
+</code></pre></div>
+<p>要应用更改，我们必须重新启动 Nginx 服务器：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>nginx
+</code></pre></div>
+<h2 id="ssl">配置SSL<a class="headerlink" href="#ssl" title="Permanent link">&para;</a></h2>
+<h3 id="ssl_1">什么是SSL？<a class="headerlink" href="#ssl_1" title="Permanent link">&para;</a></h3>
+<p>这里我用chat跑出来，简略的讲解一下。</p>
+<p>SSL（Secure Sockets Layer）安全套接层是一种为网络通信提供安全及数据完整性的协议。以下是详细内容：</p>
+<p>一、SSL的基本概念</p>
+<ol>
+<li><strong>历史背景</strong></li>
+<li>
+<p>SSL最初是由网景公司（Netscape）在1994年开发的，目的是为了解决互联网上数据传输的安全问题。随着互联网的发展，它逐渐成为保障网络通信安全的重要技术。后来，SSL协议的版本不断更新，虽然SSL 3.0由于安全漏洞等问题逐渐被弃用，但它为后续更安全的TLS（Transport Layer Security）协议奠定了基础。</p>
+</li>
+<li>
+<p><strong>工作位置</strong></p>
+</li>
+<li>
+<p>SSL协议位于TCP/IP协议栈的应用层和传输层之间。它对应用层的数据（如HTTP、SMTP、IMAP等协议传输的数据）进行加密和封装，然后通过传输层（如TCP）进行传输。这样可以在不改变原有应用层协议和网络基础架构的情况下，为应用程序提供安全的通信通道。</p>
+</li>
+<li>
+<p><strong>主要功能</strong></p>
+</li>
+<li><strong>加密数据</strong>：通过使用加密算法，如对称加密算法（如AES）和非对称加密算法（如RSA），对传输的数据进行加密。在通信双方建立连接时，首先使用非对称加密算法交换对称加密算法的密钥，然后使用对称加密算法对实际传输的数据进行加密。这样可以防止数据在传输过程中被窃取和篡改。</li>
+<li><strong>验证身份</strong>：SSL协议可以通过数字证书来验证通信双方的身份。服务器向客户端发送其数字证书，客户端可以通过验证证书的合法性（如检查证书是否由可信的证书颁发机构颁发、证书是否过期等）来确认服务器的身份。在一些双向认证的场景中，客户端也可以向服务器发送自己的数字证书，以实现双方身份的验证。</li>
+<li><strong>保证数据完整性</strong>：使用消息认证码（MAC）等技术来确保数据在传输过程中没有被篡改。发送方在发送数据时会计算数据的MAC值，并将其与数据一起发送。接收方在收到数据后，会重新计算MAC值，并与接收到的MAC值进行比较。如果两者一致，则说明数据没有被篡改。</li>
+</ol>
+<p>二、SSL加密过程</p>
+<ol>
+<li><strong>密钥交换阶段</strong></li>
+<li>采用非对称加密算法进行密钥交换。例如，服务器有一对公私钥，公钥公开，私钥保密。当客户端与服务器建立SSL连接时，服务器将自己的公钥发送给客户端。客户端生成一个随机的对称加密密钥（也称为会话密钥），然后使用服务器的公钥对这个会话密钥进行加密，并发送给服务器。服务器使用自己的私钥解密收到的信息，得到会话密钥。这样，通信双方就共享了一个只有它们知道的对称加密密钥，用于后续的数据加密。</li>
+<li>
+<p>常用的非对称加密算法有RSA和Diffie - Hellman等。RSA算法基于数学难题（如大整数分解问题），其安全性较高，但计算复杂度也相对较高。Diffie - Hellman算法则是通过在不安全的通信信道上交换信息来安全地生成共享密钥，它的主要优势是在密钥交换过程中不涉及密钥的传输，提高了安全性。</p>
+</li>
+<li>
+<p><strong>数据加密阶段</strong></p>
+</li>
+<li>一旦双方共享了对称加密密钥，就开始使用对称加密算法对实际传输的数据进行加密。对称加密算法的特点是加密和解密使用相同的密钥，并且加密速度比非对称加密算法快。常见的对称加密算法有AES（Advanced Encryption Standard）、DES（Data Encryption Standard）等。AES是目前广泛使用的对称加密算法，它有多种加密模式，如CBC（Cipher - Block Chaining）、CTR（Counter Mode）等，可以根据具体的应用场景选择合适的模式。</li>
+<li>
+<p>例如，在HTTP通过SSL（即HTTPS）传输数据时，浏览器和服务器之间发送的请求和响应数据都会使用对称加密密钥进行加密。这样，即使数据在传输过程中被截获，攻击者由于没有密钥也无法解密数据。</p>
+</li>
+<li>
+<p><strong>数字证书验证</strong></p>
+</li>
+<li>数字证书是SSL协议验证服务器身份的重要工具。数字证书包含了服务器的公钥、服务器的信息（如域名、组织名称等）以及证书颁发机构（CA）的签名。当客户端收到服务器发送的数字证书时，会首先检查证书是否是由可信的CA颁发的。客户端通常会预先安装一些CA的根证书，通过验证服务器证书上CA的签名来确认证书的合法性。</li>
+<li>如果证书验证通过，客户端就可以获取服务器的公钥，用于后续的密钥交换等操作。如果证书验证不通过，浏览器通常会显示安全警告，提示用户连接可能不安全。</li>
+</ol>
+<p>三、SSL与TLS的关系</p>
+<ol>
+<li><strong>TLS的出现</strong></li>
+<li>
+<p>由于SSL协议存在一些安全漏洞，IETF（Internet Engineering Task Force）在SSL 3.0的基础上制定了TLS协议。TLS 1.0在1999年发布，它与SSL 3.0在结构和功能上非常相似，但在加密算法、消息认证码等方面进行了改进，提高了安全性。</p>
+</li>
+<li>
+<p><strong>版本演进</strong></p>
+</li>
+<li>随后，TLS协议不断更新，TLS 1.1、TLS 1.2和TLS 1.3相继发布。TLS 1.3相比之前的版本，在性能和安全性方面有了更大的提升。例如，TLS 1.3简化了握手过程，减少了密钥交换和认证过程中的消息数量，从而提高了连接建立的速度；同时，它禁止了一些不安全的加密算法和协议功能，增强了安全性。</li>
+<li>在实际应用中，现在大多数网站和网络应用都在逐渐迁移到TLS协议，并且推荐使用TLS 1.2及以上版本。许多浏览器和服务器软件也都对TLS协议提供了很好的支持。</li>
+</ol>
+<p>四、SSL的应用场景</p>
+<ol>
+<li><strong>网站安全（HTTPS）</strong></li>
+<li>这是SSL最常见的应用场景。当网站启用HTTPS（HTTP over SSL/TLS）时，用户与网站服务器之间传输的数据（如登录信息、个人资料、支付信息等）都受到SSL协议的保护。例如，在电子商务网站上，用户的信用卡信息等敏感数据在传输过程中通过SSL加密，防止信息泄露。</li>
+<li><strong>电子邮件安全（S/MIME和SSL/TLS for SMTP）</strong></li>
+<li>S/MIME（Secure/Multipurpose Internet Mail Extensions）是一种用于电子邮件安全的标准，它基于SSL/TLS协议对电子邮件进行加密和签名。同时，SSL/TLS也可以用于保护SMTP（Simple Mail Transfer Protocol）协议，即邮件传输过程中的安全。这样可以确保电子邮件在发送和接收过程中的隐私性和完整性。</li>
+<li><strong>虚拟专用网络（VPN）</strong></li>
+<li>许多VPN（Virtual Private Network）技术也使用SSL协议来建立安全的通信通道。通过SSL - VPN，用户可以在公共网络（如互联网）上建立一个安全的连接，访问企业内部网络或其他受限制的网络资源。SSL - VPN通常具有较好的兼容性，用户可以通过浏览器等多种方式访问，不需要安装专门的客户端软件。</li>
+</ol>
+<h3 id="ssl_2">如何获取免费的SSL证书？<a class="headerlink" href="#ssl_2" title="Permanent link">&para;</a></h3>
+<p>具体可以参考一下一些文章：</p>
+<p><a href="https://www.toolmao.com/1069.html">11种免费获取SSL证书的方式</a>，这篇文章年代比较久远2018年的。</p>
+<p><a href="https://juejin.cn/post/7369132466999836707">分享几种获取免费SSL证书申请攻略</a>，这篇比较新，2024年的。</p>
+<p>比较火爆的有<code>Let's Encrypt</code>，它最受欢迎的免费SSL证书提供商之一，由非营利组织Internet Security Research Group(ISRG)运营。它提供自动化、开放源代码的证书颁发服务，支持90天有效期的DV（Domain Validation）证书。</p>
+<p>这里我们使用<code>ZeroSSL</code>来获取免费的SSL证书。</p>
+<p>ZeroSSL是一个免费的、自动化的、开放的证书颁发机构，提供SSL证书。它以其用户友好的SSL认证方法而闻名，即使是技术知识有限的人也可以访问它。</p>
+<p>与 Let's Encrypt 类似，ZeroSSL 提供 90 天的免费证书，需要在到期前续订。</p>
+<p>具体详情可以参考：<a href="https://www.didispace.com/article/richang/20240426-zerossl.html">从零开始获取和使用免费的SSL证书保护您的网站</a></p>
+<p>我从这篇博客文章中，自己按照他的方法进行下面的步骤。</p>
+<p>首先你要有个免费域名，详细可以参考：<a href="https://linux.do/t/topic/26864">免费域名分享，一起将白嫖进行到底</a>，当然也可以购买一个域名，低级域名花的钱也不多。</p>
+<p>这里我使用的是<a href="https://freedomain.one/">https://freedomain.one</a>。</p>
+<p>根据给出的文章，将下载的压缩包上传到虚拟机上，我用的是Xftp，将其上传到<code>/certs/your-domain.name</code>。这里的<code>your-domain.name</code>是你的域的实际名称。</p>
+<p><img alt="alt text" src="../../../../../PageImage/image20241217110341.png" /></p>
+<p>然后进行解压缩到该文件夹下。</p>
+<p><img alt="alt text" src="../../../../../PageImage/image20241217110341-1.png" /></p>
+<p>将“ca_bundle.crt”和“certificate.crt”合并到一个文件中，该文件将命名为“zerossl_combined.crt”。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>sudo<span class="w"> </span>bash<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;cat certificate.crt ca_bundle.crt &gt;&gt; zerossl_combined.crt&#39;</span>
+</code></pre></div>
+<p>执行完毕后，就可以配置 Web 服务器来使用新创建的 SSL 证书。</p>
+<h3 id="nginxssl">在Nginx中配置SSL证书<a class="headerlink" href="#nginxssl" title="Permanent link">&para;</a></h3>
+<p>查看<code>/usr/local/nginx/conf/nginx.conf</code>文件（如果是源码安装的话，这个是我用源码安装的位置，具体详情看<a href="../../01/%E5%9C%A8linux%E4%B8%AD%E5%AE%89%E8%A3%85nginxtomcat%E5%92%8Cmysql%E6%9C%8D%E5%8A%A1%E5%99%A8/">在Linux中安装Nginx、Tomcat和Mysql服务器</a>。如果是用apt包安装的话，其默认配置文件在<code>/etc/nginx/</code>目录下，这里我用apt包安装的Nginx来举例。</p>
+<p>我们可以发现在：<code>html</code>中，存在下面两条内容</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>include<span class="w"> </span>/etc/nginx/conf.d/*.conf<span class="p">;</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>include<span class="w"> </span>/etc/nginx/sites-enabled/*<span class="p">;</span>
+</code></pre></div>
+<p>我们进入<code>sites-availables</code>目录，查看<code>default</code>文件。
+可以发现这里就有SSL相关配置，默认是注释掉的，我们可以取消注释，并添加我们的路径。</p>
+<p><img alt="alt text" src="../../../../../PageImage/image20241217110341-2.png" /></p>
+<p>这里我采用的是用虚拟主机文件<code>caicloudcat.publicvm.com</code>来配置：</p>
+<p><img alt="alt text" src="../../../../../PageImage/image20241217110341-10.png" /></p>
+<p>将其修改成这样：</p>
+<p><img alt="alt text" src="../../../../../PageImage/image20241217110341-11.png" /></p>
+<p>最后测试网站可以看到，连接是安全的：</p>
+<p><img alt="alt text" src="../../../../../PageImage/image20241217110341-12.png" /></p>
+<h2 id="_3">核心配置<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>找到Nginx安装目录下的<code>nginx.conf</code>文件，如果是<code>Ubuntu24.04</code>版本的用apt包安装的话，应该在<code>etc/nginx/</code>下，Nginx 的基本功能配置是由它提供的。</p>
+<p>Nginx 的配置文件整体上分为如下几个部分：</p>
+<table>
+<thead>
+<tr>
+<th>区域</th>
+<th>职责</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>全局块</td>
+<td>配置和Nginx运行相关的全局配置</td>
+</tr>
+<tr>
+<td>events块</td>
+<td>配置和网络链接相关的配置</td>
+</tr>
+<tr>
+<td>http块</td>
+<td>配置代理、缓存、日志记录、虚拟主机等配置</td>
+</tr>
+<tr>
+<td>server块</td>
+<td>配置虚拟主机的相关参数，一个http快中可以有多个server块</td>
+</tr>
+<tr>
+<td>location块</td>
+<td>配置请求的路由，以及各种页面的处理情况</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_4">配置文件示例<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>一个比较全的配置文件示例如下：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># 以下是全局段配置</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="c1"># user administrator administrators;  #配置用户或者组，默认为nobody nobody。</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="c1"># worker_processes 2;  #设置进程数，默认为1</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="c1"># pid /nginx/pid/nginx.pid; #指定nginx进程运行文件存放地址</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="k">error_log</span><span class="w"> </span><span class="s">log/error.log</span><span class="w"> </span><span class="s">debug</span><span class="p">;</span><span class="w">  </span><span class="c1"># 制定日志路径，级别：debug|info|notice|warn|error|crit|alert|emerg</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="c1"># events段配置信息</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="k">events</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="w">    </span><span class="kn">accept_mutex</span><span class="w"> </span><span class="no">on</span><span class="p">;</span><span class="w">   </span><span class="c1">#设置网路连接序列化，防止惊群现象发生，默认为on</span>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="w">    </span><span class="kn">multi_accept</span><span class="w"> </span><span class="no">on</span><span class="p">;</span><span class="w">  </span><span class="c1">#设置一个进程是否同时接受多个网络连接，默认为off</span>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="w">    </span><span class="c1">#use epoll;      #事件驱动模型，select|poll|kqueue|epoll|resig|/dev/poll|eventport</span>
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="w">    </span><span class="kn">worker_connections</span><span class="w">  </span><span class="mi">1024</span><span class="p">;</span><span class="w">    </span><span class="c1">#最大连接数，默认为512</span>
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="p">}</span>
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>
+<a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a><span class="c1"># http 配置请求信息</span>
+<a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a><span class="k">http</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a><span class="w">    </span><span class="kn">include</span><span class="w">       </span><span class="s">mime.types</span><span class="p">;</span><span class="w">   </span><span class="c1"># 文件扩展名与文件类型映射表</span>
+<a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a><span class="w">    </span><span class="kn">default_type</span><span class="w">  </span><span class="s">application/octet-stream</span><span class="p">;</span><span class="w"> </span><span class="c1"># 默认文件类型，默认为text/plain</span>
+<a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a><span class="w">    </span><span class="c1"># access_log off; # 取消服务日志    </span>
+<a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a><span class="w">    </span><span class="kn">log_format</span><span class="w"> </span><span class="s">myFormat</span><span class="w"> </span><span class="s">&#39;</span><span class="nv">$remote_addr–$remote_user</span><span class="w"> </span><span class="s">[</span><span class="nv">$time_local]</span><span class="w"> </span><span class="nv">$request</span><span class="w"> </span><span class="nv">$status</span><span class="w"> </span><span class="nv">$body_bytes_sent</span><span class="w"> </span><span class="nv">$http_referer</span><span class="w"> </span><span class="nv">$http_user_agent</span><span class="w"> </span><span class="nv">$http_x_forwarded_for&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1"># 自定义格式</span>
+<a id="__codelineno-13-21" name="__codelineno-13-21" href="#__codelineno-13-21"></a><span class="w">    </span><span class="kn">access_log</span><span class="w"> </span><span class="s">log/access.log</span><span class="w"> </span><span class="s">myFormat</span><span class="p">;</span><span class="w">  </span><span class="c1"># combined为日志格式的默认值</span>
+<a id="__codelineno-13-22" name="__codelineno-13-22" href="#__codelineno-13-22"></a><span class="w">    </span><span class="kn">sendfile</span><span class="w"> </span><span class="no">on</span><span class="p">;</span><span class="w">   </span><span class="c1"># 允许sendfile方式传输文件，默认为off，可以在http块，server块，location块。</span>
+<a id="__codelineno-13-23" name="__codelineno-13-23" href="#__codelineno-13-23"></a><span class="w">    </span><span class="kn">sendfile_max_chunk</span><span class="w"> </span><span class="mi">100k</span><span class="p">;</span><span class="w">  </span><span class="c1"># 每个进程每次调用传输数量不能大于设定的值，默认为0，即不设上限。</span>
+<a id="__codelineno-13-24" name="__codelineno-13-24" href="#__codelineno-13-24"></a><span class="w">    </span><span class="kn">keepalive_timeout</span><span class="w"> </span><span class="mi">65</span><span class="p">;</span><span class="w">  </span><span class="c1"># 连接超时时间，默认为75s，可以在http，server，location块。</span>
+<a id="__codelineno-13-25" name="__codelineno-13-25" href="#__codelineno-13-25"></a>
+<a id="__codelineno-13-26" name="__codelineno-13-26" href="#__codelineno-13-26"></a>
+<a id="__codelineno-13-27" name="__codelineno-13-27" href="#__codelineno-13-27"></a><span class="w">    </span><span class="kn">upstream</span><span class="w"> </span><span class="s">mysvr</span><span class="w"> </span><span class="p">{</span><span class="w">   </span>
+<a id="__codelineno-13-28" name="__codelineno-13-28" href="#__codelineno-13-28"></a><span class="w">      </span><span class="kn">server</span><span class="w"> </span><span class="n">127.0.0.1</span><span class="p">:</span><span class="mi">7878</span><span class="p">;</span>
+<a id="__codelineno-13-29" name="__codelineno-13-29" href="#__codelineno-13-29"></a><span class="w">      </span><span class="kn">server</span><span class="w"> </span><span class="n">192.168.10.121</span><span class="p">:</span><span class="mi">3333</span><span class="w"> </span><span class="s">backup</span><span class="p">;</span><span class="w">  </span><span class="c1"># 热备</span>
+<a id="__codelineno-13-30" name="__codelineno-13-30" href="#__codelineno-13-30"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-13-31" name="__codelineno-13-31" href="#__codelineno-13-31"></a>
+<a id="__codelineno-13-32" name="__codelineno-13-32" href="#__codelineno-13-32"></a><span class="w">    </span><span class="kn">error_page</span><span class="w"> </span><span class="mi">404</span><span class="w"> </span><span class="s">https://www.baidu.com</span><span class="p">;</span><span class="w"> </span><span class="c1">#错误页</span>
+<a id="__codelineno-13-33" name="__codelineno-13-33" href="#__codelineno-13-33"></a><span class="w">    </span><span class="c1"># 第一个Server区块开始，表示一个独立的虚拟主机站点</span>
+<a id="__codelineno-13-34" name="__codelineno-13-34" href="#__codelineno-13-34"></a><span class="w">    </span><span class="kn">server</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-13-35" name="__codelineno-13-35" href="#__codelineno-13-35"></a><span class="w">        </span><span class="kn">keepalive_requests</span><span class="w"> </span><span class="mi">120</span><span class="p">;</span><span class="w"> </span><span class="c1">#单连接请求上限次数。</span>
+<a id="__codelineno-13-36" name="__codelineno-13-36" href="#__codelineno-13-36"></a><span class="w">        </span><span class="kn">listen</span><span class="w"> </span><span class="mi">4545</span><span class="p">;</span><span class="w">   </span><span class="c1">#监听端口</span>
+<a id="__codelineno-13-37" name="__codelineno-13-37" href="#__codelineno-13-37"></a><span class="w">        </span><span class="kn">server_name</span><span class="w">  </span><span class="mi">127</span><span class="s">.0.0.1</span><span class="p">;</span><span class="w">   </span><span class="c1">#监听地址       </span>
+<a id="__codelineno-13-38" name="__codelineno-13-38" href="#__codelineno-13-38"></a><span class="w">        </span><span class="kn">location</span><span class="w">  </span><span class="p">~</span><span class="sr">*^.+$</span><span class="w"> </span><span class="p">{</span><span class="w">       </span><span class="c1">#请求的url过滤，正则匹配，~为区分大小写，~*为不区分大小写。</span>
+<a id="__codelineno-13-39" name="__codelineno-13-39" href="#__codelineno-13-39"></a><span class="w">           </span><span class="c1">#root path;  #根目录</span>
+<a id="__codelineno-13-40" name="__codelineno-13-40" href="#__codelineno-13-40"></a><span class="w">           </span><span class="c1">#index vv.txt;  #设置默认页</span>
+<a id="__codelineno-13-41" name="__codelineno-13-41" href="#__codelineno-13-41"></a><span class="w">           </span><span class="kn">proxy_pass</span><span class="w">  </span><span class="s">http://mysvr</span><span class="p">;</span><span class="w">  </span><span class="c1">#请求转向mysvr 定义的服务器列表</span>
+<a id="__codelineno-13-42" name="__codelineno-13-42" href="#__codelineno-13-42"></a><span class="w">           </span><span class="kn">deny</span><span class="w"> </span><span class="mi">127</span><span class="s">.0.0.1</span><span class="p">;</span><span class="w">  </span><span class="c1">#拒绝的ip</span>
+<a id="__codelineno-13-43" name="__codelineno-13-43" href="#__codelineno-13-43"></a><span class="w">           </span><span class="kn">allow</span><span class="w"> </span><span class="mi">172</span><span class="s">.18.5.54</span><span class="p">;</span><span class="w"> </span><span class="c1">#允许的ip           </span>
+<a id="__codelineno-13-44" name="__codelineno-13-44" href="#__codelineno-13-44"></a><span class="w">        </span><span class="p">}</span><span class="w"> </span>
+<a id="__codelineno-13-45" name="__codelineno-13-45" href="#__codelineno-13-45"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-13-46" name="__codelineno-13-46" href="#__codelineno-13-46"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="locat">locat 路径映射讲解<a class="headerlink" href="#locat" title="Permanent link">&para;</a></h3>
+<p>格式</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">location</span><span class="w"> </span><span class="s">[</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">|</span><span class="w"> </span><span class="p">~</span><span class="w"> </span><span class="sr">|</span><span class="w"> </span><span class="p">~</span><span class="sr">*</span><span class="w"> </span><span class="s">|</span><span class="w"> </span><span class="s">!~</span><span class="w"> </span><span class="s">|</span><span class="w"> </span><span class="s">!~*</span><span class="w"> </span><span class="s">|</span><span class="w"> </span><span class="s">@</span><span class="w"> </span><span class="s">]</span><span class="w"> </span><span class="s">uri</span><span class="w"> </span><span class="p">{</span><span class="kn">...}</span>
+</code></pre></div>
+<p>参数解释</p>
+<ul>
+<li><code>=</code> 表示精确匹配，如果找到，立即停止搜索并立即处理此请求。</li>
+<li><code>~</code> 表示执行一个正则匹配，区分大小写匹配</li>
+<li><code>~*</code> 表示执行一个正则匹配，不区分大小写匹配</li>
+<li><code>!~</code> 区分大小写不匹配</li>
+<li><code>!~*</code> 不区分大小写不匹配</li>
+<li><code>^~</code> 即表示只匹配普通字符（空格）。使用前缀匹配，^表示“非”，即不查询正则表达式。如果匹配成功，则不再匹配其他 location。</li>
+<li><code>@</code> 指定一个命名的 location，一般只用于内部重定向请求。例如 error_page, try_files</li>
+<li><code>uri</code> 是待匹配的请求字符串，可以不包含正则表达式，也可以包含正则表达式；</li>
+</ul>
+<p>优先级和示例</p>
+<ul>
+<li><code>[不加] &lt; [~/~*] &lt; [^~] &lt; [=]</code></li>
+<li>示例如下：</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="k">location</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">/</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">    </span><span class="c1"># 精确匹配/，主机名后面不能带任何字符串 /</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">    </span><span class="c1"># 只匹配http://abc.com</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">    </span><span class="c1"># http://abc.com [匹配成功]</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">    </span><span class="c1"># http://abc.com/index [匹配失败]</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="p">}</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="k">location</span><span class="w"> </span><span class="s">^~</span><span class="w"> </span><span class="s">/img/</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="w">      </span><span class="c1"># 以 /img/ 开头的请求，都会匹配上</span>
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="w">    </span><span class="c1"># http://abc.com/img/a.jpg   [成功]</span>
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="w">    </span><span class="c1"># http://abc.com/img/b.mp4  [成功]</span>
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="k">location</span><span class="w"> </span><span class="p">~</span><span class="sr">*</span><span class="w"> </span><span class="s">/Example/</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a><span class="w">  </span><span class="c1"># 则会忽略 uri 部分的大小写</span>
+<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a><span class="w">  </span><span class="c1"># http://abc.com/test/Example/ [匹配成功]</span>
+<a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a><span class="w">  </span><span class="c1"># http://abc.com/example/ [匹配成功]</span>
+<a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a><span class="p">}</span>
+<a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a><span class="k">location</span><span class="w"> </span><span class="s">/documents</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a><span class="w">    </span><span class="c1"># 如果有正则表达式可以匹配，则优先匹配正则表达式。</span>
+<a id="__codelineno-15-19" name="__codelineno-15-19" href="#__codelineno-15-19"></a><span class="w">    </span><span class="c1"># http://abc.com/documentsabc [匹配成功]</span>
+<a id="__codelineno-15-20" name="__codelineno-15-20" href="#__codelineno-15-20"></a><span class="p">}</span>
+<a id="__codelineno-15-21" name="__codelineno-15-21" href="#__codelineno-15-21"></a><span class="k">location</span><span class="w"> </span><span class="s">/</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-15-22" name="__codelineno-15-22" href="#__codelineno-15-22"></a><span class="w">    </span><span class="c1"># http://abc.com/abc [匹配成功]</span>
+<a id="__codelineno-15-23" name="__codelineno-15-23" href="#__codelineno-15-23"></a><span class="p">}</span>
+</code></pre></div>
+<h2 id="_5">反向代理<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h3 id="_6">概述<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>首先看正向代理和反向代理的照片：</p>
+<p><img alt="alt text" src="../../../../../PageImage/image20241217110341-13.png" /></p>
+<p><img alt="alt text" src="../../../../../PageImage/image20241217110341-14.png" /></p>
+<p>概念</p>
+<p>正向代理：是一个位于客户端和目标服务器之间的代理服务器，客户端通过正向代理服务器来访问目标服务器，对于目标服务器而言，它 <strong>只知道请求来自代理服务器</strong> ，而不知道真实的客户端。</p>
+<p>反向代理：也是位于客户端和目标服务器之间的代理服务器，但它是代理后端的目标服务器来接收客户端的请求，对于客户端而言，它只知道自己访问的是代理服务器，而不知道后端具体的目标服务器。</p>
+<p>应用场景</p>
+<ul>
+<li>正向代理</li>
+</ul>
+<p>突破访问限制：在一些网络环境中，客户端可能无法直接访问某些外部网站或资源，通过正向代理服务器可以绕过这些限制，访问被封锁的内容。</p>
+<p>隐藏客户端身份：客户端可以通过正向代理隐藏自己的真实 IP 地址，提高隐私性和安全性，避免被目标服务器或其他第三方追踪。</p>
+<ul>
+<li>反向代理</li>
+</ul>
+<p>负载均衡：将客户端的大量请求均匀地分发到后端的多台服务器上，实现服务器集群的负载均衡，提高系统的整体性能和可用性。</p>
+<p>安全防护：作为客户端和后端服务器之间的中间层，反向代理可以对客户端的请求进行过滤、验证等操作，防止恶意攻击和非法访问，提高后端服务器的安全性。</p>
+<p>缓存静态资源：反向代理可以缓存一些经常被访问的静态资源，如图片、脚本、样式表等，当客户端再次请求这些资源时，直接从代理服务器返回，减少后端服务器的压力，提高响应速度。</p>
+<p>实现目的</p>
+<ul>
+<li>
+<p>正向代理：主要是为了满足客户端的特定需求，如访问控制、隐私保护等，帮助客户端更方便、安全地访问外部资源。</p>
+</li>
+<li>
+<p>反向代理：主要是为了优化后端服务器的性能和安全性，提高系统的整体稳定性和可靠性，同时对客户端提供统一的访问入口。</p>
+</li>
+</ul>
+<p>通俗的讲，我们可以这样说：</p>
+<p><strong>正向代理</strong> ：我们平时需要访问国外的浏览器是不是很慢，比如我们要看推特，看GitHub等等。我们直接用国内的服务器无法访问国外的服务器，或者是访问很慢。所以我们需要在本地搭建一个服务器来帮助我们去访问。那这种就是正向代理。（ <strong>浏览器中配置代理服务器</strong> ）</p>
+<p><strong>反向代理</strong> ：那什么是反向代理呢。比如：我们访问淘宝的时候，淘宝内部肯定不是只有一台服务器，它的内部有很多台服务器，那我们进行访问的时候，因为服务器中间session不共享，那我们是不是在服务器之间访问需要频繁登录，那这个时候淘宝搭建一个过渡服务器，对我们是没有任何影响的，我们是登录一次，但是访问所有，这种情况就是反向代理。对我们来说，客户端对代理是无感知的，客户端不需要任何配置就可以访问，我们只需要把请求发送给反向代理服务器，由反向代理服务器去选择目标服务器获取数据后，再返回给客户端，此时反向代理服务器和目标服务器对外就是一个服务器，暴露的是代理服务器地址，隐藏了真实服务器的地址。（ <strong>在服务器中配置代理服务器</strong> ）</p>
+<h3 id="nginx_3">Nginx作为反向代理服务器的优势<a class="headerlink" href="#nginx_3" title="Permanent link">&para;</a></h3>
+<p>高性能：Nginx使用了异步事件驱动架构，能够高效地处理大量的并发连接。通过使用高效的请求处理机制和缓存技术，Nginx可以有效地减轻后端服务器的负载，提高整体性能。</p>
+<p>安全性：作为反向代理服务器，Nginx可以隐藏后端服务器的真实地址和信息，增加安全保护层。同时，Nginx还提供了SSL/TLS加密、访问控制、身份验证等安全功能，进一步增强了应用的安全性。</p>
+<p>负载均衡：Nginx支持多种负载均衡算法，可以将请求分发到多个后端服务器上，实现分布式部署和负载均衡。这有助于提高系统的可扩展性和可靠性。</p>
+<p>静态资源优化：Nginx可以作为静态Web服务器来部署静态资源，如HTML页面、图片、视频等。相对于动态内容，静态资源更加易于缓存和压缩，通过Nginx进行优化可以显著提高Web应用程序的性能。</p>
+<h3 id="nginx_4">反向代理在Nginx中的配置<a class="headerlink" href="#nginx_4" title="Permanent link">&para;</a></h3>
+<p>要在Nginx中启用反向代理功能，需要在配置文件中进行相应的设置。以下是一个示例：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="k">server</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">    </span><span class="kn">listen</span><span class="w">       </span><span class="mi">80</span><span class="p">;</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">    </span><span class="kn">server_name</span><span class="w">  </span><span class="s">localhost</span><span class="p">;</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w">    </span><span class="kn">location</span><span class="w"> </span><span class="s">/</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="w">        </span><span class="c1"># 指定了后端服务器的地址和端口号</span>
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="w">        </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="s">http://localhost:8081</span><span class="p">;</span>
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="w">        </span><span class="c1"># 为请求头添加Host字段，用于指定请求服务器的域名/IP地址和端口号。</span>
+<a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a><span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">Host</span><span class="w"> </span><span class="nv">$host:$server_port</span><span class="p">;</span><span class="w">  </span>
+<a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a>
+<a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a><span class="w">        </span><span class="c1"># 设置用户ip地址</span>
+<a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a><span class="w">        </span><span class="c1"># 为请求头添加XFF字段，值为客户端的IP地址。</span>
+<a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a><span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Forwarded-For</span><span class="w"> </span><span class="nv">$remote_addr</span><span class="p">;</span>
+<a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a><span class="w">        </span><span class="c1"># 当请求服务器出错去寻找其他服务器</span>
+<a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a><span class="w">        </span><span class="kn">proxy_next_upstream</span><span class="w"> </span><span class="s">error</span><span class="w"> </span><span class="s">timeout</span><span class="w"> </span><span class="s">invalid_header</span><span class="w"> </span><span class="s">http_500</span><span class="w"> </span><span class="s">http_502</span><span class="w"> </span><span class="s">http_503</span><span class="p">;</span>
+</code></pre></div>
+<p>当我们访问 localhost 的时候，ngnix 就将我们的请求转到 localhost:8081 了</p>
+<h2 id="_7">负载均衡<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h3 id="_8">什么是负载均衡？<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>负载均衡建立在现有网络结构之上，它提供了一种廉价有效透明的方法扩展网络设备和服务器的带宽、增加吞吐量、加强网络数据处理能力、提高网络的灵活性和可用性。</p>
+<p>负载均衡（Load Balance）其意思就是分摊到多个操作单元上进行执行，例如Web服务器、FTP服务器、企业关键应用服务器和其它关键任务服务器等，从而共同完成工作任务。</p>
+<p>其原理就是通过在客户端和服务器集群之间设置负载均衡器，负载均衡器会根据预设的算法和规则，将客户端的请求合理地分配到后端的服务器上，使得每台服务器都能得到相对均衡的工作量，避免出现某些服务器负载过重而其他服务器闲置的情况。</p>
+<p>简单来说就是：现有的请求使服务器压力太大无法承受，所有我们需要搭建一个服务器集群，去分担原先一个服务器所承受的压力，那现在我们有A、B、C、D等等多台服务器，我们需要把请求分给这些服务器，但是服务器可能大小也有自己的不同，所以怎么分？如何分配更好？又是一个问题。</p>
+<h3 id="_9">负载均衡策略<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p>Nginx 目前支持多种复杂均衡策略，这里讲解比较常见的几种。</p>
+<h4 id="rrround-robin">RR（round robin：轮询）<a class="headerlink" href="#rrround-robin" title="Permanent link">&para;</a></h4>
+<p>每个请求按时间顺序逐一分配到不同的后端服务器，也就是说第一次请求分配到第一台服务器上，第二次请求分配到第二台服务器上，如果只有两台服务器，第三次请求继续分配到第一台上，这样循环轮询下去，也就是服务器接收请求的比例是 1:1， 如果后端服务器 down 掉，能自动剔除。轮询是 <strong>默认配置</strong> ，不需要太多的配置。</p>
+<p>同一个项目分别使用 8081 和 8082 端口启动项目：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="k">upstream</span><span class="w"> </span><span class="s">web_servers</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">   </span><span class="kn">server</span><span class="w"> </span><span class="n">localhost</span><span class="p">:</span><span class="mi">8081</span><span class="p">;</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="w">   </span><span class="kn">server</span><span class="w"> </span><span class="n">localhost</span><span class="p">:</span><span class="mi">8082</span><span class="p">;</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="p">}</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="k">server</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="w">    </span><span class="kn">listen</span><span class="w">       </span><span class="mi">80</span><span class="p">;</span>
+<a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a><span class="w">    </span><span class="kn">server_name</span><span class="w">  </span><span class="s">localhost</span><span class="p">;</span>
+<a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a><span class="w">    </span><span class="c1"># access_log  logs/host.access.log  main;</span>
+<a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a><span class="w">    </span><span class="kn">location</span><span class="w"> </span><span class="s">/</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a><span class="w">        </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="s">http://web_servers</span><span class="p">;</span>
+<a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a><span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">Host</span><span class="w"> </span><span class="nv">$host:$server_port</span><span class="p">;</span>
+<a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a><span class="w">    </span><span class="p">}</span>
+</code></pre></div>
+<h4 id="_10">热备<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h4>
+<p>假设有 2 台服务器，当一台服务器发生事故时，才启用第二台服务器给提供服务。服务器处理请求的顺序：AAAAAA 突然 A 挂了，服务器处理请求的顺序：BBBBBBBBBBBBBB.....</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="k">upstream</span><span class="w"> </span><span class="s">web_servers</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="w">      </span><span class="kn">server</span><span class="w"> </span><span class="n">127.0.0.1</span><span class="p">:</span><span class="mi">7878</span><span class="p">;</span><span class="w"> </span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="w">      </span><span class="kn">server</span><span class="w"> </span><span class="n">192.168.10.121</span><span class="p">:</span><span class="mi">3333</span><span class="w"> </span><span class="s">backup</span><span class="p">;</span><span class="w">  </span><span class="c1"># 热备     </span>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="w">    </span><span class="p">}</span>
+</code></pre></div>
+<h4 id="_11">权重（加权轮询）<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h4>
+<p>跟据配置的权重的大小而分发给不同服务器不同数量的请求，用于后端服务器性能不均的情况下。如果不设置，则默认为 1。下面服务器的请求顺序为：ABBABBABBABBABB....。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="k">upstream</span><span class="w"> </span><span class="s">web_servers</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">    </span><span class="kn">server</span><span class="w"> </span><span class="n">localhost</span><span class="p">:</span><span class="mi">8081</span><span class="w"> </span><span class="s">weight=1</span><span class="p">;</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">    </span><span class="kn">server</span><span class="w"> </span><span class="n">localhost</span><span class="p">:</span><span class="mi">8082</span><span class="w"> </span><span class="s">weight=2</span><span class="p">;</span>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="p">}</span>
+</code></pre></div>
+<p><img alt="alt text" src="../../../../../PageImage/image20241217110341-15.png" /></p>
+<h4 id="ip_hash">ip_hash<a class="headerlink" href="#ip_hash" title="Permanent link">&para;</a></h4>
+<p>这样每个 ip 地址固定访问一个后端服务器，可以解决 session 的问题，具体为什么这么说？</p>
+<p>即上面的方式存在一个问题，在负载均衡系统中，假如用户在某台服务器上登录了，那么该用户第二次请求的时候，因为我们是负载均衡系统，每次请求都会重新定位到服务器集群中的某一个，那么已经登录某一个服务器的用户再重新定位到另一个服务器，其登录信息将会丢失，这样显然是不妥的。</p>
+<p>我们可以采用<code>ip_hash</code>指令解决这个问题，如果客户已经访问了某个服务器，当用户再次访问时，会将该请求通过哈希算法，自动定位到该服务器。每个请求按访问ip的hash结果分配，这样每个访客固定访问一个后端服务器，可以解决session的问题。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="k">upstream</span><span class="w"> </span><span class="s">test</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">    </span><span class="kn">ip_hash</span><span class="p">;</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">    </span><span class="kn">server</span><span class="w"> </span><span class="n">localhost</span><span class="p">:</span><span class="mi">8080</span><span class="p">;</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="w">    </span><span class="kn">server</span><span class="w"> </span><span class="n">localhost</span><span class="p">:</span><span class="mi">8081</span><span class="p">;</span>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="p">}</span>
+</code></pre></div>
+<p><img alt="alt text" src="../../../../../PageImage/image20241217110341-16.png" /></p>
+<h4 id="fair">fair（第三方）<a class="headerlink" href="#fair" title="Permanent link">&para;</a></h4>
+<p>按后端服务器的响应时间来分配请求，响应时间短的优先分配。这个配置是为了更快的给用户响应。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="k">upstream</span><span class="w"> </span><span class="s">backend</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="w">    </span><span class="kn">fair</span><span class="p">;</span>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="w">    </span><span class="kn">server</span><span class="w"> </span><span class="n">localhost</span><span class="p">:</span><span class="mi">8080</span><span class="p">;</span>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="w">    </span><span class="kn">server</span><span class="w"> </span><span class="n">localhost</span><span class="p">:</span><span class="mi">8081</span><span class="p">;</span>
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="p">}</span>
+</code></pre></div>
+<h4 id="url_hash">url_hash（第三方）<a class="headerlink" href="#url_hash" title="Permanent link">&para;</a></h4>
+<p>按访问 url 的 hash 结果来分配请求，使每个 url 定向到同一个后端服务器，后端服务器为缓存时比较有效。在 upstream 中加入 hash 语句，hash_method 是使用的 hash 算法</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="k">upstream</span><span class="w"> </span><span class="s">backend</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="w">    </span><span class="kn">hash_method</span><span class="w"> </span><span class="s">crc32</span><span class="p">;</span>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="w">    </span><span class="kn">hash</span><span class="w"> </span><span class="nv">$request_uri</span><span class="p">;</span>
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="w">    </span><span class="kn">server</span><span class="w"> </span><span class="n">localhost</span><span class="p">:</span><span class="mi">8080</span><span class="p">;</span>
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="w">    </span><span class="kn">server</span><span class="w"> </span><span class="n">localhost</span><span class="p">:</span><span class="mi">8081</span><span class="p">;</span>
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="p">}</span>
+</code></pre></div>
+<p>以上 6 种负载均衡各自适用不同情况下单独或者混合使用，可以根据实际情况选择使用，fair 和 url_hash 需要安装第三方模块才能使用。</p>
+<h2 id="_12">动静分离<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<p>动静分离指的是将动态资源和静态资源分别部署在不同的服务器或服务器集群上，由不同的处理流程进行处理，从而实现资源的优化配置和高效利用。</p>
+<p>动态资源通常指的是需要服务器端动态生成的内容，如动态网页、动态脚本等，一般由应用服务器处理。</p>
+<p>静态资源则是指在服务器端不需要动态生成，直接可以提供给客户端的资源，如 HTML、CSS、JavaScript 文件、图片、视频等，通常由专门的静态资源服务器或反向代理服务器来处理。</p>
+<p>Nginx的静态处理能力很强，但是动态处理能力不足，因此，在企业中常用动静分离技术。动静分离技术其实是采用代理的方式，在<code>server{}</code>段中加入带正则匹配的<code>location</code>来指定匹配项针对PHP的动静分离：静态页面交给Nginx处理，动态页面交给PHP-FPM模块或Apache处理。</p>
+<p>在Nginx的配置中，是通过<code>location</code>配置段配合正则匹配实现静态与动态页面的不同处理方式。</p>
+<p><img alt="alt text" src="../../../../../PageImage/image20241217110341-17.png" /></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="k">upstream</span><span class="w"> </span><span class="s">web_servers</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="w">       </span><span class="kn">server</span><span class="w"> </span><span class="n">localhost</span><span class="p">:</span><span class="mi">8081</span><span class="p">;</span>
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="w">       </span><span class="kn">server</span><span class="w"> </span><span class="n">localhost</span><span class="p">:</span><span class="mi">8082</span><span class="p">;</span>
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="p">}</span>
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="k">server</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a><span class="w">    </span><span class="kn">listen</span><span class="w">       </span><span class="mi">80</span><span class="p">;</span>
+<a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a><span class="w">    </span><span class="kn">server_name</span><span class="w">  </span><span class="s">localhost</span><span class="p">;</span>
+<a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a><span class="w">    </span><span class="kn">set</span><span class="w"> </span><span class="nv">$doc_root</span><span class="w"> </span><span class="s">/usr/local/var/www</span><span class="p">;</span>
+<a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a>
+<a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a>
+<a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a><span class="w">    </span><span class="kn">location</span><span class="w"> </span><span class="p">~</span><span class="sr">*</span><span class="w"> </span><span class="s">\.(gif|jpg|jpeg|png|bmp|ico|swf|css|js)</span>$<span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-23-12" name="__codelineno-23-12" href="#__codelineno-23-12"></a><span class="w">       </span><span class="kn">root</span><span class="w"> </span><span class="nv">$doc_root/img</span><span class="p">;</span>
+<a id="__codelineno-23-13" name="__codelineno-23-13" href="#__codelineno-23-13"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-23-14" name="__codelineno-23-14" href="#__codelineno-23-14"></a><span class="w">    </span><span class="kn">location</span><span class="w"> </span><span class="s">/</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-23-15" name="__codelineno-23-15" href="#__codelineno-23-15"></a><span class="w">        </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="s">http://web_servers</span><span class="p">;</span>
+<a id="__codelineno-23-16" name="__codelineno-23-16" href="#__codelineno-23-16"></a><span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">Host</span><span class="w"> </span><span class="nv">$host:$server_port</span><span class="p">;</span>
+<a id="__codelineno-23-17" name="__codelineno-23-17" href="#__codelineno-23-17"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-23-18" name="__codelineno-23-18" href="#__codelineno-23-18"></a><span class="w">    </span><span class="kn">error_page</span><span class="w"> </span><span class="mi">500</span><span class="w"> </span><span class="mi">502</span><span class="w"> </span><span class="mi">503</span><span class="w"> </span><span class="mi">504</span><span class="w">  </span><span class="s">/50x.html</span><span class="p">;</span><span class="w">  </span><span class="c1">#出现 500 502 503 504错误时走内部跳转</span>
+<a id="__codelineno-23-19" name="__codelineno-23-19" href="#__codelineno-23-19"></a><span class="w">    </span><span class="kn">location</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">/50x.html</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<a id="__codelineno-23-20" name="__codelineno-23-20" href="#__codelineno-23-20"></a><span class="w">        </span><span class="kn">root</span><span class="w"> </span><span class="nv">$doc_root</span><span class="p">;</span>
+<a id="__codelineno-23-21" name="__codelineno-23-21" href="#__codelineno-23-21"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-23-22" name="__codelineno-23-22" href="#__codelineno-23-22"></a><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<p>结果：访问 <code>http://localhost/test.jpg</code> 时直接返回 <code>/usr/local/var/www/img</code> 路径下的图片.</p>
+<p>访问 <code>http://localhost/index.html</code> 就会访问后端服务器(tomcat 等)</p>
+<h2 id="_13">参考<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
+<p><a href="https://linuxiac.com/lets-encrypt-free-ssl-certificate/">How to Use Certbot to Get a Free Let’s Encrypt SSL Certificate</a></p>
+<p><a href="https://linuxiac.com/nginx-virtual-host/#how-to-create-nginx-virtual-hosts-server-blocks">How to Create Nginx Virtual Host (Server Block)</a></p>
+<p><a href="https://linuxiac.com/how-to-configure-nginx-to-work-with-php-via-php-fpm/">How to Configure Nginx to Work with PHP via PHP-FPM</a></p>
+<p><a href="https://blog.csdn.net/qq_45846022/article/details/138319186">nginx配置SSL证书，使用https</a></p>
+<p><a href="https://www.didispace.com/article/richang/20240426-zerossl.html">从零开始获取和使用免费的SSL证书保护您的网站</a>中文翻译于<a href="https://linuxiac.com/zerossl-how-to-install-ssl-certificate/">ZeroSSL: How to Secure Your Website with a Free SSL Certificate</a></p>
+<p><a href="https://blog.csdn.net/daitianjun/article/details/129328986">Ubuntu安装nginx到配置ssl证书</a></p>
+<p><a href="https://blog.gaomeluo.com/archives/UbuntuNginx/">如何在 Ubuntu 上安装和使用 Nginx？</a></p>
+<p><a href="https://xie.infoq.cn/article/bea66421ea6cac09d10f35d7a">Nginx 常用配置及和基本功能讲解</a></p>
+<p><a href="https://blog.csdn.net/hyfsbxg/article/details/122322125">Nginx详解（一文带你搞懂Nginx</a></p>
+<p><a href="https://www.cnblogs.com/AllenWongFly/p/17323718.html">一篇就够了—NGINX配置详解</a></p>
+<p><a href="https://www.runoob.com/w3cnote/nginx-setup-intro.html">Nginx配置详解</a></p>
+<p><a href="https://juejin.cn/post/7306041273822527514">nginx 一把梭！（超详细讲解+实操）</a></p>
+<p><a href="https://blog.csdn.net/sl285720967/article/details/125363481">「云原生 | Nginx」手把手教你通过源码构建 Nginx</a></p>
+<p><a href="https://juejin.cn/post/6844904144235413512">Nginx 从入门到实践，万字详解！</a></p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+      
+    </article>
+  </div>
+
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+        
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../../../11/29/%E6%84%9F%E7%9F%A5%E6%9C%BA-perceptron/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 感知机 Perceptron">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                感知机 Perceptron
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../03/%E4%B8%93%E9%A2%9808-%E5%8E%8B%E7%BC%A9%E5%92%8C%E8%A7%A3%E5%8E%8B%E7%BC%A9%E6%96%87%E4%BB%B6/" class="md-footer__link md-footer__link--next" aria-label="下一页: 专题08-压缩和解压缩文件">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                专题08-压缩和解压缩文件
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 Caicloudcat
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://wakecai.github.io/CaiCloudCatBlog" target="_blank" rel="noopener" title="wakecai.github.io" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.395 15.035a40 40 0 0 0-.803-2.264l-1.079-2.695c.001-.032.014-.562.014-.836C19.526 4.632 17.351 0 12 0S4.474 4.632 4.474 9.241c0 .274.013.804.014.836l-1.08 2.695a39 39 0 0 0-.802 2.264c-1.021 3.283-.69 4.643-.438 4.673.54.065 2.103-2.472 2.103-2.472 0 1.469.756 3.387 2.394 4.771-.612.188-1.363.479-1.845.835-.434.32-.379.646-.301.778.343.578 5.883.369 7.482.189 1.6.18 7.14.389 7.483-.189.078-.132.132-.458-.301-.778-.483-.356-1.233-.646-1.846-.836 1.637-1.384 2.393-3.302 2.393-4.771 0 0 1.563 2.537 2.103 2.472.251-.03.581-1.39-.438-4.673"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.top", "navigation.footer", "navigation.indexes", "navigation.sections", "navigation.tabs", "navigation.tabs.sticky", "search.suggest", "content.code.copy", "search.highlight", "navigation.instant.progress", "navigation.instant.prefetch", "toc.follow"], "search": "../../../../../assets/javascripts/workers/search.6ce7567c.min.js", "tags": {"Default": "default-tag", "Hardware": "hardware-tag", "Software": "software-tag"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="../../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

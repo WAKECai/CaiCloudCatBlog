@@ -1,0 +1,1810 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://wakecai.github.io/CaiCloudCatBlog/blog/2024/12/30/ip%E5%9C%B0%E5%9D%80%E5%AD%90%E7%BD%91%E6%8E%A9%E7%A0%81%E7%BD%91%E5%85%B3%E8%AF%A6%E8%A7%A3/">
+      
+      
+        <link rel="prev" href="../../28/kubernetesk8s%E7%AC%94%E8%AE%B003/">
+      
+      
+        <link rel="next" href="../../31/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B002/">
+      
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>IP地址、子网掩码、网关详解 - CaiCloudCat</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+  
+  
+  
+  
+  <style>:root{--md-annotation-icon:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 13h-4v4h-2v-4H7v-2h4V7h2v4h4m-5-9A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2"/></svg>');}</style>
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather+Sans:300,300i,400,400i,700,700i%7CRed+Hat+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Merriweather Sans";--md-code-font:"Red Hat Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ip" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../../../.." title="CaiCloudCat" class="md-header__button md-logo" aria-label="CaiCloudCat" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CaiCloudCat
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              IP地址、子网掩码、网关详解
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="deep-purple"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-orange"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/WAKECai/CaiCloudCatBlog" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    WAKECai/CaiCloudCatBlog
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../../" class="md-tabs__link">
+          
+  
+    
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../tags/" class="md-tabs__link">
+        
+  
+    
+  
+  Tags
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../../other/" class="md-tabs__link">
+          
+  
+    
+  
+  Other
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="CaiCloudCat" class="md-nav__button md-logo" aria-label="CaiCloudCat" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CaiCloudCat
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/WAKECai/CaiCloudCatBlog" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    WAKECai/CaiCloudCatBlog
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Blog
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Blog
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    归档
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            归档
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2024%20%E5%8D%81%E4%BA%8C%E6%9C%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2024 十二月
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2024%20%E5%8D%81%E4%B8%80%E6%9C%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2024 十一月
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2024%20%E5%8D%81%E6%9C%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2024 十月
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    分类
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            分类
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/ai/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/book/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Book
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/computernetwork/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ComputerNetwork
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/k8s/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    K8S
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/linux/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/ml/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ML
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/nginx/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nginx
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/server/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/tools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tools
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/%E7%A1%AC%E7%9B%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    硬盘
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tags/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tags
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../other/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Other
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Other
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../other/posts/%E4%B8%93%E6%B2%BB%E7%96%91%E9%9A%BE%E7%B3%BB%E5%88%97/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    专治疑难系列
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../other/posts/%E5%8A%9F%E8%83%BD%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    功能技巧
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../other/posts/%E6%97%A0%E8%81%8A%E6%95%B0%E6%8D%AE%E8%AE%B0%E5%BD%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    无聊数据记录
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../other/posts/%E8%BF%87%E5%BE%80%E4%B9%A6%E7%AD%BE%E5%92%8CUP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    过往书签和UP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../other/posts/%E5%BD%B1%E8%A7%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    影视
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../other/posts/%E6%B8%B8%E6%88%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    游戏
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../other/posts/%E6%A2%AF%E5%AD%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    梯子
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ip_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      IP地址
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      局域网、广域网、以太网、互联网
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ip_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      缓解IP地址紧缺
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="缓解IP地址紧缺">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#abc" class="md-nav__link">
+    <span class="md-ellipsis">
+      ABC类地址的划分
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nat" class="md-nav__link">
+    <span class="md-ellipsis">
+      网络地址转换（NAT）技术
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="网络地址转换（NAT）技术">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nat_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      什么是NAT？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nat_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      NAT工作原理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nat_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      NAT的类型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nat_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      NAT的优势
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nat_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      NAT的应用场景
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nat_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      NAT的缺点（局限性）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nat_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      NAT技术工作原理
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      子网掩码
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="子网掩码">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      什么是子网掩码
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      子网掩码的规则
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      子网掩码的表示方式
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="子网掩码的表示方式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      点分十进制
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cidr" class="md-nav__link">
+    <span class="md-ellipsis">
+      CIDR斜线记法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      网络地址计算
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      网关
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      资料参考
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+  <div class="md-content md-content--post" data-md-component="content">
+    <div class="md-sidebar md-sidebar--post" data-md-component="sidebar" data-md-type="navigation">
+      <div class="md-sidebar__scrollwrap">
+        <div class="md-sidebar__inner md-post">
+          <nav class="md-nav md-nav--primary">
+            <div class="md-post__back">
+              <div class="md-nav__title md-nav__container">
+                <a href="../../../../" class="md-nav__link">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+                  <span class="md-ellipsis">
+                    回到主页
+                  </span>
+                </a>
+              </div>
+            </div>
+            
+            <ul class="md-post__meta md-nav__list">
+              <li class="md-nav__item md-nav__item--section">
+                <div class="md-post__title">
+                  <span class="md-ellipsis">
+                    元数据
+                  </span>
+                </div>
+                <nav class="md-nav">
+                  <ul class="md-nav__list">
+                    <li class="md-nav__item">
+                      <div class="md-nav__link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
+                        <time datetime="2024-12-30 00:00:00+00:00" class="md-ellipsis">2024年12月30日</time>
+                      </div>
+                    </li>
+                    
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 13h1.5v2.82l2.44 1.41-.75 1.3L15 16.69zm4-5H5v11h4.67c-.43-.91-.67-1.93-.67-3a7 7 0 0 1 7-7c1.07 0 2.09.24 3 .67zM5 21a2 2 0 0 1-2-2V5c0-1.11.89-2 2-2h1V1h2v2h8V1h2v2h1a2 2 0 0 1 2 2v6.1c1.24 1.26 2 2.99 2 4.9a7 7 0 0 1-7 7c-1.91 0-3.64-.76-4.9-2zm11-9.85A4.85 4.85 0 0 0 11.15 16c0 2.68 2.17 4.85 4.85 4.85A4.85 4.85 0 0 0 20.85 16c0-2.68-2.17-4.85-4.85-4.85"/></svg>
+                          <time datetime="2024-12-31 00:00:00+00:00" class="md-ellipsis">2024年12月31日</time>
+                        </div>
+                      </li>
+                    
+                    
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3zm3 2 4 13 3-1-4-13zM5 5v13h3V5zM3 19v2h18v-2z"/></svg>
+                          <span class="md-ellipsis">
+                            分类于
+                            
+                              <a href="../../../../category/computernetwork/">ComputerNetwork</a></span>
+                        </div>
+                      </li>
+                    
+                    
+                      
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
+                          <span class="md-ellipsis">
+                            
+                              需要 4 分钟阅读时间
+                            
+                          </span>
+                        </div>
+                      </li>
+                    
+                  </ul>
+                </nav>
+              </li>
+            </ul>
+          </nav>
+          
+        </div>
+      </div>
+    </div>
+    <article class="md-content__inner md-typeset">
+      
+        
+  
+  
+
+<nav class="md-tags" >
+  
+    
+    
+      
+      
+    
+    
+      <a href="../../../../tags/#computernetwork" class="md-tag md-tag-icon">ComputerNetwork</a>
+    
+  
+    
+    
+      
+      
+    
+    
+      <a href="../../../../tags/#ip" class="md-tag md-tag-icon">IP地址</a>
+    
+  
+    
+    
+      
+      
+    
+    
+      <a href="../../../../tags/#" class="md-tag md-tag-icon">子网掩码</a>
+    
+  
+    
+    
+      
+      
+    
+    
+      <a href="../../../../tags/#" class="md-tag md-tag-icon">网关</a>
+    
+  
+</nav>
+
+
+  
+  
+
+
+<h1 id="ip">IP地址、子网掩码、网关详解<a class="headerlink" href="#ip" title="Permanent link">&para;</a></h1>
+<p>IP地址、子网掩码、网关是计算机网络中的重要概念，它们在网络通信中起着至关重要的作用。本文将详细介绍IP地址、子网掩码和网关的概念、作用以及它们在网络通信中的应用。</p>
+<!-- more -->
+
+<h2 id="ip_1">IP地址<a class="headerlink" href="#ip_1" title="Permanent link">&para;</a></h2>
+<p>IP地址是网络通信中的重要概念，它是网络中每个设备在网络中的唯一标识。IP地址由32位二进制数组成，通常以点分十进制表示，例如192.168.1.1。</p>
+<p>当我们的计算机需要进行网络通讯时，不必连接网线，而是只需要“邮件”的方式，寄给对方，而该邮件的地址就是IP地址。</p>
+<p>IP地址分为IPv4和IPv6两种，IPv4地址由32位二进制数组成，IPv6地址由128位二进制数组成。</p>
+<p><img alt="alt text" src="../../../../../PageImage/image20241231124056.png" /></p>
+<div class="admonition note">
+<p class="admonition-title">IPv6的由来</p>
+<p><strong>为什么会有IPv6？</strong>
+随着互联网的发展，IPv4地址已经不够用了，IPv4地址只有32位，所以只有42亿个地址，为了避免IP地址资源枯竭，因此推出IPv6，而IPv6地址有128位，所以有2^128个地址，这个数量非常非常大。</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">0.0.0.0与127.0.0.1</p>
+<p>127.0.0.1即为主机地址，它不能连接互联网或是局域网，只能自身独立使用；只要使用这个地址发送数据，则数据包不会出现在网络传输过程中，常用于屏蔽软件官网对正版的校验。
+0.0.0.0表示所有地址，常用于广播。</p>
+</div>
+<h2 id="_1">局域网、广域网、以太网、互联网<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>局域网（Local Area Network，LAN）：局域网是指在一定范围内的网络，通常是指在一个建筑物或一个校园内的网络。局域网是一个局部范围的计算计组，比如家庭网络就是一个小型的局域网，里面包含电脑、手机和平板等，他们共同连接到你家的路由器上。又比如学校的机房就是一个局域网，里面有几百几千台电脑，当机房无法上外网时，但是电脑之间仍可以通信，你们可以通过这个局域网来打CS 、玩红警。</p>
+<p>广域网（Wide Area Network，WAN）：广域网是指在一定范围内的网络，通常是指在一个城市或一个国家内的网络，可以看成是很多个局域网通过路由器等相互连接起来，而这些需要大量的资金成本和后期维护成本，牵头做这些的通常是运营商，叫做ISP（Internet Service Provider）互联网服务提供商，例如中国移动、中国联通、中国电信等。</p>
+<p>以太网（Ethernet）：以太网是一种局域网技术，一种实现局域网通信的技术协议，它使用CSMA/CD（载波侦听多路访问/冲突检测）协议来实现网络通信。以太网的运行速率有10Mbps、100Mbps、1Gbps、10Gbps等等，它的传输介质是网线，网线有双绞线、同轴电缆、光纤等。简单来说，以太网就是在局域网中，把附近的设备连接起来，实现设备之间的通信。</p>
+<p><img alt="alt text" src="../../../../../PageImage/image20241231124056-1.png" /></p>
+<p>互联网（Internet）：互联网是指全球范围内的网络，它是由许多局域网和广域网组成的。可以看成是局域网、广域网等组成的一个最大的网络，它可以把世界上各个地方的网路都连接起来，个人、政府、学校、企业，只要你能想到的，都包含在内。互联网是一种宽泛的概念，是一个极其庞大的网络。</p>
+<p>接下来探讨下，它们三者之间的区别</p>
+<p>以太网是一种局域网，而局域网不一定是以太网。只是由于目前大多数的局域网是以太网，所以一般说局域网，大家都默认为以太网。</p>
+<p>互联网则是由大大小小的运营商、公司、机构、用户连接起来网络的总称，里面包含以太网、ATM网、还有其它接口协议的网络。</p>
+<p>以太网是一种局域网，只能连接附近的设备，因特网是广域网，例如我们可以通过因特网连接到美国去获取消息。</p>
+<p>生活化一点，以太网就是把你家的电脑，笔记本连接到猫上，然后再通过猫连接到因特网上去，这样你才能和国外的朋友Skype。因此，你家的电脑，笔记本和猫就组成了一个以太网。可以想象，世界上有成千上万个以太网。商业上应用以太网，将他们所有的电脑连接到主服务器上。</p>
+<h2 id="ip_2">缓解IP地址紧缺<a class="headerlink" href="#ip_2" title="Permanent link">&para;</a></h2>
+<p>在前面中提到，IPv4地址只有32位，所以只有42亿个地址，为了避免IP地址资源枯竭，因此推出IPv6，但是在IPv6推出之前，为了缓解IP地址紧缺，计算机科学家有哪些方法呢？接下来我们就来探讨下。</p>
+<h3 id="abc">ABC类地址的划分<a class="headerlink" href="#abc" title="Permanent link">&para;</a></h3>
+<p>划分只是为了较为规范化的管理，就像软件框架一样进行约定，负责的功能模块及条理也清晰了许多；但这类规范并不是强制性要求，只是有效合理的划分可以节省更多的ip资源，也可缓解IP地址紧缺</p>
+<p><img alt="alt text" src="../../../../../PageImage/image20241231124056-2.png" /></p>
+<ul>
+<li>A类保留政府机构</li>
+<li>B类分配给中等规模公司</li>
+<li>C类分配给需要的任何人</li>
+<li>D类地址用于网管专业配置地址</li>
+<li>E类地址用于研发人员的科研实验</li>
+</ul>
+<p>D、E类IP普及受众范围小，普众的实际使用率低，因此非重点述说。</p>
+<p>私有地址属于非注册地址，专门为组织机构内部使用（局域网）。</p>
+<div class="admonition note">
+<p class="admonition-title">网络地址与广播地址</p>
+<p>网络地址：网络地址是识别网络ID用的 ，如192.168.1.0 ，说明该网段属于192.168.1的段 ，属于不可用IP；
+广播地址：用于进行广播的通用地址 ，如192.168.1.255。PC在询问网关时，把信息发往192.168.1.255，于是192.168.1.1-192.168.1.254的所有机器都可以接收到它发来的信息，信息会问谁是网关你的MAC地址是多少，如果有一台机器是网关他就会回应。</p>
+</div>
+<h3 id="nat">网络地址转换（NAT）技术<a class="headerlink" href="#nat" title="Permanent link">&para;</a></h3>
+<p>为了缓解IPV4地址紧缺，网络地址转换（NAT，Network Address Translation）技术应运而生。</p>
+<p>NAT技术允许一个私有网络使用少量IP地址来连接到互联网，通过NAT技术，私有网络中的设备可以共享一个公共IP地址，从而节省了IP地址资源。</p>
+<h4 id="nat_1">什么是NAT？<a class="headerlink" href="#nat_1" title="Permanent link">&para;</a></h4>
+<p>NAT是一种网络技术，用于将内部网络的私有IP地址转换为公共IP地址，从而使局域网内的设备能够与外部互联网通信。NAT主要应用于路由器或防火墙设备中，它通过修改数据包的IP地址信息，实现内外网之间的通信。</p>
+<h4 id="nat_2">NAT工作原理<a class="headerlink" href="#nat_2" title="Permanent link">&para;</a></h4>
+<p>当一个内部网络的设备需要访问外部互联网时，数据包会首先发送到NAT设备（通常是路由器）。NAT设备会将源IP地址从私有IP转换为公共IP，并记录这种转换关系。响应数据包返回时，NAT设备会根据记录将目标IP地址转换回原来的私有IP，并将数据包转发给内部设备。</p>
+<p>下面的图就是一个简单的例子：
+<img alt="alt text" src="../../../../../PageImage/image20241231124056-3.png" /></p>
+<h4 id="nat_3">NAT的类型<a class="headerlink" href="#nat_3" title="Permanent link">&para;</a></h4>
+<p>NAT技术根据实现方式和应用场景，可以分为以下几种类型：</p>
+<p>静态NAT（Static NAT）： 静态NAT是将一个私有IP地址映射为一个固定的公共IP地址。这种方式适用于需要从外部网络访问内部网络的场景，例如内部服务器需要提供Web服务。</p>
+<p>动态NAT（Dynamic NAT）： 动态NAT使用一个公共IP地址池，将内部网络的私有IP地址动态映射为可用的公共IP地址。这种方式适用于内部网络设备需要访问外部互联网，但不需要外部设备访问内部设备的场景。</p>
+<p>端口地址转换（PAT，Port Address Translation）： PAT，也称为NAT Overload，是最常用的NAT类型。它通过使用不同的端口号，将多个私有IP地址映射为一个公共IP地址。这种方式极大地提高了公共IP地址的利用率，适用于大多数家庭和企业网络。</p>
+<h4 id="nat_4">NAT的优势<a class="headerlink" href="#nat_4" title="Permanent link">&para;</a></h4>
+<ul>
+<li>节省IP地址资源：通过NAT技术，私有网络中的设备可以共享一个公共IP地址，从而节省了IP地址资源。</li>
+<li>提高网络安全性：NAT设备可以隐藏内部网络的结构，从而提高网络的安全性。</li>
+<li>简化网络管理：NAT设备可以简化网络管理，从而提高网络的可靠性。</li>
+</ul>
+<h4 id="nat_5">NAT的应用场景<a class="headerlink" href="#nat_5" title="Permanent link">&para;</a></h4>
+<ul>
+<li>家庭和小型企业网络：在家庭和小型企业网络中，NAT技术可以节省IP地址资源，同时提高网络的安全性和可靠性。</li>
+<li>大型企业网络：在大型企业网络中，NAT技术可以简化网络管理，提高网络的可靠性，使得内部设备能够访问互联网，同时保护内部网络不被外部直接访问。</li>
+<li>数据中心：在数据中心中，NAT技术可以提高网络的可靠性和安全性，利用NAT来管理和隔离虚拟机和服务器，使得它们能够共享有限的公共IP地址资源。</li>
+</ul>
+<h4 id="nat_6">NAT的缺点（局限性）<a class="headerlink" href="#nat_6" title="Permanent link">&para;</a></h4>
+<ul>
+<li>降低了网络的灵活性：NAT设备可能会限制网络的灵活性，从而降低网络的可靠性。</li>
+<li>增加了网络的复杂性：NAT设备可能会增加网络的复杂性，从而降低网络的可靠性。</li>
+<li>降低了网络的性能：由于NAT需要维护大量的连接状态表，当连接数量非常大时，NAT设备可能会降低网络的性能，从而降低网络的可靠性。</li>
+</ul>
+<h4 id="nat_7">NAT技术工作原理<a class="headerlink" href="#nat_7" title="Permanent link">&para;</a></h4>
+<p><img alt="alt text" src="../../../../../PageImage/image20241231124056-4.jpg" /></p>
+<h2 id="_2">子网掩码<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="_3">什么是子网掩码<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>什么是子网掩码？子网掩码不能单独存在，它必须结合IP地址一起使用。子网掩码只有一个作用，就是将某个IP地址划分成网络地址和主机地址两部分。子网掩码的设定必须遵循一定的规则。与IP地址相同，子网掩码的长度也是32位，左边是网络位，用二进制数字“1”表示；右边是主机位，用二进制数字“0”表示。</p>
+<p>它是一种用来指明一个IP地址的哪些位标识的是主机所在的网络地址以及哪些位标识的是主机地址的位掩码。 一个IP地址的网络部分被称为网络号或者网络地址，子网掩码根据逻辑与运算，得出的结果是相同的网络号，则说明这两台计算机是处于同一个子网络上的，可以进行直接与具有相同的网络号的设备通讯。</p>
+<h3 id="_4">子网掩码的规则<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>长度 为 4 * 8bit（1字节），由 连续的1 以及 连续的0 两部分组成，</p>
+<p>例如：<code>11111111.11111111.11111111.00000000</code>，对应十进制：<code>255.255.255.0</code></p>
+<p>假设，局域网中 计算机A 的IP地址为 <code>192.168.1.1</code>，子网掩码为 <code>255.255.255.0</code>， 如下图所示：</p>
+<p><img alt="alt text" src="../../../../../PageImage/image20241231124056-4.png" /></p>
+<p><code>192.168.1.1</code>和子网掩码为<code>255.255.255.0</code>的二进制对照。其中，“1”有24个，代表与此相对应的IP地址左边24位是网络号；“0”有8个，代表与此相对应的IP地址右边8位是主机号。</p>
+<p><code>255.255.255.0</code>这个子网掩码将网络化分为一个子网，这个子网的容量是254（<span class="arithmatex">\(2^8-2\)</span>）台主机 + 一个网络地址（<code>255.255.255.0</code>） + 一个广播地址（<code>255.255.255.255</code>）</p>
+<p>对于ABC类地址，子网掩码的规则是：</p>
+<ul>
+<li>A类地址：<code>255.0.0.0</code></li>
+<li>B类地址：<code>255.255.0.0</code></li>
+<li>C类地址：<code>255.255.255.0</code></li>
+</ul>
+<h3 id="_5">子网掩码的表示方式<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<h4 id="_6">点分十进制<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
+<p>二进制转换十进制，每8位用点号隔开</p>
+<p>例如：子网掩码二进制<code>11111111.11111111.11111111.00000000</code>，表示为<code>255.255.255.0</code></p>
+<h4 id="cidr">CIDR斜线记法<a class="headerlink" href="#cidr" title="Permanent link">&para;</a></h4>
+<p>CIDR斜线记法，是子网掩码的另一种表示方式，它将子网掩码的长度表示为斜线后的数字，</p>
+<p>例1：<code>192.168.1.100/24</code>，其子网掩码表示为<code>255.255.255.0</code>，二进制表示为<code>11111111.11111111.11111111.00000000</code></p>
+<p>例2：<code>172.16.198.12/20</code>，其子网掩码表示为<code>255.255.240.0</code>，二进制表示为<code>11111111.11111111.11110000.00000000</code></p>
+<h3 id="_7">网络地址计算<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>网络地址计算，是根据IP地址和子网掩码计算出网络地址，</p>
+<p>将IP地址与子网掩码转换成二进制数。</p>
+<p>将二进制形式的 IP 地址与子网掩码做“与&amp;”运算。</p>
+<p>将得出的结果转化为十进制，便得到网络地址（每个子网的第一个地址）。</p>
+<p>例如：</p>
+<p>IP地址：<code>192.168.1.100</code>，子网掩码：<code>255.255.255.0</code>，IP地址二进制表示为<code>11000000.10101000.00000001.01100100</code>，子网掩码二进制表示为<code>11111111.11111111.11111111.00000000</code>
+·
+将二进制形式的 IP 地址与子网掩码做“与&amp;”运算：<code>11000000.10101000.00000001.01100100</code> &amp; <code>11111111.11111111.11111111.00000000</code> = <code>11000000.10101000.00000001.00000000</code></p>
+<p>将得出的结果转化为十进制，便得到网络地址（每个子网的第一个地址）：<code>192.168.1.0</code></p>
+<h2 id="_8">网关<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<p>连接两个不同的网络的设备都可以叫网关设备；网关的作用就是实现两个网络之间进行通讯与控制。</p>
+<p>网关设备可以是 交互机（三层及以上才能跨网络）、路由器、启用了路由协议的服务器、代理服务器、防火墙等</p>
+<p>网关地址就是网关设备的IP地址。</p>
+<p>例1： PC1为<code>192.168.1.3/26</code>，PC2为<code>192.168.1.70/26</code>，这两台PC能否进行通信？</p>
+<p>可知，两者的子网掩码为<code>255.255.255.192</code>，计算网络地址：</p>
+<ul>
+<li>PC1的网络地址：<code>192.168.1.0</code></li>
+<li>PC2的网络地址：<code>192.168.1.64</code></li>
+</ul>
+<p>PC1和PC2的网络地址不同，所以不能进行通信。</p>
+<p>那么如何让PC1和PC2，两台不同网址地址的PC进行通信呢？</p>
+<p>答：需要配置各自的网关，并向路由添加各自的网关地址，这样PC1和PC2就可以进行通信了。</p>
+<p>默认网关：一台主机可以有多个网关。默认网关的意思是一台主机如果找不到可用的网关，就把数据包发给默认指定的网关，由这个网关来处理数据包。现在主机使用的网关，一般指的是默认网关。</p>
+<p>自动设置默认网关：</p>
+<p>自动设置就是利用DHCP（Dynamic Host Configuration Protocol, 动态主机配置协议）服务器来自动给网络中的计算机分配IP地址、子网掩码和默认网关 。</p>
+<p>一旦网络的默认网关发生了变化时，只要更改了DHCP服务器中默认网关的设置，那么网络中所有的计算机均获得了新的默认网关的IP地址。这种方法适用于网络规模较大、TCP/IP参数有可能变动的网络。</p>
+<p>另外一种自动获得网关的办法是通过安装代理服务器软件（如MS Proxy）的客户端程序来自动获得，其原理和方法和DHCP有相似之处。</p>
+<p>一台电脑的默认网关是不可以随随便便指定的，必须 <strong>正确指定</strong>，否则一台电脑就会将数据包发给不是网关的电脑，从而无法与其他网络的电脑通信。</p>
+<blockquote>
+<p>正确指定的前提： 根据主机已有IP地址类型（A、B、C类）的当前具体的网段所容纳的可用最大主机数范围，进行的一个IP的设定。</p>
+</blockquote>
+<p>1.计算出当前主机网络最大可用容纳范围主机数</p>
+<p>公式：<span class="arithmatex">\(2^n-2\)</span>，其中n是主机位数，-2是因为主机位数不能全为0或全为1，所以需要减去2。</p>
+<p>这里为 <span class="arithmatex">\(2^6-2=62\)</span>，所以当前主机网络最大可用容纳范围主机数为62。</p>
+<p>2.求出当前主机IP的所在子网划分范围，当前IP地址的子网划分范围也就是当前网关设置的范围</p>
+<table>
+<thead>
+<tr>
+<th>网络地址</th>
+<th>子网掩码</th>
+<th>子网划分范围</th>
+<th>广播地址</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>192.168.1.0</td>
+<td>255.255.255.192</td>
+<td>1~62</td>
+<td>192.168.1.63</td>
+</tr>
+<tr>
+<td>192.168.1.64</td>
+<td>255.255.255.192</td>
+<td>65~126</td>
+<td>192.168.1.127</td>
+</tr>
+<tr>
+<td>192.168.1.128</td>
+<td>255.255.255.192</td>
+<td>129~190</td>
+<td>192.168.1.191</td>
+</tr>
+<tr>
+<td>192.168.1.192</td>
+<td>255.255.255.192</td>
+<td>193~254</td>
+<td>192.168.1.255</td>
+</tr>
+</tbody>
+</table>
+<p>由上表可得出公式：</p>
+<ul>
+<li>子网划分从第二网段开始的网络地址 = 广播地址 + 1</li>
+<li>子网划分从第二网段开始的可容纳主机范围最小值 = 广播地址 + 2</li>
+<li><span class="arithmatex">\(Num+2^n-2-1=\)</span> 子网划分从第二网段开始的可容纳主机范围最大值（<span class="arithmatex">\(Num\)</span> 是子网划分可容纳主机范围最小值）</li>
+<li>广播地址 = 子网划分可容纳主机数范围最大值 + 1</li>
+</ul>
+<h2 id="_9">资料参考<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<p><a href="https://www.bilibili.com/video/BV1DD4y127r4/">【硬核科普】IP地址是什么东西？IPV6和IPV4有什么区别？公网IP和私有IP又是什么？</a></p>
+<p><a href="https://cloud.tencent.com/developer/article/1825132">干货！什么是互联网、以太网、广域网、局域网？</a></p>
+<p><a href="https://blog.csdn.net/qq_40483920/article/details/108262953">接口协议（四）：以太网（Ethernet）学习（一）：协议</a></p>
+<p><a href="https://www.yanfukun.com/read/deep-tcpip/nat?wd=c">网络地址转换 (NAT) 技术详解</a></p>
+<p><a href="https://blog.nnwk.net/article/152">对ip，子网掩码和网关的理解</a></p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+      
+    </article>
+  </div>
+
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+        
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../../28/kubernetesk8s%E7%AC%94%E8%AE%B003/" class="md-footer__link md-footer__link--prev" aria-label="上一页: Kubernetes(K8S)笔记03">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                Kubernetes(K8S)笔记03
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../31/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B002/" class="md-footer__link md-footer__link--next" aria-label="下一页: Nginx学习笔记02">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                Nginx学习笔记02
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 Caicloudcat
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://wakecai.github.io/CaiCloudCatBlog" target="_blank" rel="noopener" title="wakecai.github.io" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.395 15.035a40 40 0 0 0-.803-2.264l-1.079-2.695c.001-.032.014-.562.014-.836C19.526 4.632 17.351 0 12 0S4.474 4.632 4.474 9.241c0 .274.013.804.014.836l-1.08 2.695a39 39 0 0 0-.802 2.264c-1.021 3.283-.69 4.643-.438 4.673.54.065 2.103-2.472 2.103-2.472 0 1.469.756 3.387 2.394 4.771-.612.188-1.363.479-1.845.835-.434.32-.379.646-.301.778.343.578 5.883.369 7.482.189 1.6.18 7.14.389 7.483-.189.078-.132.132-.458-.301-.778-.483-.356-1.233-.646-1.846-.836 1.637-1.384 2.393-3.302 2.393-4.771 0 0 1.563 2.537 2.103 2.472.251-.03.581-1.39-.438-4.673"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.top", "navigation.footer", "navigation.indexes", "navigation.sections", "navigation.tabs", "navigation.tabs.sticky", "search.suggest", "content.code.copy", "search.highlight", "navigation.instant.progress", "navigation.instant.prefetch", "toc.follow"], "search": "../../../../../assets/javascripts/workers/search.6ce7567c.min.js", "tags": {"Default": "default-tag", "Hardware": "hardware-tag", "Software": "software-tag"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="../../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

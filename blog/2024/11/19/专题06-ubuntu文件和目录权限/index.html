@@ -1,0 +1,1872 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://wakecai.github.io/CaiCloudCatBlog/blog/2024/11/19/%E4%B8%93%E9%A2%9806-ubuntu%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95%E6%9D%83%E9%99%90/">
+      
+      
+        <link rel="prev" href="../../18/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E5%8F%8A%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/">
+      
+      
+        <link rel="next" href="../../21/%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90pca/">
+      
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>专题06-Ubuntu文件和目录权限 - CaiCloudCat</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+  
+  
+  
+  
+  <style>:root{--md-annotation-icon:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 13h-4v4h-2v-4H7v-2h4V7h2v4h4m-5-9A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2"/></svg>');}</style>
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather+Sans:300,300i,400,400i,700,700i%7CRed+Hat+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Merriweather Sans";--md-code-font:"Red Hat Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#06-ubuntu" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../../../.." title="CaiCloudCat" class="md-header__button md-logo" aria-label="CaiCloudCat" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CaiCloudCat
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              专题06-Ubuntu文件和目录权限
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="deep-purple"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-orange"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/WAKECai/CaiCloudCatBlog" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    WAKECai/CaiCloudCatBlog
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../../" class="md-tabs__link">
+          
+  
+    
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../tags/" class="md-tabs__link">
+        
+  
+    
+  
+  Tags
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../../other/" class="md-tabs__link">
+          
+  
+    
+  
+  Other
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="CaiCloudCat" class="md-nav__button md-logo" aria-label="CaiCloudCat" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CaiCloudCat
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/WAKECai/CaiCloudCatBlog" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    WAKECai/CaiCloudCatBlog
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Blog
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Blog
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    归档
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            归档
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2024%20%E5%8D%81%E4%BA%8C%E6%9C%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2024 十二月
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2024%20%E5%8D%81%E4%B8%80%E6%9C%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2024 十一月
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2024%20%E5%8D%81%E6%9C%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2024 十月
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    分类
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            分类
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/ai/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/book/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Book
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/computernetwork/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ComputerNetwork
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/k8s/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    K8S
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/linux/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/ml/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ML
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/nginx/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nginx
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/server/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/tools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tools
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/%E7%A1%AC%E7%9B%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    硬盘
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tags/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tags
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../other/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Other
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Other
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../other/posts/%E4%B8%93%E6%B2%BB%E7%96%91%E9%9A%BE%E7%B3%BB%E5%88%97/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    专治疑难系列
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../other/posts/%E5%8A%9F%E8%83%BD%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    功能技巧
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../other/posts/%E6%97%A0%E8%81%8A%E6%95%B0%E6%8D%AE%E8%AE%B0%E5%BD%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    无聊数据记录
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../other/posts/%E8%BF%87%E5%BE%80%E4%B9%A6%E7%AD%BE%E5%92%8CUP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    过往书签和UP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../other/posts/%E5%BD%B1%E8%A7%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    影视
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../other/posts/%E6%B8%B8%E6%88%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    游戏
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../other/posts/%E6%A2%AF%E5%AD%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    梯子
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1 引言
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#62" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2 文件和目录权限
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.2 文件和目录权限">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#621" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2.1 目录权限
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#622" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2.2 文件权限
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#63" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3 硬链接和软链接
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.3 硬链接和软链接">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#631" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3.1 软链接
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#632" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3.2 硬链接
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#633" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3.3 总结
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#634-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3.4 Windows中的链接方式
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#64-chmod" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.4 使用 chmod
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.4 使用 chmod">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#641" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.4.1 符号模式
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#642" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.4.2 数字模式
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#65" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.5 更改文件或目录的所有者和所属组
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.5 更改文件或目录的所有者和所属组">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#651" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.5.1 更改文件或目录的所有者
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#652" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.5.2 更改文件或目录的所属组
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#66" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.6 具体参考
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+  <div class="md-content md-content--post" data-md-component="content">
+    <div class="md-sidebar md-sidebar--post" data-md-component="sidebar" data-md-type="navigation">
+      <div class="md-sidebar__scrollwrap">
+        <div class="md-sidebar__inner md-post">
+          <nav class="md-nav md-nav--primary">
+            <div class="md-post__back">
+              <div class="md-nav__title md-nav__container">
+                <a href="../../../../" class="md-nav__link">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+                  <span class="md-ellipsis">
+                    回到主页
+                  </span>
+                </a>
+              </div>
+            </div>
+            
+            <ul class="md-post__meta md-nav__list">
+              <li class="md-nav__item md-nav__item--section">
+                <div class="md-post__title">
+                  <span class="md-ellipsis">
+                    元数据
+                  </span>
+                </div>
+                <nav class="md-nav">
+                  <ul class="md-nav__list">
+                    <li class="md-nav__item">
+                      <div class="md-nav__link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
+                        <time datetime="2024-11-19 00:00:00+00:00" class="md-ellipsis">2024年11月19日</time>
+                      </div>
+                    </li>
+                    
+                    
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3zm3 2 4 13 3-1-4-13zM5 5v13h3V5zM3 19v2h18v-2z"/></svg>
+                          <span class="md-ellipsis">
+                            分类于
+                            
+                              <a href="../../../../category/linux/">Linux</a></span>
+                        </div>
+                      </li>
+                    
+                    
+                      
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
+                          <span class="md-ellipsis">
+                            
+                              需要 30 分钟阅读时间
+                            
+                          </span>
+                        </div>
+                      </li>
+                    
+                  </ul>
+                </nav>
+              </li>
+            </ul>
+          </nav>
+          
+        </div>
+      </div>
+    </div>
+    <article class="md-content__inner md-typeset">
+      
+        
+
+  
+  
+
+
+<h1 id="06-ubuntu">专题06-Ubuntu文件和目录权限<a class="headerlink" href="#06-ubuntu" title="Permanent link">&para;</a></h1>
+<p>简单介绍了Ubuntu文件和目录的权限，也比较详细的讲解了软链接（符号链接）和硬链接，是课上的学习。</p>
+<!-- more -->
+
+<h2 id="61">6.1 引言<a class="headerlink" href="#61" title="Permanent link">&para;</a></h2>
+<p>本专题主要介绍了Linux文件和目录权限，包括使用chmod、chown和chgrp命令更改文件或目录的权限、所有者和所属组的方法，并详细介绍了软链接和硬链接的知识。</p>
+<div class="admonition note">
+<p class="admonition-title">参考</p>
+<p><a href="https://blog.csdn.net/aabbdnsm/article/details/143439575">Linux（inode + 软硬链接 图片+大白话）</a></p>
+<p><a href="https://blog.csdn.net/m0_56069910/article/details/133408213">【Linux】—— 详解软硬链接</a></p>
+</div>
+<h2 id="62">6.2 文件和目录权限<a class="headerlink" href="#62" title="Permanent link">&para;</a></h2>
+<h3 id="621">6.2.1 目录权限<a class="headerlink" href="#621" title="Permanent link">&para;</a></h3>
+<p>首先创建一个范例目录 </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>mkdir<span class="w"> </span>demo
+</code></pre></div>
+<p>按照长格式（long format）显示文件和目录信息</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>ls<span class="w"> </span>-l
+</code></pre></div>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241113212438.png" /></p>
+<p>可以看到刚创建的<code>demo</code>目录是下列格式（其他文件和目录是以前实验创建的）：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>drwxrwxr-x 2 caicloudcat caicloudcat 4096 Nov 13 21:23 demo
+</code></pre></div>
+<p>该格式说明如下：</p>
+<ul>
+<li><code>d</code> 表示目录（directory）</li>
+<li><code>rwxrwxr-x</code> 是目录的权限部分，其中：</li>
+<li>r（read） 表示读取权限，允许用户列出目录中的文件列表</li>
+<li>w（write） 表示写入权限，允许用户对目录创建、删除、修改等</li>
+<li>x（execute） 表示执行权限，允许用户进入目录并访问其中的文件和子目</li>
+</ul>
+<p>这个分为三个部分：</p>
+<ul>
+<li>第一个<code>rwx</code>是目录所有者（owner）的权限，表示具有读取、写入和执行权限</li>
+<li>第二个<code>rwx</code>是目录所属组（group）的权限，表示具有读取、写入和执行权限</li>
+<li>第三个<code>r-x</code>是其他用户（others）的权限，表示只具有读取和执行权限，没有写入权限</li>
+</ul>
+<p>2 是文件的<mark>硬链接数</mark>，表示该目录有2个硬链接。ubuntu创建日录时，默认会生成两个硬连接："."（一个点） 和".."（连个点）。前者的inode号码就是当前日录的inode号码，等同于当前日录的“硬链接“；后者的inode号码就是当前目录的父目录的inode号码，等同于父日录的“硬链接“。所以，除了根目录外，任何一个日录的"硬链接"总数，总是等于2加上它的子目录总数（含隐藏目录）。</p>
+<p>第一个caicloudcat是目录的所有者，即创建该目录的用户</p>
+<p>第二个caicloudcat是目录的所属组， 即该目录所属的用户组</p>
+<p>4096 是文件的大小，表示该目录占用的磁盘空间为 4096 字节</p>
+<p>11月 13 21:23 是该目录最后一次被修改的日期和时间</p>
+<p>demo 创建的目录名称</p>
+<h3 id="622">6.2.2 文件权限<a class="headerlink" href="#622" title="Permanent link">&para;</a></h3>
+<p>首先创建一个范例文件，<code>touch example.txt</code>。</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241113213452.png" /></p>
+<p>可以看到刚创建的<code>example.txt</code>文件是下列格式：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>-rw-rw-r-- 1 caicloudcat caicloudcat 0 Novc 13 21:34 example.txt
+</code></pre></div>
+<p><code>-</code> 表示普通文件。</p>
+<h2 id="63">6.3 硬链接和软链接<a class="headerlink" href="#63" title="Permanent link">&para;</a></h2>
+<h3 id="631">6.3.1 软链接<a class="headerlink" href="#631" title="Permanent link">&para;</a></h3>
+<p><strong>软链接（Symbolic Link，也称为符号链接或符号连接）</strong> 是计算机文件系统中的一种特殊类型的链接。与硬链接不同，软链接是一个指向另一个文件或目录的引用，类似于一个快捷方式或别名。它包含指向目标文件或目录的路径信息，而不是直接引用相同的数据块和inode。</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241119203857.png" /></p>
+<p>创建软链接是在文件系统中创建一个指向目标文件或目录的符号链接。软链接类似于Windows系统中的 <strong>快捷方式</strong> ，它提供了一种方便的方式来引用目标文件或目录。</p>
+<p>软链接原理图：</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241113214443.png" /></p>
+<div class="admonition note">
+<p class="admonition-title">注意</p>
+<p>回忆一下，在Windows系统中，创建了一个文件的快捷方式后：</p>
+<div class="highlight"><pre><span></span><code>（1）如果删除该快捷方式，文件本身是否也被删除？
+
+（2）如果删除了文件本身，该快捷方式是否还有效？
+</code></pre></div>
+</div>
+<p>输入ln命令，创建软链接（符号链接）：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>ln<span class="w"> </span>-s<span class="w"> </span>example.txt<span class="w"> </span>symbolicLink.txt<span class="w">     </span>
+</code></pre></div>
+<p><code>ln</code>是指<code>link</code>，<code>-s</code>是指<code>symbolic</code>，即符号链接。可以看到，我们成功为<code>example.txt</code>创建了一个软链接<code>symbolicLink.txt</code> 。  </p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241119100016.png" /></p>
+<p>我们在<code>symbolicLink.txt</code>输入一些文字，打开<code>example.txt</code>后可以看到内容。这意味着对<code>symbolicLink.txt</code>所做的更改将反映在<code>example.txt</code>中。</p>
+<p>在CLI环境下，软链接显示为浅蓝色。链接的权限模式通常显示为<code>lrwxrwxrwx</code>，其中<code>l</code>表示该文件是一个 <strong>软链接</strong>。软链接的大小通常会显示链接路径的字符数，在这里大小为11。请注意，这里的大小指的是链接本身的大小，而不是目标文件的大小。</p>
+<p>删除<code>example.txt</code>文件后，在桌面环境下<code>symbolicLink.txt</code>显示失效了，双击后会提示Broken Link。</p>
+<p>原因可以看原理图：</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241113214843.png" /></p>
+<p>这个失效的软链接在CLI环境下显示为红色：</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241119100558.png" /></p>
+<p>软链接提供了一种灵活和便捷的方式来引用目标文件或目录，但需要注意的是，当目标文件或目录被删除时，软链接将指向一个无效的目标。因此确保在使用软链接时，目标文件或目录的存在性和有效性是至关重要的。</p>
+<h3 id="632">6.3.2 硬链接<a class="headerlink" href="#632" title="Permanent link">&para;</a></h3>
+<p><strong>硬链接（Hard Link）</strong> 是计算机文件系统中的一种链接方式，用于将一个文件与另一个文件或目录关联起来，使它们共享相同的数据块和inode（索引节点）。其次硬链接允许一个文件在文件系统中存在多个入口点，这意味着对一个硬链接文件的更改将反映在所有与之相关联的硬链接上，因为它们实际上都指向相同的数据。</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241119203941.png" /></p>
+<p>创建硬链接是在文件系统中创建一个指向目标文件的硬链接，硬链接与目标文件共享相同的 inode 和数据块，它们在文件系统中被视为同一实体，即使使用不同的文件名。</p>
+<p>硬链接原理图：</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241113215207.png" /></p>
+<p>输入ln命令，创建硬链接：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>ln<span class="w"> </span>example.txt<span class="w"> </span>hardLink.txt
+</code></pre></div>
+<p>ln是指<code>link</code>，可以看到，我们成功为<code>example.txt</code>创建了一个硬链接<code>hardLink.txt</code>。注意：如果上一步操作时已经把<code>example.txt</code>删除了，请重新创建一下。或者使用Ctrl+z键撤销删除操作。</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241119103725.png" /></p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241119104316.png" /></p>
+<p>我们在<code>hardLink.txt</code>输入一些文字，打开<code>example.txt</code>后可以看到内容。这意味着对<code>hardLink.txt</code>所做的更改将反映在<code>example.txt</code>中</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241119104229.png" /></p>
+<p>在CLI环境下，硬链接显示和原来文件的所有信息是一样的，因为本来就是同一个文件。</p>
+<p>删除<code>example.txt</code>文件后，在桌面环境下<code>harLink.txt</code>依然有效，双击后正常显示。</p>
+<p>原因可以看原理图：</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241113215336.png" /></p>
+<p>说明：Linux系统上的文件名是存储在父目录的Block里面的，并指向了这个文件的Inode节点，这个文件的Inode节点再标记指向存放这个文件的Block的数据块。</p>
+<p>我们删除一个文件时，实际上并不会清除Inode节点和Block的数据。只是在这个文件的父目录中的Block里，删除这个文件的名字，从而使这个文件名消失，并且无法指向这个文件的Inode节点。</p>
+<p>当没有文件名指向这个Inode节点的时候，释放Inode节点和存放这个文件数据的Block块会同时进行，并且会更新Inode MAP和Block MAP，以便让这些位置用于放置其他文件数据。</p>
+<p>在CLI环境下硬链接也没有问题，但是软链接变红了。</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241119104908.png" /></p>
+<h3 id="633">6.3.3 总结<a class="headerlink" href="#633" title="Permanent link">&para;</a></h3>
+<p>硬链接（Hard Links）和软链接（Symbolic Links，也称为 <strong>符号链接</strong>）是两种在文件系统中创建文件链接的不同方法，它们有一些重要的区别：</p>
+<p>1、<strong>链接的类型</strong></p>
+<p>硬链接：硬链接是文件系统中的多个文件项，它们都指向同一个inode（磁盘上的数据块和元数据）。这意味着硬链接之间没有所谓的原始和副本，它们都是相等的。删除任何一个硬链接都不会影响其他硬链接，只有当所有硬链接都被删除后，文件的内容才会被释放。</p>
+<p>软链接：软链接是一个特殊类型的文件，其中包含了指向另一个文件或目录的路径。软链接本身是一个独立的文件，它存储了目标文件的路径信息。如果原始文件或目录被删除，软链接仍然存在，但它会成为一个"死链接"，指向一个不存在的目标。</p>
+<p>2、<strong>跨文件系统</strong></p>
+<p>硬链接：通常只能在同一文件系统内创建硬链接，因为硬链接与inode相关，而不同文件系统的inode不会关联。</p>
+<p>软链接：软链接可以跨越文件系统边界，因为它们只是包含目标路径的文本文件。</p>
+<p>3、<strong>文件类型</strong></p>
+<p>硬链接：只能链接到文件，不支持链接到目录。</p>
+<p>软链接：可以链接到文件或目录，也可以链接到其他软链接。</p>
+<p>4、<strong>大小和性能</strong></p>
+<p>硬链接：硬链接几乎没有大小，因为它们共享相同的inode和磁盘块。由于硬链接不需要额外的磁盘空间，因此通常更高效。</p>
+<p>软链接：软链接的大小通常比硬链接大，因为它们需要存储目标路径信息。软链接需要解析目标路径，这可能会引入微小的性能开销。</p>
+<p>5、<strong>修改和权限</strong></p>
+<p>硬链接：硬链接的修改会反映在所有硬链接上，因为它们都共享相同的inode。硬链接之间没有权限区别。</p>
+<p>软链接：软链接的修改不会影响目标文件或目录，因为它们只是指向目标的路径。软链接和目标之间可能具有不同的权限设置。</p>
+<p>6、<strong>用途</strong></p>
+<p>硬链接：常用于备份工具和版本控制系统，可以减少磁盘占用，因为它们共享相同的数据块。</p>
+<p>软链接：常用于创建快捷方式或引用其他位置的文件或目录，也用于跨文件系统的链接。</p>
+<p>总之，硬链接和软链接都有各自的用途和限制，选择哪种链接类型取决于您的需求和文件系统结构。硬链接更适合共享相同数据的文件，而软链接更适合创建引用或跨越文件系统的链接。</p>
+<p>场景一：有一个文件/目录放在文件系统很深的位置，我们需要在桌面快速找到该文件/目录，用硬链接还是软链接？</p>
+<p>使用软链接</p>
+<p>场景二：百度云盘可以设置同步文件，在设置时，需要选择本地同步文件夹所在位置（只能选择一个位置）。我需要同步很多目录，因为我创建了一个BaiduSyncdisk目录用于同步，用硬链接还是软链接还是直接把所有需要同步的文件拷贝到这个目录中？</p>
+<p>1.可以直接把所有需要同步的文件拷贝到这个目录中</p>
+<p>2.使用硬链接</p>
+<h3 id="634-windows">6.3.4 Windows中的链接方式<a class="headerlink" href="#634-windows" title="Permanent link">&para;</a></h3>
+<p>首先了解一下Windows中的文件。</p>
+<p>在一台 Windows 电脑中，硬盘被分割为卷用以保存数据，在每一个卷上，数据对象被 NTFS 文件系统赋予了独一无二的 <strong>文件 ID</strong> 以及 <strong>与之对应的文件路径</strong>，文件路径和文件 ID 对应，文件 ID 和数据对象绑定，最终才呈现为可供用户打开、编辑的文件。</p>
+<div class="admonition info">
+<p class="admonition-title">NTFS</p>
+<p>NTFS（New Technology File System） 是Microsoft公司开发的专用文件系统，从Windows NT 3.1 开始成为WIndows NT家族的默认文件系统。它提供了一整套功能，包括安全描述符、加密、磁盘配额和丰富的元数据。 它可以和聚类共享卷 (CSV) 一起使用，以提供可以从故障转移聚类的多个节点同时访问的连续可用卷。</p>
+</div>
+<p>因此可以说，我们所看到的文件并非数据本身，而是由文件路径指向数据对象的链接。</p>
+<p>Windows和Linux一样可以创建链接，其中使用的是<code>mklink</code>命令，可以创建硬链接(Hard Link)、目录联接(Junciton Point)、符号链接(Symbolic Link)以及快捷方式(Shortcut)。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">mklink</span> <span class="p">[[/</span><span class="n">D</span><span class="p">]</span> <span class="p">|</span> <span class="p">[/</span><span class="n">H</span><span class="p">]</span> <span class="p">|</span> <span class="p">[/</span><span class="n">J</span><span class="p">]]</span> <span class="n">Link</span> <span class="n">Target</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">参数</th>
+<th style="text-align: center;">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><code>/D</code></td>
+<td style="text-align: center;">创建目录符号链接。默认为文件符号链接</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>/H</code></td>
+<td style="text-align: center;">创建硬链接而非符号链接</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>/J</code></td>
+<td style="text-align: center;">创建目录联接</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>Link</code></td>
+<td style="text-align: center;">指定新的符号链接名称</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>Target</code></td>
+<td style="text-align: center;">指定新链接引用的路径（相对或者绝对）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>快捷方式与符号链接的区别</strong></p>
+<p>快捷方式的工作原理</p>
+<p>当用户双击快捷方式时，系统会尝试解析该快捷方式：首先它会用快捷方式指向的路径检查引用对象是否能直接找到；如果路径的目标无对象，资源管理器接下来会使用名为 分布式链接跟踪 的技术，依靠对象原来的大小，名称，创建日期等信息进行检索，成功找到目标后 Windows 会自动更新快捷方式的目标属性；若无法找到则会提示用户删除快捷方式。</p>
+<p>链接跟踪技术的应用给快捷方式带来了硬链接一样的解析效果：引用对象删除后恢复、重命名、移动位置都不会导致快捷方式失效。由于它也像符号链接一样依靠文件路径定位，所以只要路径正确，无论引用对象是否是原来的文件，快捷方式都会将其打开。</p>
+<p>具体区别</p>
+<p>同样可以链接到文件的路径，同样由系统提供支持，快捷方式和 符号链接 却有本质上的区别。快捷方式仍然是一个文件，它有自己的后缀名，有对应的数据（一个地址）和大小（几 KB），还有自己的图标和属性。但符号链接没有对应的数据对象，因而也没有大小可言，它没有后缀名，不具有完整文件结构。</p>
+<p><img alt="alt text" src="../../../../../PageImage/image202411211416.png" /></p>
+<p>以一个房子为例，每一个房子都有坐标。给别人一个符号链接，相当于为他开了一个直通房屋所在的传送门，他不需要知道房子实际在什么地方；而快捷方式只是一张写有地址的小纸条，他需要自己摸索才能到达房子。资源管理器可以读取纸条内容后找到房屋所在，但其他程序未必有这个能力。</p>
+<h2 id="64-chmod">6.4 使用 chmod<a class="headerlink" href="#64-chmod" title="Permanent link">&para;</a></h2>
+<h3 id="641">6.4.1 符号模式<a class="headerlink" href="#641" title="Permanent link">&para;</a></h3>
+<p>chmod（change mode 表示更改 change 文件模式 mode）命令可以用来设置文件或目录的权限。</p>
+<p>在符号模式下，u（user）指所有者, g（group）指所属组, o（others）指其他用户。</p>
+<p>r（read）指读取权限, w（write）指写入权限, x（execute）指执行权限。</p>
+<p>首先使用<code>touch example.txt</code>命令重新创建<code>example.txt</code>。</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241119105949.png" /></p>
+<p>可以看到刚创建的<code>example.txt</code>文件是上述画框格式。</p>
+<p>文件所有者用户caicloudcat对example.txt有rw权限。现在我们改变一下用户caicloudcat对文件的权限：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>chmod<span class="w"> </span><span class="nv">u</span><span class="o">=</span>r<span class="w"> </span>example.txt
+</code></pre></div>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241119110432.png" /></p>
+<p>可以看到修改后，用户caicloudcat对该文件只有r权限。</p>
+<p>其他用户对example.txt有r权限。输入下列命令，把其他用户对该文件的权限全部清空（不设置任何权限）：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>chmod<span class="w"> </span><span class="nv">o</span><span class="o">=</span><span class="w"> </span>example.txt
+</code></pre></div>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241119110700.png" /></p>
+<p>可以看到修改后其他用户对example.txt文件具有---权限（即无任何权限）。</p>
+<p>输入下列命令，把所有用户对该文件的权限全部清空（不设置任何权限），其中a代表all，即所有用户：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>chmod<span class="w"> </span><span class="nv">a</span><span class="o">=</span><span class="w"> </span>example.txt
+</code></pre></div>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241119110903.png" /></p>
+<p>而使用<code>cat example.txt</code>查看该文件的时候，会提示权限不够：</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241119111342.png" /></p>
+<p>输入下列命令，为文件所有者、所属用户组、其他用户设置对example.txt文件的相关权限：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>chmod<span class="w"> </span><span class="nv">u</span><span class="o">=</span>rw,g<span class="o">=</span>rw,o<span class="o">=</span>r<span class="w"> </span>example.txt
+</code></pre></div>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241119111707.png" /></p>
+<p>重新查看该文件，就可以正常打开，由于该文件没有输入任何东西，所以没有内容。</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241119111720.png" /></p>
+<p>此外，还可以使用”+“和”-“来增加或者减少权限。</p>
+<p>输入下列命令，减少文件所有者、所属用户组对example.txt文件的相关权限：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>chmod<span class="w"> </span>ug-w<span class="w"> </span>example.txt
+</code></pre></div>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241119112709.png" /></p>
+<p>可以看到文件所有者、所属用户组对文件example.txt的w权限被移除了，还剩r权限。</p>
+<p>输入下列命令，增加文件所有者、所属用户组对example.txt文件的相关权限：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>chmod<span class="w"> </span>ug+wx<span class="w"> </span>example.txt
+</code></pre></div>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241119112852.png" /></p>
+<p>可以看到文件所有者、所属用户组对文件example.txt的wx权限被增加了，原来还有r权限，所以现在是wrx权限了。</p>
+<h3 id="642">6.4.2 数字模式<a class="headerlink" href="#642" title="Permanent link">&para;</a></h3>
+<p>在数字模式下， r=4, w=2, x=1。所以，下面的数字代表这些权限：</p>
+<table>
+<thead>
+<tr>
+<th>数字</th>
+<th>权限</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>7</td>
+<td>rwx</td>
+</tr>
+<tr>
+<td>6</td>
+<td>rw</td>
+</tr>
+<tr>
+<td>5</td>
+<td>rx</td>
+</tr>
+<tr>
+<td>4</td>
+<td>r</td>
+</tr>
+<tr>
+<td>3</td>
+<td>wx</td>
+</tr>
+<tr>
+<td>2</td>
+<td>w</td>
+</tr>
+<tr>
+<td>1</td>
+<td>x</td>
+</tr>
+<tr>
+<td>0</td>
+<td>没有任何权限</td>
+</tr>
+</tbody>
+</table>
+<p>输入下列命令，为所有用户对<code>example.txt</code>文件设置读取r、写入w、执行x 权限：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>chmod<span class="w"> </span><span class="m">777</span><span class="w"> </span>example.txt
+</code></pre></div>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241119135809.png" /></p>
+<p>可以看到所有对文件<code>example.txt</code>的拥有了wrx权限。为文件/目录设置777是Linux中一个很常见的操作！</p>
+<p>输入下列命令，为文件所有者设置读取r和写入w 权限，所属用户组、其他用户设置读取r 权限：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>chmod<span class="w"> </span><span class="m">644</span><span class="w"> </span>example.txt
+</code></pre></div>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241119135911.png" /></p>
+<p>有时候我们需要为一个目录下所有的子目录和文件设置777权限，可以使用-R参数（recursive，递归）进行递归设置。</p>
+<p>输入下面的命令，创建范例的目录和文件：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>web/images
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="nb">cd</span><span class="w"> </span>web
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>touch<span class="w"> </span><span class="m">1</span>.txt
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>ls<span class="w"> </span>-l
+</code></pre></div>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241119140106.png" /></p>
+<p>返回Desktop目录并输入下列命令，为web下的所有子目录和文件设置777权限：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>sudo<span class="w"> </span>chmod<span class="w"> </span>-R<span class="w"> </span><span class="m">777</span><span class="w"> </span>web
+</code></pre></div>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241119140356.png" /></p>
+<p>可以看到web下的所有子目录和文件权限均为wrx了。为了避免执行命令时权限不够，经常在前面加上sudo去执行，在本例中不加sudo也没有问题。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>sudo<span class="w"> </span>chmod<span class="w"> </span>-R<span class="w"> </span><span class="m">777</span><span class="w"> </span>路径
+</code></pre></div>
+<p>上面的这条命令很常用，要记住！</p>
+<h2 id="65">6.5 更改文件或目录的所有者和所属组<a class="headerlink" href="#65" title="Permanent link">&para;</a></h2>
+<h3 id="651">6.5.1 更改文件或目录的所有者<a class="headerlink" href="#651" title="Permanent link">&para;</a></h3>
+<p>chown（change owner）命令更改文件或目录的所有者。</p>
+<p>首先切换到 root 用户，并创建范例文件example2.txt：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>su<span class="w"> </span>-<span class="w"> </span>root
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>touch<span class="w"> </span>example2.txt
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>ls<span class="w"> </span>-l
+</code></pre></div>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241119141333.png" /></p>
+<p>可以看到example2.txt的所属用户为root用户，所属组为root组</p>
+<p>输入下列命令，改变文件example2.txt的所属用户</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>chown<span class="w"> </span>caicloudcat<span class="w"> </span>example2.txt
+</code></pre></div>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241119141412.png" /></p>
+<p>可以看到example2.txt的所属用户变为caicloudcat，所属组仍然为root组。</p>
+<p>输入下列命令，创建范例的目录和文件：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>web2/images
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>ls<span class="w"> </span>-l
+</code></pre></div>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241119141454.png" /></p>
+<p>可以看到目录web2的所属用户是root，输入下列命令，改变目录web2的所属用户：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>chown<span class="w"> </span>caicloudcat<span class="w"> </span>web2
+</code></pre></div>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241119141803.png" /></p>
+<p>可以看到目录web2的所属用户变为caicloudcat，所属组仍然为root组。</p>
+<p>我们输入下列命令查看目录web2的子目录images的权限：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="nb">cd</span><span class="w"> </span>web2
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>ls<span class="w"> </span>-l
+</code></pre></div>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241119141834.png" /></p>
+<p>发现目录web2的子目录images的所有者还是root，也就是说，改变父目录的所有者并不会改变子目录的所有者。</p>
+<p>同理，如果我们需要把目录和该目录下的所有子目录和文件更改所有者，可以使用-R参数（recursive，递归）进行递归设置。 下面这个命令使用的很多！</p>
+<p>输入下列命令，为web2及所有子目录和文件更改所有者：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>chown<span class="w"> </span>-R<span class="w"> </span>caicloudcat<span class="w"> </span>/root/web2
+</code></pre></div>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241119141938.png" /></p>
+<p>可以看到web2的子目录images的所有者变为了caicloudcat。这个范例中，我们使用了绝对路径，当然你也可以使用相对路径试试看。</p>
+<h3 id="652">6.5.2 更改文件或目录的所属组<a class="headerlink" href="#652" title="Permanent link">&para;</a></h3>
+<p>chgrp（change group） 更改文件或目录的所属组</p>
+<p>首先可以看到example2.txt文件的用户组现在属于root</p>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241119142211.png" /></p>
+<p>输入下列命令，更改文件example2.txt的所属组：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>chgrp<span class="w"> </span>caicloudcat<span class="w"> </span>example2.txt
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>ls<span class="w"> </span>-l
+</code></pre></div>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241119142614.png" /></p>
+<p>可以看到example2.txt的所属组更改为了caicloudcat组。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>chgrp<span class="w"> </span>caicloudcat<span class="w"> </span>web2
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>ls<span class="w"> </span>-l
+</code></pre></div>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241119142638.png" /></p>
+<p>可以看到目录web2的所属组更改为了caicloudcat组。</p>
+<p>其实，chown命令不仅可以更改文件和目录的所有者，也可以同时更改文件和目录的所属组。</p>
+<p>输入下列命令，同时更改目录web2的所有者和所属组：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>chown<span class="w"> </span>caicloudcat:root<span class="w"> </span>web2
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>ls<span class="w"> </span>-l
+</code></pre></div>
+<p><img alt="" src="../../../../../PageImage/Pasted%20image%2020241119142716.png" /></p>
+<p>可以看到目录web2的所有者更改为了caicloudcat，所属组更改为了root。</p>
+<h2 id="66">6.6 具体参考<a class="headerlink" href="#66" title="Permanent link">&para;</a></h2>
+<p>浙江理工大学——姜毅老师</p>
+<p><a href="https://sspai.com/post/66834">符号链接、硬链接及其在Windows上的应用举例</a></p>
+<p><a href="https://blog.walterlv.com/post/ntfs-link-comparisons.html#mklink">比较 Windows 上四种不同的文件（夹）链接方式（NTFS 的硬链接、目录联接、符号链接，和大家熟知的快捷方式）</a></p>
+<p><a href="https://sspai.com/post/68718">心之所想、一键直达：你可能不知道的 Windows 快捷方式玩法</a></p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+      
+    </article>
+  </div>
+
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+        
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../../18/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E5%8F%8A%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 聚类算法及数据处理系统的设计与实现">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                聚类算法及数据处理系统的设计与实现
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../21/%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90pca/" class="md-footer__link md-footer__link--next" aria-label="下一页: 主成分分析（PCA）">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                主成分分析（PCA）
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 Caicloudcat
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://wakecai.github.io/CaiCloudCatBlog" target="_blank" rel="noopener" title="wakecai.github.io" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.395 15.035a40 40 0 0 0-.803-2.264l-1.079-2.695c.001-.032.014-.562.014-.836C19.526 4.632 17.351 0 12 0S4.474 4.632 4.474 9.241c0 .274.013.804.014.836l-1.08 2.695a39 39 0 0 0-.802 2.264c-1.021 3.283-.69 4.643-.438 4.673.54.065 2.103-2.472 2.103-2.472 0 1.469.756 3.387 2.394 4.771-.612.188-1.363.479-1.845.835-.434.32-.379.646-.301.778.343.578 5.883.369 7.482.189 1.6.18 7.14.389 7.483-.189.078-.132.132-.458-.301-.778-.483-.356-1.233-.646-1.846-.836 1.637-1.384 2.393-3.302 2.393-4.771 0 0 1.563 2.537 2.103 2.472.251-.03.581-1.39-.438-4.673"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.top", "navigation.footer", "navigation.indexes", "navigation.sections", "navigation.tabs", "navigation.tabs.sticky", "search.suggest", "content.code.copy", "search.highlight", "navigation.instant.progress", "navigation.instant.prefetch", "toc.follow"], "search": "../../../../../assets/javascripts/workers/search.6ce7567c.min.js", "tags": {"Default": "default-tag", "Hardware": "hardware-tag", "Software": "software-tag"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="../../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
